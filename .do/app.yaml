@@ -1,0 +1,29 @@
+name: nautical-compass-os
+region: nyc
+services:
+  - name: web
+    dockerfile_path: Dockerfile
+    source_dir: /
+    http_port: 80
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    envs:
+      - key: VITE_BASE44_APP_ID
+        scope: BUILD_TIME
+        value: ${VITE_BASE44_APP_ID}
+      - key: VITE_BASE44_FUNCTIONS_VERSION
+        scope: BUILD_TIME
+        value: ${VITE_BASE44_FUNCTIONS_VERSION}
+      - key: VITE_BASE44_APP_BASE_URL
+        scope: BUILD_TIME
+        value: ${VITE_BASE44_APP_BASE_URL}
+    routes:
+      - path: /
+        preserve_trailing_path: false
+    health_check:
+      http_path: /
+      initial_delay_seconds: 10
+      period_seconds: 30
+      timeout_seconds: 3
+      success_threshold: 1
+      failure_threshold: 3
