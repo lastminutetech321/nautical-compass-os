@@ -1,0 +1,41 @@
+{
+  "name": "CultureRailData",
+  "type": "object",
+  "properties": {
+    "label": {
+      "type": "string"
+    },
+    "metric_type": {
+      "type": "string",
+      "enum": [
+        "artists",
+        "releases",
+        "community_members",
+        "radio_spins",
+        "revenue",
+        "subscribers",
+        "streams",
+        "events",
+        "partners"
+      ],
+      "default": "artists"
+    },
+    "value": {
+      "type": "number",
+      "default": 0
+    },
+    "period": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "label",
+    "metric_type"
+  ]
+}

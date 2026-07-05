@@ -1,0 +1,171 @@
+{
+  "name": "Evidence",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "file_name": {
+      "type": "string"
+    },
+    "file_url": {
+      "type": "string"
+    },
+    "file_hash": {
+      "type": "string"
+    },
+    "file_size": {
+      "type": "number"
+    },
+    "file_type": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "document",
+        "photo",
+        "video",
+        "audio",
+        "screenshot",
+        "email",
+        "letter",
+        "record",
+        "form",
+        "contract",
+        "other"
+      ],
+      "default": "document"
+    },
+    "source": {
+      "type": "string"
+    },
+    "collected_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "date_received": {
+      "type": "string",
+      "format": "date"
+    },
+    "collected_by": {
+      "type": "string"
+    },
+    "case_name": {
+      "type": "string"
+    },
+    "related_case_id": {
+      "type": "string"
+    },
+    "related_project_id": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "issue_tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "person_tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "event_tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "location_tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "chain_of_custody": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "audit_history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "access_level": {
+      "type": "string",
+      "enum": [
+        "private",
+        "restricted",
+        "team",
+        "public"
+      ],
+      "default": "private"
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": [
+        "unverified",
+        "pending",
+        "verified",
+        "disputed"
+      ],
+      "default": "unverified"
+    },
+    "verified_by": {
+      "type": "string"
+    },
+    "verified_at": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived",
+        "flagged",
+        "deleted"
+      ],
+      "default": "active"
+    },
+    "reliability_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "official_record",
+        "government_document",
+        "personal_record",
+        "third_party",
+        "digital_capture",
+        "witness_statement",
+        "correspondence",
+        "other"
+      ],
+      "default": "other"
+    },
+    "preservation_notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

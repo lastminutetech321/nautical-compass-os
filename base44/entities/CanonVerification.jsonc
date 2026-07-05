@@ -1,0 +1,324 @@
+{
+  "name": "CanonVerification",
+  "type": "object",
+  "properties": {
+    "canon_entry_id": {
+      "type": "string"
+    },
+    "canon_title": {
+      "type": "string"
+    },
+    "canon_citation": {
+      "type": "string"
+    },
+    "is_gap_case": {
+      "type": "boolean",
+      "default": false
+    },
+    "queue_priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "ai_validating",
+        "citation_validated",
+        "authority_reviewed",
+        "source_validated",
+        "jurisdiction_validated",
+        "relationships_mapped",
+        "ai_recommended",
+        "founder_review",
+        "verified",
+        "rejected",
+        "gap_flagged",
+        "gap_resolved"
+      ],
+      "default": "queued"
+    },
+    "citation_validation": {
+      "type": "object",
+      "properties": {
+        "citation_text": {
+          "type": "string"
+        },
+        "format_valid": {
+          "type": "boolean"
+        },
+        "citation_found": {
+          "type": "boolean"
+        },
+        "source_confirmed": {
+          "type": "boolean"
+        },
+        "validation_notes": {
+          "type": "string"
+        },
+        "validated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "authority_level_review": {
+      "type": "object",
+      "properties": {
+        "claimed_level": {
+          "type": "string"
+        },
+        "confirmed_level": {
+          "type": "string"
+        },
+        "review_notes": {
+          "type": "string"
+        },
+        "reviewed_by": {
+          "type": "string"
+        },
+        "reviewed_at": {
+          "type": "string"
+        }
+      }
+    },
+    "source_type_validation": {
+      "type": "object",
+      "properties": {
+        "source_type": {
+          "type": "string"
+        },
+        "source_url": {
+          "type": "string"
+        },
+        "source_verified": {
+          "type": "boolean"
+        },
+        "archive_url": {
+          "type": "string"
+        },
+        "retrieved_at": {
+          "type": "string"
+        },
+        "validation_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "jurisdiction_validation": {
+      "type": "object",
+      "properties": {
+        "jurisdiction": {
+          "type": "string"
+        },
+        "confirmed": {
+          "type": "boolean"
+        },
+        "conflicts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "related_authority_mapping": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "related_entry_id": {
+            "type": "string"
+          },
+          "related_title": {
+            "type": "string"
+          },
+          "relationship_type": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "related_authority_count": {
+      "type": "number",
+      "default": 0
+    },
+    "confidence_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "ai_summary": {
+      "type": "string"
+    },
+    "ai_classification": {
+      "type": "object",
+      "properties": {
+        "suggested_category": {
+          "type": "string"
+        },
+        "suggested_authority_level": {
+          "type": "string"
+        },
+        "suggested_jurisdiction": {
+          "type": "string"
+        },
+        "reasoning": {
+          "type": "string"
+        }
+      }
+    },
+    "ai_recommendation": {
+      "type": "string",
+      "enum": [
+        "recommend_verify",
+        "recommend_reject",
+        "needs_more_info",
+        "pending"
+      ],
+      "default": "pending"
+    },
+    "ai_recommended_at": {
+      "type": "string"
+    },
+    "reviewer_notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "reviewer": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "verification_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "changed_by": {
+            "type": "string"
+          },
+          "changed_at": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "gap_resolution_flow": {
+      "type": "object",
+      "properties": {
+        "is_gap": {
+          "type": "boolean"
+        },
+        "gap_reason": {
+          "type": "string"
+        },
+        "resolution_path": {
+          "type": "string"
+        },
+        "resolved_at": {
+          "type": "string"
+        },
+        "resolved_by": {
+          "type": "string"
+        },
+        "imported_entry_id": {
+          "type": "string"
+        }
+      }
+    },
+    "reviewer_id": {
+      "type": "string"
+    },
+    "reviewer_name": {
+      "type": "string"
+    },
+    "reviewed_at": {
+      "type": "string"
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "rejection_reason": {
+      "type": "string"
+    },
+    "linked_evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_legal_issues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_knowledge_nodes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "blocks_jurisengine": {
+      "type": "boolean",
+      "default": false
+    },
+    "blocks_builds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "canon_title",
+    "verification_status"
+  ]
+}

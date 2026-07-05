@@ -1,0 +1,105 @@
+{
+  "name": "EnterpriseOrg",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "tier": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "professional",
+        "enterprise",
+        "partner"
+      ],
+      "default": "starter"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "prospect",
+        "trial",
+        "active",
+        "churned",
+        "suspended"
+      ],
+      "default": "prospect"
+    },
+    "primary_contact_name": {
+      "type": "string"
+    },
+    "primary_contact_email": {
+      "type": "string"
+    },
+    "billing_email": {
+      "type": "string"
+    },
+    "logo_url": {
+      "type": "string"
+    },
+    "seat_count": {
+      "type": "number",
+      "default": 1
+    },
+    "max_seats": {
+      "type": "number",
+      "default": 5
+    },
+    "mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "arr": {
+      "type": "number",
+      "default": 0
+    },
+    "contract_start": {
+      "type": "string",
+      "format": "date"
+    },
+    "contract_end": {
+      "type": "string",
+      "format": "date"
+    },
+    "enabled_modules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "custom_settings": {
+      "type": "object"
+    },
+    "stripe_customer_id": {
+      "type": "string"
+    },
+    "health_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "last_active": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

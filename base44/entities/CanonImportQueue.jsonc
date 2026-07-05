@@ -1,0 +1,113 @@
+{
+  "name": "CanonImportQueue",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "url",
+        "file_upload",
+        "manual_entry",
+        "bulk_import",
+        "foia_response"
+      ],
+      "default": "manual_entry"
+    },
+    "source_url": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "jurisdiction": {
+      "type": "string"
+    },
+    "authority_level": {
+      "type": "string"
+    },
+    "content_preview": {
+      "type": "string"
+    },
+    "full_content": {
+      "type": "string"
+    },
+    "citation": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "builds_blocked": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "import_status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "importing",
+        "imported",
+        "review_pending",
+        "verified",
+        "failed",
+        "rejected"
+      ],
+      "default": "queued"
+    },
+    "imported_entry_id": {
+      "type": "string"
+    },
+    "submitted_by": {
+      "type": "string"
+    },
+    "submitted_at": {
+      "type": "string"
+    },
+    "reviewed_by": {
+      "type": "string"
+    },
+    "reviewed_at": {
+      "type": "string"
+    },
+    "review_notes": {
+      "type": "string"
+    },
+    "verification_required": {
+      "type": "boolean",
+      "default": true
+    },
+    "auto_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "category",
+    "priority"
+  ]
+}

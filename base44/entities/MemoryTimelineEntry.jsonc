@@ -1,0 +1,131 @@
+{
+  "name": "MemoryTimelineEntry",
+  "type": "object",
+  "properties": {
+    "entry_date": {
+      "type": "string"
+    },
+    "entry_type": {
+      "type": "string",
+      "enum": [
+        "decision",
+        "meeting",
+        "interaction",
+        "project",
+        "milestone",
+        "policy",
+        "lesson",
+        "idea",
+        "problem",
+        "solution",
+        "reflection",
+        "event",
+        "other"
+      ],
+      "default": "other"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "linked_person": {
+      "type": "string"
+    },
+    "linked_department": {
+      "type": "string"
+    },
+    "linked_customer": {
+      "type": "string"
+    },
+    "linked_worker": {
+      "type": "string"
+    },
+    "linked_project": {
+      "type": "string"
+    },
+    "linked_meeting_id": {
+      "type": "string"
+    },
+    "linked_problem": {
+      "type": "string"
+    },
+    "linked_solution": {
+      "type": "string"
+    },
+    "linked_idea": {
+      "type": "string"
+    },
+    "linked_decision": {
+      "type": "string"
+    },
+    "linked_policy": {
+      "type": "string"
+    },
+    "memory_target": {
+      "type": "string",
+      "enum": [
+        "enterprise_memory",
+        "development_memory",
+        "knowledge_graph",
+        "engineering_journal",
+        "training_library",
+        "founder_journal",
+        "director_journal",
+        "customer_timeline",
+        "career_passport",
+        "organizational_intelligence",
+        "policy_library",
+        "workflow_library",
+        "canon_review_queue"
+      ],
+      "default": "organizational_intelligence"
+    },
+    "memory_record_id": {
+      "type": "string"
+    },
+    "is_traceable": {
+      "type": "boolean",
+      "default": true
+    },
+    "confidence_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "ai_generated": {
+      "type": "boolean",
+      "default": true
+    },
+    "searchable_text": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "entry_date",
+    "entry_type",
+    "title"
+  ]
+}

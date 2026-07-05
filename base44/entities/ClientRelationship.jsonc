@@ -1,0 +1,147 @@
+{
+  "name": "ClientRelationship",
+  "type": "object",
+  "properties": {
+    "client_key": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "client_type": {
+      "type": "string",
+      "enum": [
+        "individual",
+        "business",
+        "enterprise",
+        "venue",
+        "production_company",
+        "agency",
+        "other"
+      ],
+      "default": "business"
+    },
+    "client_ref_id": {
+      "type": "string"
+    },
+    "client_ref_type": {
+      "type": "string",
+      "enum": [
+        "crm_lead",
+        "crm_contact",
+        "enterprise_org",
+        "venue",
+        "manual"
+      ],
+      "default": "manual"
+    },
+    "introduced_by_nc": {
+      "type": "boolean",
+      "default": false
+    },
+    "developed_by_nc": {
+      "type": "boolean",
+      "default": false
+    },
+    "mentored_by_nc": {
+      "type": "boolean",
+      "default": false
+    },
+    "certified_through_nc": {
+      "type": "boolean",
+      "default": false
+    },
+    "assigned_through_nc": {
+      "type": "boolean",
+      "default": false
+    },
+    "requested_by_client": {
+      "type": "boolean",
+      "default": false
+    },
+    "converted_to_direct_employment": {
+      "type": "boolean",
+      "default": false
+    },
+    "enterprise_partner": {
+      "type": "boolean",
+      "default": false
+    },
+    "return_to_nc": {
+      "type": "boolean",
+      "default": false
+    },
+    "repeat_client": {
+      "type": "boolean",
+      "default": false
+    },
+    "repeat_worker": {
+      "type": "boolean",
+      "default": false
+    },
+    "total_assignments": {
+      "type": "number",
+      "default": 0
+    },
+    "total_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "lifetime_value": {
+      "type": "number",
+      "default": 0
+    },
+    "first_engagement_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "last_engagement_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "placement_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "alumni_status": {
+      "type": "boolean",
+      "default": false
+    },
+    "relationship_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "alumni",
+        "dormant",
+        "enterprise_partner",
+        "lost"
+      ],
+      "default": "active"
+    },
+    "primary_contact": {
+      "type": "string"
+    },
+    "contact_email": {
+      "type": "string"
+    },
+    "contact_phone": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "client_key",
+    "client_name",
+    "client_type"
+  ]
+}

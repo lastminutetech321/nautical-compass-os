@@ -1,0 +1,107 @@
+{
+  "name": "Release",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "major",
+        "minor",
+        "patch",
+        "hotfix"
+      ],
+      "default": "minor"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "in_progress",
+        "staged",
+        "released",
+        "rolled_back"
+      ],
+      "default": "planned"
+    },
+    "planned_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "released_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "release_notes": {
+      "type": "string"
+    },
+    "changelog": {
+      "type": "string"
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "bug_fixes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "breaking_changes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_build_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_milestone_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "requires_founder_approval": {
+      "type": "boolean",
+      "default": true
+    },
+    "deployment_checklist": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rollback_plan": {
+      "type": "string"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "low"
+    }
+  },
+  "required": [
+    "version",
+    "type"
+  ]
+}

@@ -1,0 +1,165 @@
+{
+  "name": "DirectorConversation",
+  "type": "object",
+  "properties": {
+    "director_id": {
+      "type": "string"
+    },
+    "director_name": {
+      "type": "string"
+    },
+    "member_id": {
+      "type": "string"
+    },
+    "member_name": {
+      "type": "string"
+    },
+    "member_email": {
+      "type": "string"
+    },
+    "conversation_type": {
+      "type": "string",
+      "enum": [
+        "intake",
+        "check_in",
+        "guidance",
+        "onboarding",
+        "follow_up",
+        "support"
+      ],
+      "default": "intake"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "preparing",
+        "active",
+        "completed",
+        "follow_up_scheduled"
+      ],
+      "default": "preparing"
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "in_app",
+        "phone",
+        "video",
+        "email",
+        "chat"
+      ],
+      "default": "in_app"
+    },
+    "started_at": {
+      "type": "string"
+    },
+    "completed_at": {
+      "type": "string"
+    },
+    "duration_minutes": {
+      "type": "number",
+      "default": 0
+    },
+    "prep_notes": {
+      "type": "string"
+    },
+    "ai_prepared_questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ai_recommended_resources": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ai_recommended_modules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "conversation_notes": {
+      "type": "string"
+    },
+    "conversation_summary": {
+      "type": "string"
+    },
+    "follow_up_notes": {
+      "type": "string"
+    },
+    "identified_needs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "identified_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_starting_point": {
+      "type": "string"
+    },
+    "subscription_discussed": {
+      "type": "boolean",
+      "default": false
+    },
+    "subscription_recommended": {
+      "type": "boolean",
+      "default": false
+    },
+    "pressure_detected": {
+      "type": "boolean",
+      "default": false
+    },
+    "compliance_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "trust_before": {
+      "type": "number",
+      "default": 50
+    },
+    "trust_after": {
+      "type": "number",
+      "default": 50
+    },
+    "member_satisfaction": {
+      "type": "string",
+      "enum": [
+        "very_satisfied",
+        "satisfied",
+        "neutral",
+        "dissatisfied"
+      ],
+      "default": "neutral"
+    },
+    "linked_intake_id": {
+      "type": "string"
+    },
+    "linked_journey_id": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "director_id",
+    "member_id",
+    "conversation_type"
+  ]
+}

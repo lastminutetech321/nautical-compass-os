@@ -1,0 +1,151 @@
+{
+  "name": "CreditLedger",
+  "type": "object",
+  "properties": {
+    "entry_key": {
+      "type": "string"
+    },
+    "ledger_type": {
+      "type": "string",
+      "enum": [
+        "credit",
+        "debit",
+        "adjustment",
+        "manual_adjustment",
+        "goodwill_credit",
+        "refund_credit",
+        "referral_credit",
+        "bonus_credit",
+        "penalty_debit"
+      ],
+      "default": "credit"
+    },
+    "account_id": {
+      "type": "string"
+    },
+    "account_name": {
+      "type": "string"
+    },
+    "account_type": {
+      "type": "string",
+      "enum": [
+        "customer",
+        "participant",
+        "director",
+        "artist",
+        "workforce",
+        "marketplace_provider",
+        "enterprise",
+        "vendor"
+      ],
+      "default": "customer"
+    },
+    "amount": {
+      "type": "number",
+      "default": 0
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "direction": {
+      "type": "string",
+      "enum": [
+        "credit",
+        "debit"
+      ],
+      "default": "credit"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "reason_category": {
+      "type": "string",
+      "enum": [
+        "goodwill",
+        "billing_error",
+        "referral_bonus",
+        "manual_adjustment",
+        "compensation_adjustment",
+        "penalty",
+        "promotion_credit",
+        "other"
+      ],
+      "default": "other"
+    },
+    "linked_invoice_id": {
+      "type": "string"
+    },
+    "linked_subscription_id": {
+      "type": "string"
+    },
+    "linked_payout_id": {
+      "type": "string"
+    },
+    "authorized_by": {
+      "type": "string"
+    },
+    "authorization_required": {
+      "type": "boolean",
+      "default": true
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "not_required",
+        "pending",
+        "approved",
+        "rejected"
+      ],
+      "default": "pending"
+    },
+    "balance_after": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "posted",
+        "reversed"
+      ],
+      "default": "pending"
+    },
+    "posted_at": {
+      "type": "string"
+    },
+    "reversed_at": {
+      "type": "string"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "audit_trail": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "entry_key",
+    "account_id",
+    "account_name",
+    "amount",
+    "direction"
+  ]
+}

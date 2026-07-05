@@ -1,0 +1,99 @@
+{
+  "name": "OrgReflection",
+  "type": "object",
+  "properties": {
+    "reflection_date": {
+      "type": "string"
+    },
+    "what_happened_today": {
+      "type": "string"
+    },
+    "what_improved": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "what_failed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "what_surprised_us": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "what_repeated": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "should_become_automation": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "should_become_policy": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "should_become_training": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "should_become_memory": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "should_become_canon": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "founder_review_tomorrow": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "org_iq_delta": {
+      "type": "number",
+      "default": 0
+    },
+    "automation_created": {
+      "type": "number",
+      "default": 0
+    },
+    "memory_captured": {
+      "type": "number",
+      "default": 0
+    },
+    "knowledge_graph_updates": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "reflection_date"
+  ]
+}

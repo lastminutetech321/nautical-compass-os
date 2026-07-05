@@ -1,0 +1,97 @@
+{
+  "name": "ExecutiveBoard",
+  "type": "object",
+  "properties": {
+    "snapshot_date": {
+      "type": "string"
+    },
+    "department_health": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "dept_key": {
+            "type": "string"
+          },
+          "dept_name": {
+            "type": "string"
+          },
+          "health_score": {
+            "type": "number"
+          },
+          "readiness_score": {
+            "type": "number"
+          },
+          "risk_level": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "top_risks": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "top_opportunities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "most_valuable_project": {
+      "type": "object"
+    },
+    "largest_bottleneck": {
+      "type": "object"
+    },
+    "most_valuable_employee": {
+      "type": "object"
+    },
+    "most_valuable_director": {
+      "type": "object"
+    },
+    "highest_performing_ai": {
+      "type": "object"
+    },
+    "biggest_revenue_opportunity": {
+      "type": "object"
+    },
+    "critical_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "org_readiness_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "readiness_label": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "snapshot_date"
+  ]
+}

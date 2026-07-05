@@ -1,0 +1,111 @@
+{
+  "name": "AlumniProfile",
+  "type": "object",
+  "properties": {
+    "alumni_key": {
+      "type": "string"
+    },
+    "worker_id": {
+      "type": "string"
+    },
+    "worker_name": {
+      "type": "string"
+    },
+    "alumni_role": {
+      "type": "string",
+      "enum": [
+        "alumni",
+        "enterprise_partner",
+        "mentor",
+        "trainer",
+        "referral_partner",
+        "marketplace_provider",
+        "future_director",
+        "future_client"
+      ],
+      "default": "alumni"
+    },
+    "joined_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "departed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "departure_reason": {
+      "type": "string",
+      "enum": [
+        "converted_direct_hire",
+        "career_advancement",
+        "relocated",
+        "retired",
+        "personal",
+        "returned_to_nc",
+        "other"
+      ],
+      "default": "career_advancement"
+    },
+    "current_role": {
+      "type": "string"
+    },
+    "current_company": {
+      "type": "string"
+    },
+    "alumni_activities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mentorship_count": {
+      "type": "number",
+      "default": 0
+    },
+    "referral_count": {
+      "type": "number",
+      "default": 0
+    },
+    "return_to_nc": {
+      "type": "boolean",
+      "default": false
+    },
+    "alumni_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "returned",
+        "escalated_to_partner",
+        "escalated_to_director",
+        "escalated_to_client"
+      ],
+      "default": "active"
+    },
+    "relationship_value": {
+      "type": "number",
+      "default": 0
+    },
+    "contact_email": {
+      "type": "string"
+    },
+    "contact_phone": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "alumni_key",
+    "worker_id",
+    "worker_name",
+    "alumni_role"
+  ]
+}

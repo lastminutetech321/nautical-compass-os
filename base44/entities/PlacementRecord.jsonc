@@ -1,0 +1,199 @@
+{
+  "name": "PlacementRecord",
+  "type": "object",
+  "properties": {
+    "placement_key": {
+      "type": "string"
+    },
+    "worker_id": {
+      "type": "string"
+    },
+    "worker_name": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "client_relationship_id": {
+      "type": "string"
+    },
+    "director_id": {
+      "type": "string"
+    },
+    "director_name": {
+      "type": "string"
+    },
+    "service_model": {
+      "type": "string",
+      "enum": [
+        "temporary_assignment",
+        "project_assignment",
+        "retainer",
+        "dedicated_team",
+        "managed_workforce",
+        "direct_hire_conversion",
+        "long_term_partnership",
+        "enterprise_staffing"
+      ],
+      "default": "temporary_assignment"
+    },
+    "role_title": {
+      "type": "string"
+    },
+    "career_level": {
+      "type": "string"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "active",
+        "completed",
+        "converted",
+        "terminated",
+        "on_hold"
+      ],
+      "default": "pending"
+    },
+    "rate": {
+      "type": "number",
+      "default": 0
+    },
+    "rate_type": {
+      "type": "string",
+      "enum": [
+        "hourly",
+        "daily",
+        "flat",
+        "salary",
+        "project"
+      ],
+      "default": "hourly"
+    },
+    "total_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "attribution_id": {
+      "type": "string"
+    },
+    "conversion_eligible": {
+      "type": "boolean",
+      "default": false
+    },
+    "converted_to_direct": {
+      "type": "boolean",
+      "default": false
+    },
+    "conversion_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "placement_protection": {
+      "type": "object",
+      "properties": {
+        "agreement_type": {
+          "type": "string"
+        },
+        "fee_schedule": {
+          "type": "string"
+        },
+        "training_recovery_enabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "training_recovery_amount": {
+          "type": "number",
+          "default": 0
+        },
+        "service_fee_pct": {
+          "type": "number",
+          "default": 0
+        },
+        "legal_review_required": {
+          "type": "boolean",
+          "default": true
+        },
+        "legal_review_status": {
+          "type": "string",
+          "enum": [
+            "not_required",
+            "pending",
+            "approved",
+            "rejected"
+          ],
+          "default": "not_required"
+        },
+        "mobility_restricted": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "repeat_assignment": {
+      "type": "boolean",
+      "default": false
+    },
+    "repeat_client": {
+      "type": "boolean",
+      "default": false
+    },
+    "client_satisfaction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "worker_satisfaction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "performance_rating": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5,
+      "default": 0
+    },
+    "knowledge_captured": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "audit_trail": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "placement_key",
+    "worker_id",
+    "worker_name",
+    "service_model",
+    "status"
+  ]
+}

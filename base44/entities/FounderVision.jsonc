@@ -1,0 +1,54 @@
+{
+  "name": "FounderVision",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "mission",
+        "philosophy",
+        "business_doctrine",
+        "product_doctrine",
+        "ai_behavior",
+        "ethics",
+        "design_principles"
+      ],
+      "default": "mission"
+    },
+    "content": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "default": "1.0"
+    },
+    "locked": {
+      "type": "boolean",
+      "default": true
+    },
+    "requires_approval": {
+      "type": "boolean",
+      "default": true
+    },
+    "last_approved_by": {
+      "type": "string"
+    },
+    "last_approved_at": {
+      "type": "string"
+    },
+    "change_history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "required": [
+    "title",
+    "category",
+    "content"
+  ]
+}

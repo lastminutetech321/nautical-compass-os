@@ -1,0 +1,81 @@
+{
+  "name": "OrgIntelligenceEntry",
+  "type": "object",
+  "properties": {
+    "question_key": {
+      "type": "string",
+      "enum": [
+        "what_we_are_learning",
+        "what_keeps_repeating",
+        "what_creates_most_value",
+        "what_wastes_most_time",
+        "what_should_automate_next",
+        "what_should_delegate",
+        "what_should_remove"
+      ]
+    },
+    "question_text": {
+      "type": "string"
+    },
+    "answer": {
+      "type": "string"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "source_data": {
+      "type": "object"
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "trend": {
+      "type": "string",
+      "enum": [
+        "increasing",
+        "stable",
+        "declining"
+      ],
+      "default": "stable"
+    },
+    "linked_departments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_entities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "last_updated": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "question_key",
+    "answer"
+  ]
+}

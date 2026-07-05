@@ -1,0 +1,117 @@
+{
+  "name": "LivingLedgerEntry",
+  "type": "object",
+  "properties": {
+    "ledger_key": {
+      "type": "string"
+    },
+    "worker_id": {
+      "type": "string"
+    },
+    "worker_name": {
+      "type": "string"
+    },
+    "entry_type": {
+      "type": "string",
+      "enum": [
+        "assignment",
+        "training",
+        "certification",
+        "promotion",
+        "contribution",
+        "trust_event",
+        "reputation_event",
+        "leadership",
+        "equipment",
+        "safety",
+        "client_feedback",
+        "mentor_feedback",
+        "performance",
+        "income",
+        "career_goal",
+        "development_plan",
+        "recommendation",
+        "knowledge_capture",
+        "placement",
+        "referral",
+        "mentorship"
+      ],
+      "default": "assignment"
+    },
+    "tier": {
+      "type": "string",
+      "enum": [
+        "free",
+        "subscriber"
+      ],
+      "default": "free"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "event_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "permanent": {
+      "type": "boolean",
+      "default": true
+    },
+    "ai_organized": {
+      "type": "boolean",
+      "default": false
+    },
+    "ai_summary": {
+      "type": "string"
+    },
+    "career_passport_ref": {
+      "type": "string"
+    },
+    "contribution_ref": {
+      "type": "string"
+    },
+    "trust_ref": {
+      "type": "string"
+    },
+    "reputation_ref": {
+      "type": "string"
+    },
+    "knowledge_graph_ref": {
+      "type": "string"
+    },
+    "memory_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_placement_id": {
+      "type": "string"
+    },
+    "linked_attribution_id": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "ledger_key",
+    "worker_id",
+    "worker_name",
+    "entry_type",
+    "title"
+  ]
+}

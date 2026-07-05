@@ -1,0 +1,140 @@
+{
+  "name": "SystemHealthScore",
+  "type": "object",
+  "properties": {
+    "entity_type": {
+      "type": "string",
+      "enum": [
+        "platform",
+        "revenue",
+        "customer",
+        "member",
+        "director",
+        "enterprise",
+        "ai",
+        "governance",
+        "canon",
+        "legal",
+        "security",
+        "engineering",
+        "development",
+        "knowledge",
+        "automation",
+        "workflow",
+        "deployment",
+        "infrastructure",
+        "documentation",
+        "training",
+        "community",
+        "culture",
+        "founder_workload",
+        "operational_readiness"
+      ],
+      "default": "platform"
+    },
+    "entity_id": {
+      "type": "string"
+    },
+    "entity_name": {
+      "type": "string"
+    },
+    "score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "excellent",
+        "good",
+        "fair",
+        "at_risk",
+        "critical"
+      ],
+      "default": "fair"
+    },
+    "trend": {
+      "type": "string",
+      "enum": [
+        "improving",
+        "stable",
+        "declining",
+        "sharp_decline"
+      ],
+      "default": "stable"
+    },
+    "factors": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "root_causes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expected_impact": {
+      "type": "string"
+    },
+    "confidence_level": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 70
+    },
+    "last_evaluated": {
+      "type": "string"
+    },
+    "evaluation_frequency": {
+      "type": "string",
+      "enum": [
+        "real_time",
+        "hourly",
+        "daily",
+        "weekly",
+        "monthly"
+      ],
+      "default": "daily"
+    },
+    "auto_resolved": {
+      "type": "boolean",
+      "default": false
+    },
+    "founder_alert_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "alert_reason": {
+      "type": "string"
+    },
+    "linked_diagnostic_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "entity_type",
+    "score"
+  ]
+}

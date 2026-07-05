@@ -1,0 +1,111 @@
+{
+  "description": "When a CanonEntry is created, queue a CanonVerification case. AI validates citation, classifies authority, maps relationships, and recommends \u2014 a human Founder/Admin must approve before verified status. Never auto-verify.",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "entity",
+      "events": [
+        "create"
+      ],
+      "entity_name": "CanonEntry"
+    }
+  },
+  "name": "Canon Entry Verification Workflow",
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "canon_entry_verification",
+      "version": "2.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "queue_verification": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncCanonVerification",
+            "args": {
+              "operation": "queue_entry",
+              "canon_entry_id": "${ .trigger.data.id }",
+              "is_gap_case": false,
+              "blocks_jurisengine": false
+            }
+          },
+          "then": "run_citation_validation",
+          "x-base44": {
+            "title": "Queue verification case",
+            "description": "Create a CanonVerification record for the new entry"
+          }
+        }
+      },
+      {
+        "run_citation_validation": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncCanonVerification",
+            "args": {
+              "operation": "validate_citation",
+              "verification_id": "${ .queue_verification.verification.id }"
+            }
+          },
+          "then": "classify_authority",
+          "x-base44": {
+            "title": "AI citation validation",
+            "description": "Validate the citation format and source"
+          }
+        }
+      },
+      {
+        "classify_authority": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncCanonVerification",
+            "args": {
+              "operation": "classify_authority",
+              "verification_id": "${ .queue_verification.verification.id }"
+            }
+          },
+          "then": "map_related",
+          "x-base44": {
+            "title": "AI authority classification",
+            "description": "Classify authority level, jurisdiction, category"
+          }
+        }
+      },
+      {
+        "map_related": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncCanonVerification",
+            "args": {
+              "operation": "map_related",
+              "verification_id": "${ .queue_verification.verification.id }"
+            }
+          },
+          "then": "recommend",
+          "x-base44": {
+            "title": "Map related authorities",
+            "description": "Find related Canon entries"
+          }
+        }
+      },
+      {
+        "recommend": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncCanonVerification",
+            "args": {
+              "operation": "recommend_verification",
+              "verification_id": "${ .queue_verification.verification.id }"
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "AI recommendation",
+            "description": "Compute confidence and recommendation. Human must approve."
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "name": "UnionRecord",
+  "type": "object",
+  "properties": {
+    "worker_id": {
+      "type": "string"
+    },
+    "worker_name": {
+      "type": "string"
+    },
+    "union_name": {
+      "type": "string"
+    },
+    "local_number": {
+      "type": "string"
+    },
+    "membership_number": {
+      "type": "string"
+    },
+    "trade": {
+      "type": "string"
+    },
+    "classification": {
+      "type": "string"
+    },
+    "join_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "expiry_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "dues_current": {
+      "type": "boolean",
+      "default": false
+    },
+    "dues_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "dues_frequency": {
+      "type": "string",
+      "enum": [
+        "monthly",
+        "quarterly",
+        "annual"
+      ],
+      "default": "monthly"
+    },
+    "grievances_filed": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "suspended",
+        "expelled",
+        "retired"
+      ],
+      "default": "active"
+    },
+    "shop_steward": {
+      "type": "string"
+    },
+    "cba_url": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "union_name"
+  ]
+}

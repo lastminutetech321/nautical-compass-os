@@ -1,0 +1,162 @@
+{
+  "name": "TalentAttribution",
+  "type": "object",
+  "properties": {
+    "attribution_key": {
+      "type": "string"
+    },
+    "placement_id": {
+      "type": "string"
+    },
+    "worker_id": {
+      "type": "string"
+    },
+    "worker_name": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "director_id": {
+      "type": "string"
+    },
+    "director_name": {
+      "type": "string"
+    },
+    "recruiter_id": {
+      "type": "string"
+    },
+    "recruiter_name": {
+      "type": "string"
+    },
+    "referral_source_id": {
+      "type": "string"
+    },
+    "referral_source_name": {
+      "type": "string"
+    },
+    "referral_type": {
+      "type": "string",
+      "enum": [
+        "internal",
+        "worker_referral",
+        "client_referral",
+        "alumni_referral",
+        "community",
+        "job_board",
+        "direct",
+        "other"
+      ],
+      "default": "direct"
+    },
+    "training_completed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "certifications_earned": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "career_level_at_placement": {
+      "type": "string"
+    },
+    "skills_verified": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "date_introduced": {
+      "type": "string",
+      "format": "date"
+    },
+    "date_assigned": {
+      "type": "string",
+      "format": "date"
+    },
+    "date_completed": {
+      "type": "string",
+      "format": "date"
+    },
+    "revenue_generated": {
+      "type": "number",
+      "default": 0
+    },
+    "customer_satisfaction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "worker_satisfaction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "contribution_generated": {
+      "type": "number",
+      "default": 0
+    },
+    "trust_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "reputation_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "knowledge_captured": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "living_ledger_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "career_passport_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "is_permanent": {
+      "type": "boolean",
+      "default": true
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "completed",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "attribution_key",
+    "worker_id",
+    "worker_name"
+  ]
+}

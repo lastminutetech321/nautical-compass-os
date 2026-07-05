@@ -1,0 +1,128 @@
+{
+  "name": "MarketplaceListing",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "seller_id": {
+      "type": "string"
+    },
+    "seller_name": {
+      "type": "string"
+    },
+    "listing_type": {
+      "type": "string",
+      "enum": [
+        "beat",
+        "sample_pack",
+        "stem",
+        "instrumental",
+        "license",
+        "service",
+        "merch",
+        "nft",
+        "artwork",
+        "other"
+      ],
+      "default": "beat"
+    },
+    "description": {
+      "type": "string"
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "preview_url": {
+      "type": "string"
+    },
+    "price": {
+      "type": "number",
+      "default": 0
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "license_type": {
+      "type": "string",
+      "enum": [
+        "non_exclusive",
+        "exclusive",
+        "lease",
+        "work_for_hire",
+        "royalty_free"
+      ],
+      "default": "non_exclusive"
+    },
+    "category": {
+      "type": "string"
+    },
+    "genres": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "bpm": {
+      "type": "number"
+    },
+    "key": {
+      "type": "string"
+    },
+    "duration_sec": {
+      "type": "number"
+    },
+    "view_count": {
+      "type": "number",
+      "default": 0
+    },
+    "purchase_count": {
+      "type": "number",
+      "default": 0
+    },
+    "rating": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5,
+      "default": 0
+    },
+    "review_count": {
+      "type": "number",
+      "default": 0
+    },
+    "total_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "is_featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_verified_seller": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "sold_out",
+        "delisted",
+        "draft"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "title",
+    "listing_type",
+    "price"
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "name": "CollectionsQueue",
+  "type": "object",
+  "properties": {
+    "organization_id": {
+      "type": "string"
+    },
+    "subscription_id": {
+      "type": "string"
+    },
+    "invoice_id": {
+      "type": "string"
+    },
+    "customer_name": {
+      "type": "string"
+    },
+    "customer_email": {
+      "type": "string"
+    },
+    "amount_owed": {
+      "type": "number",
+      "default": 0
+    },
+    "original_due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "days_overdue": {
+      "type": "number",
+      "default": 0
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "contacted",
+        "negotiating",
+        "payment_plan",
+        "escalated",
+        "resolved",
+        "written_off"
+      ],
+      "default": "new"
+    },
+    "payment_provider": {
+      "type": "string"
+    },
+    "retry_count": {
+      "type": "number",
+      "default": 0
+    },
+    "last_retry_at": {
+      "type": "string"
+    },
+    "next_retry_at": {
+      "type": "string"
+    },
+    "contact_attempts": {
+      "type": "number",
+      "default": 0
+    },
+    "last_contacted_at": {
+      "type": "string"
+    },
+    "contact_notes": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "payment_plan": {
+      "type": "object"
+    },
+    "resolved_at": {
+      "type": "string"
+    },
+    "resolved_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "customer_name"
+  ]
+}

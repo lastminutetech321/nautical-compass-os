@@ -1,0 +1,112 @@
+{
+  "name": "Coupon",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "coupon_type": {
+      "type": "string",
+      "enum": [
+        "percent_off",
+        "amount_off",
+        "free_trial_extension",
+        "free_months",
+        "custom"
+      ],
+      "default": "percent_off"
+    },
+    "discount_pct": {
+      "type": "number",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 100
+    },
+    "discount_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "free_trial_days": {
+      "type": "number",
+      "default": 0
+    },
+    "free_months": {
+      "type": "number",
+      "default": 0
+    },
+    "applies_to": {
+      "type": "string",
+      "enum": [
+        "all",
+        "monthly",
+        "annual",
+        "specific_plans"
+      ],
+      "default": "all"
+    },
+    "applicable_plan_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "duration": {
+      "type": "string",
+      "enum": [
+        "once",
+        "repeating",
+        "forever"
+      ],
+      "default": "once"
+    },
+    "duration_months": {
+      "type": "number",
+      "default": 1
+    },
+    "max_redemptions": {
+      "type": "number"
+    },
+    "redemption_count": {
+      "type": "number",
+      "default": 0
+    },
+    "valid_from": {
+      "type": "string",
+      "format": "date"
+    },
+    "valid_until": {
+      "type": "string",
+      "format": "date"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "single_use_per_customer": {
+      "type": "boolean",
+      "default": true
+    },
+    "stripe_coupon_id": {
+      "type": "string"
+    },
+    "created_by": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "code",
+    "coupon_type"
+  ]
+}

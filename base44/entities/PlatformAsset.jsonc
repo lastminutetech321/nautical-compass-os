@@ -1,0 +1,98 @@
+{
+  "name": "PlatformAsset",
+  "type": "object",
+  "properties": {
+    "asset_key": {
+      "type": "string"
+    },
+    "asset_name": {
+      "type": "string"
+    },
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "entity",
+        "page",
+        "automation",
+        "workflow",
+        "agent",
+        "function",
+        "integration"
+      ],
+      "default": "entity"
+    },
+    "module_key": {
+      "type": "string"
+    },
+    "module_name": {
+      "type": "string"
+    },
+    "route_path": {
+      "type": "string"
+    },
+    "entity_name": {
+      "type": "string"
+    },
+    "record_count": {
+      "type": "number",
+      "default": 0
+    },
+    "is_used": {
+      "type": "boolean",
+      "default": false
+    },
+    "last_used": {
+      "type": "string"
+    },
+    "usage_count": {
+      "type": "number",
+      "default": 0
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "duplicate_of": {
+      "type": "string"
+    },
+    "is_duplicate": {
+      "type": "boolean",
+      "default": false
+    },
+    "auto_registered": {
+      "type": "boolean",
+      "default": true
+    },
+    "registered_at": {
+      "type": "string"
+    },
+    "health_status": {
+      "type": "string",
+      "enum": [
+        "healthy",
+        "active",
+        "dormant",
+        "unused",
+        "broken",
+        "unregistered"
+      ],
+      "default": "unregistered"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "asset_key",
+    "asset_name",
+    "asset_type"
+  ]
+}

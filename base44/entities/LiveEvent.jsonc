@@ -1,0 +1,116 @@
+{
+  "name": "LiveEvent",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "artist_id": {
+      "type": "string"
+    },
+    "artist_name": {
+      "type": "string"
+    },
+    "creator_id": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "concert",
+        "festival",
+        "live_stream",
+        "listening_party",
+        "q_and_a",
+        "workshop",
+        "meet_greet",
+        "release_party"
+      ],
+      "default": "concert"
+    },
+    "description": {
+      "type": "string"
+    },
+    "cover_url": {
+      "type": "string"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "start_time": {
+      "type": "string"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_time": {
+      "type": "string"
+    },
+    "timezone": {
+      "type": "string",
+      "default": "America/New_York"
+    },
+    "venue_name": {
+      "type": "string"
+    },
+    "venue_address": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "is_virtual": {
+      "type": "boolean",
+      "default": false
+    },
+    "stream_url": {
+      "type": "string"
+    },
+    "capacity": {
+      "type": "number"
+    },
+    "tickets_sold": {
+      "type": "number",
+      "default": 0
+    },
+    "ticket_price": {
+      "type": "number",
+      "default": 0
+    },
+    "total_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "rsvp_count": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "announced",
+        "tickets_on_sale",
+        "sold_out",
+        "live",
+        "completed",
+        "cancelled"
+      ],
+      "default": "announced"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "title",
+    "start_date"
+  ]
+}

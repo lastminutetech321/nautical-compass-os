@@ -1,0 +1,227 @@
+{
+  "name": "Department",
+  "type": "object",
+  "properties": {
+    "dept_key": {
+      "type": "string"
+    },
+    "dept_name": {
+      "type": "string"
+    },
+    "dept_type": {
+      "type": "string",
+      "enum": [
+        "executive",
+        "legal",
+        "customer_success",
+        "workforce",
+        "business_development",
+        "finance",
+        "technology",
+        "engineering",
+        "ai_operations",
+        "research",
+        "training",
+        "culture",
+        "events",
+        "media",
+        "marketing",
+        "sales",
+        "compliance",
+        "community",
+        "infrastructure",
+        "security"
+      ],
+      "default": "executive"
+    },
+    "mission": {
+      "type": "string"
+    },
+    "parent_dept_key": {
+      "type": "string"
+    },
+    "owned_systems": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "owned_dashboards": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "owned_workflows": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "owned_agents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assigned_ai_executive": {
+      "type": "string"
+    },
+    "assigned_ai_executive_id": {
+      "type": "string"
+    },
+    "directors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "team_members": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "current_objectives": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "current_problems": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "blocked_work": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "budget": {
+      "type": "number",
+      "default": 0
+    },
+    "budget_used": {
+      "type": "number",
+      "default": 0
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "kpis": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "upcoming_deadlines": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "recommended_priorities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "health_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "productivity_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "automation_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "knowledge_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "trust_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "readiness_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "revenue_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "cost": {
+      "type": "number",
+      "default": 0
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "low"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "restructuring",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "founder_configurable": {
+      "type": "boolean",
+      "default": true
+    },
+    "last_evaluated": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "dept_key",
+    "dept_name",
+    "dept_type"
+  ]
+}

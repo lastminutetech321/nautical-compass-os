@@ -1,0 +1,119 @@
+{
+  "name": "Invoice",
+  "type": "object",
+  "properties": {
+    "organization_id": {
+      "type": "string"
+    },
+    "subscription_id": {
+      "type": "string"
+    },
+    "customer_name": {
+      "type": "string"
+    },
+    "customer_email": {
+      "type": "string"
+    },
+    "invoice_number": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "open",
+        "paid",
+        "void",
+        "uncollectible",
+        "in_collections",
+        "disputed"
+      ],
+      "default": "draft"
+    },
+    "payment_provider": {
+      "type": "string",
+      "enum": [
+        "stripe",
+        "square",
+        "paypal",
+        "authorizenet",
+        "manual_invoice",
+        "bank_transfer",
+        "custom"
+      ],
+      "default": "manual_invoice"
+    },
+    "amount_due": {
+      "type": "number",
+      "default": 0
+    },
+    "amount_paid": {
+      "type": "number",
+      "default": 0
+    },
+    "amount_remaining": {
+      "type": "number",
+      "default": 0
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "paid_at": {
+      "type": "string"
+    },
+    "line_items": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "tax_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "discount_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "coupon_code": {
+      "type": "string"
+    },
+    "payment_attempt_count": {
+      "type": "number",
+      "default": 0
+    },
+    "last_payment_attempt": {
+      "type": "string"
+    },
+    "next_retry_at": {
+      "type": "string"
+    },
+    "in_collections": {
+      "type": "boolean",
+      "default": false
+    },
+    "collections_notes": {
+      "type": "string"
+    },
+    "stripe_invoice_id": {
+      "type": "string"
+    },
+    "external_invoice_id": {
+      "type": "string"
+    },
+    "pdf_url": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "organization_id"
+  ]
+}

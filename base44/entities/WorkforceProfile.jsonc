@@ -1,0 +1,334 @@
+{
+  "name": "WorkforceProfile",
+  "type": "object",
+  "properties": {
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "date_of_birth": {
+      "type": "string",
+      "format": "date"
+    },
+    "gender": {
+      "type": "string",
+      "enum": [
+        "male",
+        "female",
+        "non_binary",
+        "prefer_not_to_say",
+        "other"
+      ],
+      "default": "prefer_not_to_say"
+    },
+    "address": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "zip_code": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "emergency_contact_name": {
+      "type": "string"
+    },
+    "emergency_contact_phone": {
+      "type": "string"
+    },
+    "emergency_contact_relation": {
+      "type": "string"
+    },
+    "industry_interests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "desired_position": {
+      "type": "string"
+    },
+    "experience_level": {
+      "type": "string",
+      "enum": [
+        "entry",
+        "beginner",
+        "intermediate",
+        "advanced",
+        "expert"
+      ],
+      "default": "entry"
+    },
+    "years_experience": {
+      "type": "number",
+      "default": 0
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "certifications": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "resume_url": {
+      "type": "string"
+    },
+    "resume_text": {
+      "type": "string"
+    },
+    "availability": {
+      "type": "string",
+      "enum": [
+        "full_time",
+        "part_time",
+        "contract",
+        "per_diem",
+        "seasonal",
+        "unavailable"
+      ],
+      "default": "full_time"
+    },
+    "availability_hours_per_week": {
+      "type": "number",
+      "default": 0
+    },
+    "available_start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "transportation": {
+      "type": "string",
+      "enum": [
+        "personal_vehicle",
+        "public_transit",
+        "rideshare",
+        "walking",
+        "none"
+      ],
+      "default": "none"
+    },
+    "has_valid_drivers_license": {
+      "type": "boolean",
+      "default": false
+    },
+    "equipment_owned": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "preferred_travel_distance_miles": {
+      "type": "number",
+      "default": 25
+    },
+    "training_completed": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "readiness_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "readiness_level": {
+      "type": "string",
+      "enum": [
+        "ready_for_work",
+        "needs_training",
+        "needs_mentor",
+        "needs_compliance",
+        "needs_review"
+      ],
+      "default": "needs_review"
+    },
+    "contribution_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "trust_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "reputation_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "compliance_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in_review",
+        "compliant",
+        "non_compliant",
+        "suspended"
+      ],
+      "default": "pending"
+    },
+    "compliance_notes": {
+      "type": "string"
+    },
+    "background_check_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "pending",
+        "passed",
+        "failed",
+        "expired"
+      ],
+      "default": "not_started"
+    },
+    "assigned_director_id": {
+      "type": "string"
+    },
+    "assigned_director_name": {
+      "type": "string"
+    },
+    "assigned_mentor_id": {
+      "type": "string"
+    },
+    "assigned_mentor_name": {
+      "type": "string"
+    },
+    "career_goals": {
+      "type": "string"
+    },
+    "pipeline_stage": {
+      "type": "string",
+      "enum": [
+        "interest",
+        "profile",
+        "assessment",
+        "training",
+        "compliance",
+        "readiness",
+        "mentor_assignment",
+        "eligible",
+        "assignments",
+        "performance_review",
+        "career_advancement"
+      ],
+      "default": "interest"
+    },
+    "pipeline_stage_order": {
+      "type": "number",
+      "default": 0
+    },
+    "pipeline_history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "industry_template_id": {
+      "type": "string"
+    },
+    "industry_template_name": {
+      "type": "string"
+    },
+    "current_level": {
+      "type": "string"
+    },
+    "current_level_order": {
+      "type": "number",
+      "default": 0
+    },
+    "target_level": {
+      "type": "string"
+    },
+    "hours_worked_total": {
+      "type": "number",
+      "default": 0
+    },
+    "assignments_completed": {
+      "type": "number",
+      "default": 0
+    },
+    "assignments_total": {
+      "type": "number",
+      "default": 0
+    },
+    "avg_performance_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "last_assignment_date": {
+      "type": "string"
+    },
+    "last_coaching_date": {
+      "type": "string"
+    },
+    "last_assessment_date": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "prospective",
+        "active",
+        "assigned",
+        "on_leave",
+        "inactive",
+        "alumni",
+        "terminated"
+      ],
+      "default": "prospective"
+    },
+    "profile_image_url": {
+      "type": "string"
+    },
+    "career_passport_entries": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "linked_user_id": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "first_name",
+    "last_name",
+    "email"
+  ]
+}

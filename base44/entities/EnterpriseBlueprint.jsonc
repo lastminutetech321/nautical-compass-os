@@ -1,0 +1,191 @@
+{
+  "name": "EnterpriseBlueprint",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "blueprint_type": {
+      "type": "string",
+      "enum": [
+        "enterprise",
+        "department",
+        "product",
+        "platform",
+        "service",
+        "security",
+        "infrastructure",
+        "workflow"
+      ],
+      "default": "enterprise"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "company_type": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "default": "1.0"
+    },
+    "parent_blueprint_id": {
+      "type": "string"
+    },
+    "parent_blueprint_name": {
+      "type": "string"
+    },
+    "is_template": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_published": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "generating",
+        "active",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "business_architecture": {
+      "type": "object"
+    },
+    "organization_chart": {
+      "type": "object"
+    },
+    "departments": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "policies": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "workflows": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "business_rules": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "revenue_flows": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "customer_journeys": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "employee_journeys": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "ai_employee_journeys": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "infrastructure_map": {
+      "type": "object"
+    },
+    "security_architecture": {
+      "type": "object"
+    },
+    "database_blueprint": {
+      "type": "object"
+    },
+    "api_blueprint": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "entity_relationship_diagram": {
+      "type": "object"
+    },
+    "communication_map": {
+      "type": "object"
+    },
+    "deployment_plan": {
+      "type": "object"
+    },
+    "growth_roadmap": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "executive_summary": {
+      "type": "string"
+    },
+    "inheritance_notes": {
+      "type": "string"
+    },
+    "customization_summary": {
+      "type": "string"
+    },
+    "cost_savings_from_inheritance": {
+      "type": "string"
+    },
+    "generated_by": {
+      "type": "string"
+    },
+    "founder_approval_required": {
+      "type": "boolean",
+      "default": true
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "name",
+    "blueprint_type"
+  ]
+}

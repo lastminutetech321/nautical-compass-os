@@ -1,0 +1,190 @@
+{
+  "name": "OrchestrationInsight",
+  "type": "object",
+  "properties": {
+    "insight_key": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "insight_type": {
+      "type": "string",
+      "enum": [
+        "bottleneck",
+        "missing_relationship",
+        "duplicate_functionality",
+        "unused_asset",
+        "missing_automation",
+        "knowledge_gap",
+        "canon_gap",
+        "customer_risk",
+        "revenue_leak",
+        "agent_dormant",
+        "workflow_bottleneck",
+        "platform_improvement"
+      ],
+      "default": "bottleneck"
+    },
+    "affected_modules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affected_entities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affected_pages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "root_cause": {
+      "type": "string"
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "what_it_unlocks": {
+      "type": "string"
+    },
+    "customer_impact": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "revenue_impact": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "strategic_importance": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "intelligence_gained": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "dev_effort_hours": {
+      "type": "number",
+      "default": 0
+    },
+    "dev_effort_label": {
+      "type": "string",
+      "enum": [
+        "trivial",
+        "small",
+        "medium",
+        "large",
+        "extra_large"
+      ],
+      "default": "small"
+    },
+    "priority_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "approval_category": {
+      "type": "string",
+      "enum": [
+        "none",
+        "governance",
+        "pricing",
+        "legal",
+        "financial",
+        "compensation",
+        "general"
+      ],
+      "default": "general"
+    },
+    "requires_founder_approval": {
+      "type": "boolean",
+      "default": false
+    },
+    "auto_applied": {
+      "type": "boolean",
+      "default": false
+    },
+    "auto_apply_eligible": {
+      "type": "boolean",
+      "default": false
+    },
+    "applied_at": {
+      "type": "string"
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "detected",
+        "investigating",
+        "approved",
+        "applying",
+        "applied",
+        "rejected",
+        "ignored"
+      ],
+      "default": "detected"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "linked_finding_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_intelligence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "detected_at": {
+      "type": "string"
+    },
+    "resolved_at": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "insight_key",
+    "title",
+    "insight_type"
+  ]
+}

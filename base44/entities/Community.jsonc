@@ -1,0 +1,92 @@
+{
+  "name": "Community",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "community_type": {
+      "type": "string",
+      "enum": [
+        "artist_fan",
+        "genre",
+        "local",
+        "creator",
+        "topic",
+        "official",
+        "grassroots"
+      ],
+      "default": "artist_fan"
+    },
+    "creator_id": {
+      "type": "string"
+    },
+    "artist_id": {
+      "type": "string"
+    },
+    "cover_url": {
+      "type": "string"
+    },
+    "icon_url": {
+      "type": "string"
+    },
+    "member_count": {
+      "type": "number",
+      "default": 0
+    },
+    "active_members": {
+      "type": "number",
+      "default": 0
+    },
+    "posts_count": {
+      "type": "number",
+      "default": 0
+    },
+    "is_private": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_official": {
+      "type": "boolean",
+      "default": false
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "moderators": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "engagement_score": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "archived"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "name",
+    "community_type"
+  ]
+}

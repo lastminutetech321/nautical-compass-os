@@ -1,0 +1,94 @@
+{
+  "name": "Album",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "artist_id": {
+      "type": "string"
+    },
+    "artist_name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "album",
+        "ep",
+        "single",
+        "mixtape",
+        "compilation"
+      ],
+      "default": "album"
+    },
+    "cover_url": {
+      "type": "string"
+    },
+    "release_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "genres": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "song_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "track_count": {
+      "type": "number",
+      "default": 0
+    },
+    "total_duration_sec": {
+      "type": "number",
+      "default": 0
+    },
+    "total_streams": {
+      "type": "number",
+      "default": 0
+    },
+    "estimated_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "label": {
+      "type": "string"
+    },
+    "upc_code": {
+      "type": "string"
+    },
+    "is_explicit": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "scheduled",
+        "released",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "description": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "title",
+    "artist_id"
+  ]
+}

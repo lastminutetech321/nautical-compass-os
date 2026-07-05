@@ -1,0 +1,74 @@
+{
+  "name": "DiagnosticIssue",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "missing_feature",
+        "broken_dependency",
+        "failed_test",
+        "canon_gap",
+        "blocked_build",
+        "incomplete_workflow",
+        "security_risk",
+        "missing_revenue_path",
+        "agent_gap",
+        "data_integrity",
+        "performance",
+        "compliance"
+      ],
+      "default": "missing_feature"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "affected_modules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "description": {
+      "type": "string"
+    },
+    "detected_by": {
+      "type": "string",
+      "default": "Self-Diagnosis Engine"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "in_queue",
+        "resolved",
+        "dismissed"
+      ],
+      "default": "open"
+    },
+    "improvement_item_id": {
+      "type": "string"
+    },
+    "auto_detected": {
+      "type": "boolean",
+      "default": true
+    },
+    "detected_at": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "category"
+  ]
+}

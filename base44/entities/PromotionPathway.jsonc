@@ -1,0 +1,93 @@
+{
+  "name": "PromotionPathway",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "from_role": {
+      "type": "string"
+    },
+    "to_role": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "experience_required": {
+      "type": "number",
+      "default": 0
+    },
+    "contribution_score_required": {
+      "type": "number",
+      "default": 0
+    },
+    "training_required": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "leadership_required": {
+      "type": "string"
+    },
+    "trust_score_required": {
+      "type": "number",
+      "default": 0
+    },
+    "performance_score_required": {
+      "type": "number",
+      "default": 0
+    },
+    "founder_override_allowed": {
+      "type": "boolean",
+      "default": true
+    },
+    "compensation_change": {
+      "type": "object"
+    },
+    "version": {
+      "type": "number",
+      "default": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "superseded",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "name",
+    "from_role",
+    "to_role"
+  ]
+}

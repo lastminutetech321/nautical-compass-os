@@ -1,0 +1,61 @@
+{
+  "name": "AgentLearning",
+  "type": "object",
+  "properties": {
+    "agent_id": {
+      "type": "string"
+    },
+    "agent_name": {
+      "type": "string"
+    },
+    "agent_type": {
+      "type": "string"
+    },
+    "lesson_id": {
+      "type": "string"
+    },
+    "lesson_title": {
+      "type": "string"
+    },
+    "lesson_category": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "assigned",
+        "learning",
+        "applied",
+        "mastered"
+      ],
+      "default": "assigned"
+    },
+    "mastery_level": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "applied_count": {
+      "type": "number",
+      "default": 0
+    },
+    "mistakes_avoided_count": {
+      "type": "number",
+      "default": 0
+    },
+    "last_reviewed": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "assigned_by": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "agent_id",
+    "lesson_id"
+  ]
+}

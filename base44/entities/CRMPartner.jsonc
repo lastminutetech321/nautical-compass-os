@@ -1,0 +1,146 @@
+{
+  "name": "CRMPartner",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "referral_partner",
+        "reseller",
+        "integration",
+        "strategic",
+        "attorney",
+        "government_agency",
+        "board_member",
+        "vendor",
+        "investor",
+        "advisor"
+      ],
+      "default": "referral_partner"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "prospect",
+        "active",
+        "inactive",
+        "at_risk",
+        "churned"
+      ],
+      "default": "prospect"
+    },
+    "lifecycle_stage": {
+      "type": "string",
+      "enum": [
+        "lead",
+        "qualified",
+        "onboarding",
+        "active",
+        "renewal",
+        "churned"
+      ],
+      "default": "lead"
+    },
+    "relationship_health": {
+      "type": "string",
+      "enum": [
+        "cold",
+        "warm",
+        "hot",
+        "at_risk",
+        "strong"
+      ],
+      "default": "warm"
+    },
+    "organization_id": {
+      "type": "string"
+    },
+    "contact_id": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "agreement_type": {
+      "type": "string"
+    },
+    "agreement_start": {
+      "type": "string",
+      "format": "date"
+    },
+    "agreement_end": {
+      "type": "string",
+      "format": "date"
+    },
+    "commission_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "revenue_generated": {
+      "type": "number",
+      "default": 0
+    },
+    "referrals_sent": {
+      "type": "number",
+      "default": 0
+    },
+    "referrals_converted": {
+      "type": "number",
+      "default": 0
+    },
+    "last_contact_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "next_action": {
+      "type": "string"
+    },
+    "next_action_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "assigned_agent": {
+      "type": "string"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "timeline": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "communication_history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "connected_evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "name",
+    "type"
+  ]
+}

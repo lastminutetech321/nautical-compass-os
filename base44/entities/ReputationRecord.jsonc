@@ -1,0 +1,113 @@
+{
+  "name": "ReputationRecord",
+  "type": "object",
+  "properties": {
+    "entity_type": {
+      "type": "string",
+      "enum": [
+        "member",
+        "director",
+        "employee",
+        "vendor",
+        "ai_agent"
+      ],
+      "default": "member"
+    },
+    "entity_id": {
+      "type": "string"
+    },
+    "entity_name": {
+      "type": "string"
+    },
+    "categories": {
+      "type": "object",
+      "properties": {
+        "professionalism": {
+          "type": "number",
+          "default": 0
+        },
+        "technical_skill": {
+          "type": "number",
+          "default": 0
+        },
+        "leadership": {
+          "type": "number",
+          "default": 0
+        },
+        "innovation": {
+          "type": "number",
+          "default": 0
+        },
+        "customer_service": {
+          "type": "number",
+          "default": 0
+        },
+        "education": {
+          "type": "number",
+          "default": 0
+        },
+        "engineering": {
+          "type": "number",
+          "default": 0
+        },
+        "compliance": {
+          "type": "number",
+          "default": 0
+        },
+        "community": {
+          "type": "number",
+          "default": 0
+        },
+        "problem_solving": {
+          "type": "number",
+          "default": 0
+        }
+      }
+    },
+    "overall_reputation": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "strengths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "growth_opportunities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "achievements": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "historical_trend": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "last_updated": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "entity_type",
+    "entity_name"
+  ]
+}

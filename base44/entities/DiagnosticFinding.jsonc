@@ -1,0 +1,181 @@
+{
+  "name": "DiagnosticFinding",
+  "type": "object",
+  "properties": {
+    "finding_type": {
+      "type": "string",
+      "enum": [
+        "broken_workflow",
+        "incomplete_build",
+        "unused_entity",
+        "duplicate_logic",
+        "missing_relationship",
+        "orphaned_page",
+        "incomplete_documentation",
+        "canon_gap",
+        "training_gap",
+        "security_concern",
+        "revenue_leak",
+        "customer_friction",
+        "subscription_risk",
+        "inactive_ai_agent",
+        "unassigned_work",
+        "workflow_bottleneck",
+        "missing_automation",
+        "performance_degradation",
+        "data_quality_issue",
+        "dependency_failure",
+        "policy_violation",
+        "governance_gap"
+      ],
+      "default": "workflow_bottleneck"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "explanation": {
+      "type": "string"
+    },
+    "recommended_fix": {
+      "type": "string"
+    },
+    "estimated_effort": {
+      "type": "string",
+      "enum": [
+        "trivial",
+        "small",
+        "medium",
+        "large",
+        "extra_large"
+      ],
+      "default": "small"
+    },
+    "estimated_effort_hours": {
+      "type": "number",
+      "default": 0
+    },
+    "business_impact": {
+      "type": "string"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "suggested_owner": {
+      "type": "string"
+    },
+    "suggested_owner_type": {
+      "type": "string",
+      "enum": [
+        "founder",
+        "director",
+        "staff",
+        "ai_agent",
+        "system"
+      ],
+      "default": "system"
+    },
+    "approval_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "approval_type": {
+      "type": "string",
+      "enum": [
+        "none",
+        "founder",
+        "director",
+        "auto"
+      ],
+      "default": "none"
+    },
+    "auto_fix_eligible": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "detected",
+        "investigating",
+        "fixing",
+        "resolved",
+        "ignored",
+        "false_positive"
+      ],
+      "default": "detected"
+    },
+    "detected_at": {
+      "type": "string"
+    },
+    "resolved_at": {
+      "type": "string"
+    },
+    "affected_modules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affected_entities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affected_workflows": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_intelligence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_health_score_id": {
+      "type": "string"
+    },
+    "founder_alert_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "finding_type",
+    "title",
+    "severity"
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "name": "Video",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "creator_id": {
+      "type": "string"
+    },
+    "creator_name": {
+      "type": "string"
+    },
+    "video_type": {
+      "type": "string",
+      "enum": [
+        "music_video",
+        "documentary",
+        "interview",
+        "performance",
+        "tutorial",
+        "vlog",
+        "short",
+        "live_recording",
+        "promo"
+      ],
+      "default": "music_video"
+    },
+    "description": {
+      "type": "string"
+    },
+    "thumbnail_url": {
+      "type": "string"
+    },
+    "video_url": {
+      "type": "string"
+    },
+    "duration_sec": {
+      "type": "number",
+      "default": 0
+    },
+    "category": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "view_count": {
+      "type": "number",
+      "default": 0
+    },
+    "like_count": {
+      "type": "number",
+      "default": 0
+    },
+    "comment_count": {
+      "type": "number",
+      "default": 0
+    },
+    "share_count": {
+      "type": "number",
+      "default": 0
+    },
+    "estimated_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "release_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "is_premium": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_explicit": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "published",
+        "unlisted",
+        "archived"
+      ],
+      "default": "published"
+    }
+  },
+  "required": [
+    "title",
+    "creator_id"
+  ]
+}

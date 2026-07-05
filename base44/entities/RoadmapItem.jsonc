@@ -1,0 +1,125 @@
+{
+  "name": "RoadmapItem",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "phase": {
+      "type": "string",
+      "enum": [
+        "alpha",
+        "beta",
+        "v1",
+        "v2",
+        "future",
+        "icebox"
+      ],
+      "default": "beta"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "platform",
+        "canon",
+        "jurisengine",
+        "evidence",
+        "workforce",
+        "business",
+        "enterprise",
+        "culture",
+        "ui_ux",
+        "infrastructure",
+        "security",
+        "revenue"
+      ],
+      "default": "platform"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "idea",
+        "planned",
+        "in_progress",
+        "shipped",
+        "cancelled"
+      ],
+      "default": "planned"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "effort_estimate": {
+      "type": "string",
+      "enum": [
+        "xs",
+        "sm",
+        "md",
+        "lg",
+        "xl"
+      ],
+      "default": "md"
+    },
+    "revenue_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "readiness_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "owner": {
+      "type": "string"
+    },
+    "assigned_agent": {
+      "type": "string"
+    },
+    "target_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "shipped_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "linked_build_id": {
+      "type": "string"
+    },
+    "linked_feature_id": {
+      "type": "string"
+    },
+    "customer_requested": {
+      "type": "boolean",
+      "default": false
+    },
+    "public_visible": {
+      "type": "boolean",
+      "default": false
+    },
+    "votes": {
+      "type": "number",
+      "default": 0
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "title",
+    "phase",
+    "category"
+  ]
+}

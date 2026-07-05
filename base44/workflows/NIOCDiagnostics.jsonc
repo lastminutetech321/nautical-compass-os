@@ -1,0 +1,79 @@
+{
+  "description": "Runs NIOC diagnostics every 4 hours \u2014 detects platform issues across 22 finding types, creates DiagnosticFinding records, and runs the auto-fix engine on eligible findings.",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "0 */4 * * *",
+      "one_time_date": null,
+      "timezone": "America/New_York",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  },
+  "name": "NIOC Diagnostics (Every 4 Hours)",
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "nioc_diagnostics_4h",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "run_diagnostics": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncIntelligenceOps",
+            "args": {
+              "operation": "diagnose"
+            }
+          },
+          "then": "run_auto_fix",
+          "x-base44": {
+            "title": "Run diagnostics",
+            "description": "Detect 22 finding types"
+          }
+        }
+      },
+      {
+        "run_auto_fix": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncAutoFixEngine",
+            "args": {
+              "operation": "run"
+            }
+          },
+          "then": "reactivate_agents",
+          "x-base44": {
+            "title": "Run auto-fix engine",
+            "description": "Fix eligible findings"
+          }
+        }
+      },
+      {
+        "reactivate_agents": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncAgentReactivation",
+            "args": {
+              "operation": "reactivate_all"
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Reactivate idle agents",
+            "description": "Assign work to inactive agents"
+          }
+        }
+      }
+    ]
+  }
+}

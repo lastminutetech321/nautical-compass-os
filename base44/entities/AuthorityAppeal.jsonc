@@ -1,0 +1,112 @@
+{
+  "name": "AuthorityAppeal",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "complaint_id": {
+      "type": "string"
+    },
+    "interaction_id": {
+      "type": "string"
+    },
+    "authority_type": {
+      "type": "string",
+      "enum": [
+        "police",
+        "court",
+        "employer",
+        "landlord",
+        "government",
+        "school",
+        "hoa",
+        "security",
+        "hospital",
+        "licensing_board",
+        "corporation",
+        "other"
+      ],
+      "default": "government"
+    },
+    "appeal_type": {
+      "type": "string",
+      "enum": [
+        "administrative",
+        "judicial",
+        "legislative",
+        "media",
+        "public",
+        "internal",
+        "regulatory",
+        "other"
+      ],
+      "default": "administrative"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "filed",
+        "pending",
+        "hearing_scheduled",
+        "decided",
+        "won",
+        "lost",
+        "withdrawn",
+        "escalated"
+      ],
+      "default": "planned"
+    },
+    "filed_with": {
+      "type": "string"
+    },
+    "filed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "deadline": {
+      "type": "string",
+      "format": "date"
+    },
+    "hearing_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "decision_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "decision_summary": {
+      "type": "string"
+    },
+    "grounds_for_appeal": {
+      "type": "string"
+    },
+    "relief_sought": {
+      "type": "string"
+    },
+    "canon_citations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "next_steps": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "title",
+    "appeal_type"
+  ]
+}

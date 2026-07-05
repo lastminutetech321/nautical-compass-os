@@ -1,0 +1,78 @@
+{
+  "name": "ResourceReminder",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "application_id": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "reminder_type": {
+      "type": "string",
+      "enum": [
+        "document_deadline",
+        "application_deadline",
+        "renewal_deadline",
+        "appointment_reminder",
+        "appeal_deadline",
+        "recertification",
+        "follow_up",
+        "benefit_expiry",
+        "court_deadline",
+        "other"
+      ],
+      "default": "application_deadline"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "sent",
+        "acknowledged",
+        "completed",
+        "overdue",
+        "dismissed"
+      ],
+      "default": "pending"
+    },
+    "message": {
+      "type": "string"
+    },
+    "days_before_alert": {
+      "type": "number",
+      "default": 7
+    },
+    "completed_at": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "client_name",
+    "due_date"
+  ]
+}

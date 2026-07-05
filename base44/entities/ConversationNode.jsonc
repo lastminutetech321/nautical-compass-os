@@ -1,0 +1,106 @@
+{
+  "name": "ConversationNode",
+  "type": "object",
+  "properties": {
+    "node_key": {
+      "type": "string"
+    },
+    "node_type": {
+      "type": "string",
+      "enum": [
+        "person",
+        "department",
+        "project",
+        "meeting",
+        "customer",
+        "worker",
+        "director",
+        "ai_executive",
+        "idea",
+        "problem",
+        "solution",
+        "lesson",
+        "topic",
+        "decision",
+        "policy"
+      ],
+      "default": "topic"
+    },
+    "node_label": {
+      "type": "string"
+    },
+    "node_description": {
+      "type": "string"
+    },
+    "linked_entity_type": {
+      "type": "string"
+    },
+    "linked_entity_id": {
+      "type": "string"
+    },
+    "connections": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "discussion_count": {
+      "type": "number",
+      "default": 0
+    },
+    "last_discussed": {
+      "type": "string"
+    },
+    "is_recurring_topic": {
+      "type": "boolean",
+      "default": false
+    },
+    "recurrence_count": {
+      "type": "number",
+      "default": 0
+    },
+    "is_unresolved": {
+      "type": "boolean",
+      "default": false
+    },
+    "expert_score": {
+      "type": "number",
+      "default": 0
+    },
+    "expert_users": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sentiment_trend": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "neutral",
+        "negative",
+        "mixed"
+      ],
+      "default": "neutral"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "node_key",
+    "node_type",
+    "node_label"
+  ]
+}

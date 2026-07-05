@@ -1,0 +1,97 @@
+{
+  "name": "PaymentProvider",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "provider_type": {
+      "type": "string",
+      "enum": [
+        "stripe",
+        "square",
+        "paypal",
+        "authorizenet",
+        "manual_invoice",
+        "bank_transfer",
+        "custom"
+      ],
+      "default": "stripe"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_default": {
+      "type": "boolean",
+      "default": false
+    },
+    "supports_subscriptions": {
+      "type": "boolean",
+      "default": true
+    },
+    "supports_one_time": {
+      "type": "boolean",
+      "default": true
+    },
+    "supports_refunds": {
+      "type": "boolean",
+      "default": true
+    },
+    "supports_webhooks": {
+      "type": "boolean",
+      "default": true
+    },
+    "webhook_url": {
+      "type": "string"
+    },
+    "sandbox_mode": {
+      "type": "boolean",
+      "default": true
+    },
+    "config": {
+      "type": "object"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "not_configured",
+        "configured",
+        "active",
+        "error"
+      ],
+      "default": "not_configured"
+    },
+    "last_health_check": {
+      "type": "string"
+    },
+    "health_status": {
+      "type": "string",
+      "enum": [
+        "healthy",
+        "degraded",
+        "down",
+        "unknown"
+      ],
+      "default": "unknown"
+    },
+    "total_volume": {
+      "type": "number",
+      "default": 0
+    },
+    "transaction_count": {
+      "type": "number",
+      "default": 0
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "provider_type"
+  ]
+}

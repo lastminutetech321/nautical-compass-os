@@ -1,0 +1,118 @@
+{
+  "name": "GraphNode",
+  "type": "object",
+  "properties": {
+    "entity_type": {
+      "type": "string"
+    },
+    "entity_id": {
+      "type": "string"
+    },
+    "entity_name": {
+      "type": "string"
+    },
+    "entity_category": {
+      "type": "string",
+      "enum": [
+        "company",
+        "department",
+        "person",
+        "ai_employee",
+        "project",
+        "task",
+        "evidence",
+        "case",
+        "canon",
+        "law",
+        "policy",
+        "document",
+        "revenue",
+        "customer",
+        "subscription",
+        "invoice",
+        "approval",
+        "build",
+        "infrastructure",
+        "module",
+        "api",
+        "other"
+      ],
+      "default": "other"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "low"
+    },
+    "completion_pct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "financial_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "legal_impact": {
+      "type": "string",
+      "enum": [
+        "none",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "none"
+    },
+    "status": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "last_profiled": {
+      "type": "string"
+    },
+    "profile_source": {
+      "type": "string",
+      "enum": [
+        "ai",
+        "manual",
+        "system",
+        "derived"
+      ],
+      "default": "derived"
+    },
+    "connection_count": {
+      "type": "number",
+      "default": 0
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "entity_type",
+    "entity_id",
+    "entity_name"
+  ]
+}

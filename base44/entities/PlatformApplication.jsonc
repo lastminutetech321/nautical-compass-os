@@ -1,0 +1,65 @@
+{
+  "name": "PlatformApplication",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "app_type": {
+      "type": "string",
+      "enum": [
+        "web_app",
+        "mobile_app",
+        "client_dashboard",
+        "admin_dashboard",
+        "enterprise_dashboard",
+        "api",
+        "desktop_app",
+        "widget"
+      ],
+      "default": "web_app"
+    },
+    "description": {
+      "type": "string"
+    },
+    "owner_entity": {
+      "type": "string"
+    },
+    "ai_services_consumed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "canon_categories_used": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "concept",
+        "development",
+        "beta",
+        "live",
+        "deprecated"
+      ],
+      "default": "concept"
+    },
+    "url": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "app_type"
+  ]
+}

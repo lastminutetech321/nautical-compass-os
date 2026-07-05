@@ -1,0 +1,130 @@
+{
+  "name": "FinancialSnapshot",
+  "type": "object",
+  "properties": {
+    "snapshot_date": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string",
+      "enum": [
+        "daily",
+        "weekly",
+        "monthly",
+        "quarterly"
+      ],
+      "default": "daily"
+    },
+    "cash_balance": {
+      "type": "number",
+      "default": 0
+    },
+    "mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "arr": {
+      "type": "number",
+      "default": 0
+    },
+    "total_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "total_expenses": {
+      "type": "number",
+      "default": 0
+    },
+    "api_costs": {
+      "type": "number",
+      "default": 0
+    },
+    "hosting_costs": {
+      "type": "number",
+      "default": 0
+    },
+    "ai_usage_costs": {
+      "type": "number",
+      "default": 0
+    },
+    "payroll_costs": {
+      "type": "number",
+      "default": 0
+    },
+    "marketing_costs": {
+      "type": "number",
+      "default": 0
+    },
+    "tools_costs": {
+      "type": "number",
+      "default": 0
+    },
+    "other_costs": {
+      "type": "number",
+      "default": 0
+    },
+    "profit": {
+      "type": "number",
+      "default": 0
+    },
+    "gross_margin_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "operating_margin_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "monthly_burn": {
+      "type": "number",
+      "default": 0
+    },
+    "runway_days": {
+      "type": "number",
+      "default": 0
+    },
+    "break_even_mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "active_subscriptions": {
+      "type": "number",
+      "default": 0
+    },
+    "new_subscriptions": {
+      "type": "number",
+      "default": 0
+    },
+    "churned_subscriptions": {
+      "type": "number",
+      "default": 0
+    },
+    "net_new_mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "churn_mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "expansion_mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "auto_generated": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "snapshot_date",
+    "period"
+  ]
+}

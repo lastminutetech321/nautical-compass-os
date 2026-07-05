@@ -1,0 +1,67 @@
+{
+  "name": "KnowledgeNode",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "node_type": {
+      "type": "string",
+      "enum": [
+        "project",
+        "case",
+        "evidence",
+        "person",
+        "company",
+        "law",
+        "agent",
+        "automation",
+        "integration",
+        "document",
+        "conversation",
+        "feature",
+        "blueprint",
+        "concept"
+      ],
+      "default": "concept"
+    },
+    "source_entity_id": {
+      "type": "string"
+    },
+    "source_entity_type": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_node_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "department": {
+      "type": "string"
+    },
+    "importance": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    }
+  },
+  "required": [
+    "title",
+    "node_type"
+  ]
+}

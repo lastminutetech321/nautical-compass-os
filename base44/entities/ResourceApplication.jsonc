@@ -1,0 +1,112 @@
+{
+  "name": "ResourceApplication",
+  "type": "object",
+  "properties": {
+    "resource_id": {
+      "type": "string"
+    },
+    "resource_name": {
+      "type": "string"
+    },
+    "resource_category": {
+      "type": "string"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "documents_gathering",
+        "submitted",
+        "pending_review",
+        "additional_info_needed",
+        "approved",
+        "denied",
+        "appealing",
+        "withdrawn",
+        "expired"
+      ],
+      "default": "not_started"
+    },
+    "submitted_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "decision_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "deadline": {
+      "type": "string",
+      "format": "date"
+    },
+    "renewal_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "denial_reason": {
+      "type": "string"
+    },
+    "appeal_deadline": {
+      "type": "string",
+      "format": "date"
+    },
+    "benefit_received": {
+      "type": "string"
+    },
+    "benefit_amount": {
+      "type": "number"
+    },
+    "documents_checklist": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "doc": {
+            "type": "string"
+          },
+          "obtained": {
+            "type": "boolean"
+          },
+          "evidence_id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "next_steps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "appointments": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    }
+  },
+  "required": [
+    "resource_name",
+    "client_name"
+  ]
+}

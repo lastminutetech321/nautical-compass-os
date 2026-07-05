@@ -1,0 +1,71 @@
+{
+  "name": "FounderChecklistAnswer",
+  "type": "object",
+  "properties": {
+    "checklist_key": {
+      "type": "string"
+    },
+    "capability_name": {
+      "type": "string"
+    },
+    "capability_ref": {
+      "type": "string"
+    },
+    "section": {
+      "type": "string",
+      "enum": [
+        "business",
+        "legal",
+        "technical",
+        "customer",
+        "ai"
+      ],
+      "default": "business"
+    },
+    "question": {
+      "type": "string"
+    },
+    "answer": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "fail",
+        "partial",
+        "unknown"
+      ],
+      "default": "unknown"
+    },
+    "detail": {
+      "type": "string"
+    },
+    "gap": {
+      "type": "string"
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "became_improvement_item": {
+      "type": "boolean",
+      "default": false
+    },
+    "linked_improvement_item": {
+      "type": "string"
+    },
+    "checked_at": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "checklist_key",
+    "capability_name",
+    "section",
+    "question",
+    "answer"
+  ]
+}

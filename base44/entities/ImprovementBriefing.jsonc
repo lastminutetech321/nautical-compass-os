@@ -1,0 +1,108 @@
+{
+  "name": "ImprovementBriefing",
+  "type": "object",
+  "properties": {
+    "briefing_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "scan_summary": {
+      "type": "string"
+    },
+    "platform_health_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "total_items_generated": {
+      "type": "number",
+      "default": 0
+    },
+    "critical_items": {
+      "type": "number",
+      "default": 0
+    },
+    "high_priority_items": {
+      "type": "number",
+      "default": 0
+    },
+    "total_estimated_revenue_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "total_estimated_effort_hours": {
+      "type": "number",
+      "default": 0
+    },
+    "estimated_readiness_increase": {
+      "type": "number",
+      "default": 0
+    },
+    "bottlenecks_found": {
+      "type": "number",
+      "default": 0
+    },
+    "missing_workflows_found": {
+      "type": "number",
+      "default": 0
+    },
+    "duplications_found": {
+      "type": "number",
+      "default": 0
+    },
+    "dimension_scores": {
+      "type": "object"
+    },
+    "executive_summary": {
+      "type": "string"
+    },
+    "top_priorities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "recommended_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ai_agent_assignments": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "revenue_opportunities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "risk_warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "founder_approval_required": {
+      "type": "boolean",
+      "default": true
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "delivered",
+        "archived"
+      ],
+      "default": "draft"
+    }
+  },
+  "required": [
+    "briefing_date",
+    "executive_summary"
+  ]
+}

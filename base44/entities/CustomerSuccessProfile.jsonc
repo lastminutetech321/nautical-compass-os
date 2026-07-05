@@ -1,0 +1,337 @@
+{
+  "name": "CustomerSuccessProfile",
+  "type": "object",
+  "properties": {
+    "customer_name": {
+      "type": "string"
+    },
+    "customer_email": {
+      "type": "string"
+    },
+    "customer_type": {
+      "type": "string",
+      "enum": [
+        "enterprise",
+        "subscription",
+        "trial",
+        "individual",
+        "team"
+      ],
+      "default": "subscription"
+    },
+    "customer_ref_id": {
+      "type": "string"
+    },
+    "customer_ref_type": {
+      "type": "string",
+      "enum": [
+        "crm_lead",
+        "crm_contact",
+        "subscription",
+        "enterprise_org",
+        "marketplace_installation",
+        "manual"
+      ],
+      "default": "manual"
+    },
+    "assigned_cs_agent": {
+      "type": "string"
+    },
+    "assigned_cs_agent_id": {
+      "type": "string"
+    },
+    "onboarding_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "completed",
+        "stalled"
+      ],
+      "default": "not_started"
+    },
+    "onboarding_progress_pct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "onboarding_steps": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "onboarding_completed_date": {
+      "type": "string"
+    },
+    "adopted_features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "feature_adoption_pct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "key_features_used": {
+      "type": "number",
+      "default": 0
+    },
+    "total_features_available": {
+      "type": "number",
+      "default": 10
+    },
+    "support_tickets_open": {
+      "type": "number",
+      "default": 0
+    },
+    "support_tickets_total": {
+      "type": "number",
+      "default": 0
+    },
+    "support_satisfaction_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "nps_score": {
+      "type": "number",
+      "minimum": -100,
+      "maximum": 100,
+      "default": 0
+    },
+    "usage_frequency": {
+      "type": "string",
+      "enum": [
+        "daily",
+        "weekly",
+        "monthly",
+        "rare",
+        "inactive"
+      ],
+      "default": "rare"
+    },
+    "usage_trend": {
+      "type": "string",
+      "enum": [
+        "increasing",
+        "stable",
+        "declining",
+        "sharp_decline"
+      ],
+      "default": "stable"
+    },
+    "last_active_date": {
+      "type": "string"
+    },
+    "active_days_30d": {
+      "type": "number",
+      "default": 0
+    },
+    "sessions_30d": {
+      "type": "number",
+      "default": 0
+    },
+    "subscription_id": {
+      "type": "string"
+    },
+    "subscription_plan": {
+      "type": "string"
+    },
+    "subscription_status": {
+      "type": "string"
+    },
+    "mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "contract_value": {
+      "type": "number",
+      "default": 0
+    },
+    "renewal_date": {
+      "type": "string"
+    },
+    "days_to_renewal": {
+      "type": "number",
+      "default": 0
+    },
+    "renewal_status": {
+      "type": "string",
+      "enum": [
+        "not_due",
+        "upcoming",
+        "at_risk",
+        "renewed",
+        "churned",
+        "cancelled"
+      ],
+      "default": "not_due"
+    },
+    "retention_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "at_risk",
+        "churned",
+        "renewed",
+        "won_back"
+      ],
+      "default": "active"
+    },
+    "health_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "health_status": {
+      "type": "string",
+      "enum": [
+        "excellent",
+        "good",
+        "fair",
+        "at_risk",
+        "critical"
+      ],
+      "default": "fair"
+    },
+    "health_trend": {
+      "type": "string",
+      "enum": [
+        "improving",
+        "stable",
+        "declining",
+        "sharp_decline"
+      ],
+      "default": "stable"
+    },
+    "churn_risk_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "churn_risk_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "low"
+    },
+    "churn_risk_factors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "churn_signals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "journey_stage": {
+      "type": "string",
+      "enum": [
+        "prospecting",
+        "onboarding",
+        "activation",
+        "adoption",
+        "expansion",
+        "renewal",
+        "churn_risk",
+        "churned",
+        "won_back"
+      ],
+      "default": "prospecting"
+    },
+    "journey_milestones": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "recommended_outreach": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "recommended_education": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "recommended_upgrades": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "recommended_ai_assistance": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "founder_alert_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "alert_reason": {
+      "type": "string"
+    },
+    "alert_severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "warning",
+        "urgent",
+        "critical"
+      ],
+      "default": "info"
+    },
+    "alert_triggered_at": {
+      "type": "string"
+    },
+    "last_health_evaluation": {
+      "type": "string"
+    },
+    "next_evaluation": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "churned",
+        "archived"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "customer_name",
+    "customer_type"
+  ]
+}

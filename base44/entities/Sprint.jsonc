@@ -1,0 +1,69 @@
+{
+  "name": "Sprint",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "goal": {
+      "type": "string"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "active",
+        "completed",
+        "cancelled"
+      ],
+      "default": "planned"
+    },
+    "velocity": {
+      "type": "number",
+      "default": 0
+    },
+    "capacity": {
+      "type": "number",
+      "default": 0
+    },
+    "task_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "epic_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "retrospective": {
+      "type": "string"
+    },
+    "review_notes": {
+      "type": "string"
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "project_id"
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "name": "Radio",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "station_type": {
+      "type": "string",
+      "enum": [
+        "music",
+        "talk",
+        "news",
+        "mixed",
+        "genre_specific",
+        "live_show"
+      ],
+      "default": "music"
+    },
+    "description": {
+      "type": "string"
+    },
+    "host_name": {
+      "type": "string"
+    },
+    "host_id": {
+      "type": "string"
+    },
+    "cover_url": {
+      "type": "string"
+    },
+    "stream_url": {
+      "type": "string"
+    },
+    "is_live": {
+      "type": "boolean",
+      "default": false
+    },
+    "schedule": {
+      "type": "string"
+    },
+    "genres": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "listener_count": {
+      "type": "number",
+      "default": 0
+    },
+    "peak_listeners": {
+      "type": "number",
+      "default": 0
+    },
+    "total_spins": {
+      "type": "number",
+      "default": 0
+    },
+    "song_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "current_track": {
+      "type": "string"
+    },
+    "estimated_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "on_air",
+        "off_air",
+        "scheduled",
+        "archived"
+      ],
+      "default": "off_air"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

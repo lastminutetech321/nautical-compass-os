@@ -1,0 +1,97 @@
+{
+  "name": "ResourceAppointment",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "application_id": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "resource_name": {
+      "type": "string"
+    },
+    "appointment_type": {
+      "type": "string",
+      "enum": [
+        "intake_interview",
+        "document_submission",
+        "eligibility_review",
+        "benefits_enrollment",
+        "court_hearing",
+        "medical_appointment",
+        "employment_interview",
+        "housing_inspection",
+        "follow_up",
+        "other"
+      ],
+      "default": "intake_interview"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "time": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "virtual_link": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "scheduled",
+        "confirmed",
+        "completed",
+        "missed",
+        "rescheduled",
+        "cancelled"
+      ],
+      "default": "scheduled"
+    },
+    "reminder_sent": {
+      "type": "boolean",
+      "default": false
+    },
+    "documents_to_bring": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "preparation_notes": {
+      "type": "string"
+    },
+    "outcome": {
+      "type": "string"
+    },
+    "next_steps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "client_name"
+  ]
+}

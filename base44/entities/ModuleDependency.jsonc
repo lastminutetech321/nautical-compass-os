@@ -1,0 +1,120 @@
+{
+  "name": "ModuleDependency",
+  "type": "object",
+  "properties": {
+    "module_key": {
+      "type": "string"
+    },
+    "module_name": {
+      "type": "string"
+    },
+    "module_category": {
+      "type": "string",
+      "enum": [
+        "executive",
+        "workforce",
+        "customer",
+        "intelligence",
+        "governance",
+        "legal",
+        "financial",
+        "knowledge",
+        "automation",
+        "infrastructure",
+        "experience",
+        "resource"
+      ],
+      "default": "executive"
+    },
+    "depends_on": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "depended_by": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expected_entities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expected_pages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expected_automations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expected_agents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "health_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "health_status": {
+      "type": "string",
+      "enum": [
+        "excellent",
+        "good",
+        "fair",
+        "at_risk",
+        "critical",
+        "unregistered"
+      ],
+      "default": "unregistered"
+    },
+    "record_count": {
+      "type": "number",
+      "default": 0
+    },
+    "last_activity": {
+      "type": "string"
+    },
+    "is_registered": {
+      "type": "boolean",
+      "default": false
+    },
+    "registered_at": {
+      "type": "string"
+    },
+    "auto_registered": {
+      "type": "boolean",
+      "default": false
+    },
+    "orchestrator_managed": {
+      "type": "boolean",
+      "default": true
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "module_key",
+    "module_name",
+    "module_category"
+  ]
+}

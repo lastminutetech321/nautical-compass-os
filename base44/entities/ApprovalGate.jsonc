@@ -1,0 +1,83 @@
+{
+  "name": "ApprovalGate",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "send_email",
+        "charge_customer",
+        "change_pricing",
+        "publish_legal_output",
+        "deploy_code",
+        "delete_data",
+        "contact_third_party",
+        "spend_money",
+        "change_canon_law",
+        "external_message",
+        "hire_agent",
+        "cancel_subscription"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "requested_by": {
+      "type": "string"
+    },
+    "requesting_agent": {
+      "type": "string"
+    },
+    "payload_summary": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected",
+        "expired"
+      ],
+      "default": "pending"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "high"
+    },
+    "linked_entity_type": {
+      "type": "string"
+    },
+    "linked_entity_id": {
+      "type": "string"
+    },
+    "reviewed_by": {
+      "type": "string"
+    },
+    "reviewed_at": {
+      "type": "string"
+    },
+    "rejection_reason": {
+      "type": "string"
+    },
+    "expires_at": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "action_type"
+  ]
+}

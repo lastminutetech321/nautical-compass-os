@@ -1,0 +1,94 @@
+{
+  "name": "Playlist",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "curator_id": {
+      "type": "string"
+    },
+    "curator_name": {
+      "type": "string"
+    },
+    "playlist_type": {
+      "type": "string",
+      "enum": [
+        "editorial",
+        "algorithmic",
+        "user",
+        "artist",
+        "mood",
+        "genre",
+        "event"
+      ],
+      "default": "editorial"
+    },
+    "cover_url": {
+      "type": "string"
+    },
+    "song_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "song_count": {
+      "type": "number",
+      "default": 0
+    },
+    "total_duration_sec": {
+      "type": "number",
+      "default": 0
+    },
+    "follower_count": {
+      "type": "number",
+      "default": 0
+    },
+    "play_count": {
+      "type": "number",
+      "default": 0
+    },
+    "is_public": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_official": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "genres": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mood": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

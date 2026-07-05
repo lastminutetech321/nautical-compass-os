@@ -1,0 +1,140 @@
+{
+  "name": "SubscriptionPlan",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "plan_type": {
+      "type": "string",
+      "enum": [
+        "free",
+        "starter",
+        "professional",
+        "enterprise",
+        "family",
+        "team",
+        "custom"
+      ],
+      "default": "starter"
+    },
+    "billing_model": {
+      "type": "string",
+      "enum": [
+        "flat_rate",
+        "per_seat",
+        "usage_based",
+        "tiered",
+        "hybrid"
+      ],
+      "default": "flat_rate"
+    },
+    "price_monthly": {
+      "type": "number",
+      "default": 0
+    },
+    "price_annual": {
+      "type": "number",
+      "default": 0
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "seats_included": {
+      "type": "number",
+      "default": 1
+    },
+    "max_seats": {
+      "type": "number",
+      "default": 1
+    },
+    "seat_price": {
+      "type": "number",
+      "default": 0
+    },
+    "usage_unit": {
+      "type": "string"
+    },
+    "usage_price_per_unit": {
+      "type": "number",
+      "default": 0
+    },
+    "usage_included_units": {
+      "type": "number",
+      "default": 0
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "limits": {
+      "type": "object"
+    },
+    "trial_days": {
+      "type": "number",
+      "default": 0
+    },
+    "grace_period_days": {
+      "type": "number",
+      "default": 3
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_public": {
+      "type": "boolean",
+      "default": true
+    },
+    "sort_order": {
+      "type": "number",
+      "default": 0
+    },
+    "stripe_price_id_monthly": {
+      "type": "string"
+    },
+    "stripe_price_id_annual": {
+      "type": "string"
+    },
+    "stripe_product_id": {
+      "type": "string"
+    },
+    "square_catalog_id": {
+      "type": "string"
+    },
+    "paypal_plan_id": {
+      "type": "string"
+    },
+    "authnet_item_id": {
+      "type": "string"
+    },
+    "allows_referrals": {
+      "type": "boolean",
+      "default": false
+    },
+    "referral_commission_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "director_commission_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "name",
+    "plan_type"
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "name": "VendorRecord",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string"
+    },
+    "contact_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "staffing",
+        "subcontractor",
+        "supplier",
+        "consultant",
+        "agency",
+        "union_hall",
+        "technology",
+        "legal",
+        "financial",
+        "training",
+        "other"
+      ],
+      "default": "staffing"
+    },
+    "services_offered": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "industries": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "jurisdiction": {
+      "type": "string"
+    },
+    "license_number": {
+      "type": "string"
+    },
+    "insurance_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "w9_on_file": {
+      "type": "boolean",
+      "default": false
+    },
+    "contract_on_file": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "preferred",
+        "blacklisted",
+        "pending_review"
+      ],
+      "default": "active"
+    },
+    "rating": {
+      "type": "number",
+      "default": 0
+    },
+    "total_paid": {
+      "type": "number",
+      "default": 0
+    },
+    "notes": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "company_name",
+    "category"
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "name": "TrainingCourse",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "safety",
+        "technical",
+        "compliance",
+        "leadership",
+        "soft_skills",
+        "certification_prep",
+        "trade",
+        "digital",
+        "legal",
+        "financial",
+        "other"
+      ],
+      "default": "technical"
+    },
+    "provider": {
+      "type": "string"
+    },
+    "delivery_method": {
+      "type": "string",
+      "enum": [
+        "online",
+        "in_person",
+        "hybrid",
+        "self_paced",
+        "workshop",
+        "apprenticeship"
+      ],
+      "default": "online"
+    },
+    "duration_hours": {
+      "type": "number",
+      "default": 0
+    },
+    "cost": {
+      "type": "number",
+      "default": 0
+    },
+    "free": {
+      "type": "boolean",
+      "default": false
+    },
+    "certification_awarded": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "skills_gained": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "available",
+        "coming_soon",
+        "archived"
+      ],
+      "default": "available"
+    },
+    "rating": {
+      "type": "number",
+      "default": 0
+    },
+    "enrollments": {
+      "type": "number",
+      "default": 0
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "category"
+  ]
+}

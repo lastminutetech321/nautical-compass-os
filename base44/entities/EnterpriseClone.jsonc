@@ -1,0 +1,174 @@
+{
+  "name": "EnterpriseClone",
+  "type": "object",
+  "properties": {
+    "clone_name": {
+      "type": "string"
+    },
+    "source_blueprint_id": {
+      "type": "string"
+    },
+    "source_blueprint_name": {
+      "type": "string"
+    },
+    "source_blueprint_version": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "company_size": {
+      "type": "string",
+      "enum": [
+        "startup",
+        "small",
+        "medium",
+        "large",
+        "enterprise"
+      ],
+      "default": "startup"
+    },
+    "revenue_model": {
+      "type": "string"
+    },
+    "required_modules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "organizations": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "users": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "ai_workforce": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "roadmap": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "apis": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "subscriptions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "dashboards": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "mission_control_config": {
+      "type": "object"
+    },
+    "executive_command_config": {
+      "type": "object"
+    },
+    "knowledge_graph_config": {
+      "type": "object"
+    },
+    "engineering_plan": {
+      "type": "object"
+    },
+    "development_plan": {
+      "type": "object"
+    },
+    "executive_summary": {
+      "type": "string"
+    },
+    "inherited_components": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "customized_components": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cost_savings_estimate": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "generating",
+        "provisioned",
+        "active",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "generated_by": {
+      "type": "string"
+    },
+    "founder_approval_required": {
+      "type": "boolean",
+      "default": true
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "clone_name",
+    "source_blueprint_id"
+  ]
+}

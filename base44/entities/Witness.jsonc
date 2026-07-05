@@ -1,0 +1,66 @@
+{
+  "name": "Witness",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "witness",
+        "subject",
+        "victim",
+        "respondent",
+        "expert",
+        "other"
+      ],
+      "default": "witness"
+    },
+    "case_name": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "contact_info": {
+      "type": "string"
+    },
+    "statements": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "contradictions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "interactions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "credibility_notes": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

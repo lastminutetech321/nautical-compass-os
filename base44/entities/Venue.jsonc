@@ -1,0 +1,137 @@
+{
+  "name": "Venue",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "venue_type": {
+      "type": "string",
+      "enum": [
+        "bar",
+        "restaurant",
+        "lounge",
+        "storefront",
+        "community_center",
+        "church",
+        "hotel",
+        "rooftop",
+        "gallery",
+        "after_hours_business",
+        "other"
+      ],
+      "default": "bar"
+    },
+    "address": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "zip_code": {
+      "type": "string"
+    },
+    "latitude": {
+      "type": "number"
+    },
+    "longitude": {
+      "type": "number"
+    },
+    "capacity": {
+      "type": "number",
+      "default": 0
+    },
+    "owner_name": {
+      "type": "string"
+    },
+    "owner_email": {
+      "type": "string"
+    },
+    "owner_phone": {
+      "type": "string"
+    },
+    "current_monthly_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "target_monthly_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "event_revenue_potential": {
+      "type": "number",
+      "default": 0
+    },
+    "event_revenue_actual": {
+      "type": "number",
+      "default": 0
+    },
+    "description": {
+      "type": "string"
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "amenities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "operating_hours": {
+      "type": "string"
+    },
+    "event_ready": {
+      "type": "boolean",
+      "default": false
+    },
+    "readiness_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "events_hosted": {
+      "type": "number",
+      "default": 0
+    },
+    "total_event_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "avg_event_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "prospective",
+        "onboarding",
+        "active",
+        "paused",
+        "inactive"
+      ],
+      "default": "prospective"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "venue_type"
+  ]
+}

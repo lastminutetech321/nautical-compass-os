@@ -1,0 +1,207 @@
+{
+  "name": "FounderIntelligenceBrief",
+  "type": "object",
+  "properties": {
+    "brief_date": {
+      "type": "string"
+    },
+    "brief_type": {
+      "type": "string",
+      "enum": [
+        "morning",
+        "midday",
+        "evening",
+        "on_demand"
+      ],
+      "default": "morning"
+    },
+    "org_health_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "org_iq": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "org_readiness": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "top_priorities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "top_risks": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "top_opportunities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "top_delegation_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "top_automation_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "top_revenue_opportunities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "top_customers_needing_attention": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "top_workers_ready_advancement": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "top_departments_needing_intervention": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "highest_roi_action": {
+      "type": "object"
+    },
+    "predicted_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "predicted_churn": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "predicted_staffing_needs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "predicted_infrastructure_needs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "predicted_founder_workload_hours": {
+      "type": "number",
+      "default": 0
+    },
+    "predicted_ai_workload_hours": {
+      "type": "number",
+      "default": 0
+    },
+    "founder_time_saved_week_hours": {
+      "type": "number",
+      "default": 0
+    },
+    "department_health": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "module_health": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "ai_health": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "system_confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "automation_coverage_pct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "memory_growth": {
+      "type": "number",
+      "default": 0
+    },
+    "knowledge_growth": {
+      "type": "number",
+      "default": 0
+    },
+    "legal_readiness": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "financial_readiness": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "customer_health": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "workforce_health": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "revenue_health": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "brief_date"
+  ]
+}

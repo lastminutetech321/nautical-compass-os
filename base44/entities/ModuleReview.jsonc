@@ -1,0 +1,63 @@
+{
+  "name": "ModuleReview",
+  "type": "object",
+  "properties": {
+    "module_id": {
+      "type": "string"
+    },
+    "module_name": {
+      "type": "string"
+    },
+    "reviewer_id": {
+      "type": "string"
+    },
+    "reviewer_name": {
+      "type": "string"
+    },
+    "enterprise_name": {
+      "type": "string"
+    },
+    "rating": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 5,
+      "default": 5
+    },
+    "review_text": {
+      "type": "string"
+    },
+    "is_verified_install": {
+      "type": "boolean",
+      "default": false
+    },
+    "helpful_count": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "published",
+        "flagged",
+        "removed"
+      ],
+      "default": "published"
+    },
+    "pros": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "module_id",
+    "rating"
+  ]
+}

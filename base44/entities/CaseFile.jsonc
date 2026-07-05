@@ -1,0 +1,152 @@
+{
+  "name": "CaseFile",
+  "type": "object",
+  "properties": {
+    "case_number": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "case_type": {
+      "type": "string",
+      "enum": [
+        "civil_rights",
+        "foia",
+        "benefits",
+        "employment",
+        "housing",
+        "consumer",
+        "criminal_defense",
+        "family",
+        "immigration",
+        "other"
+      ],
+      "default": "civil_rights"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "intake",
+        "open",
+        "investigation",
+        "discovery",
+        "pre_trial",
+        "trial",
+        "settled",
+        "closed",
+        "appealed"
+      ],
+      "default": "intake"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "organization_id": {
+      "type": "string"
+    },
+    "assigned_attorney": {
+      "type": "string"
+    },
+    "assigned_agents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "jurisdiction": {
+      "type": "string"
+    },
+    "court": {
+      "type": "string"
+    },
+    "docket_number": {
+      "type": "string"
+    },
+    "filing_deadline": {
+      "type": "string",
+      "format": "date"
+    },
+    "statute_of_limitations": {
+      "type": "string",
+      "format": "date"
+    },
+    "opened_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "closed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "linked_evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_foia_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_canon_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "legal_theories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "relief_sought": {
+      "type": "string"
+    },
+    "settlement_amount": {
+      "type": "number"
+    },
+    "outcome": {
+      "type": "string"
+    },
+    "outcome_notes": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "confidential": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "title",
+    "case_type"
+  ]
+}

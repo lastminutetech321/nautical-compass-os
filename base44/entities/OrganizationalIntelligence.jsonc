@@ -1,0 +1,113 @@
+{
+  "name": "OrganizationalIntelligence",
+  "type": "object",
+  "properties": {
+    "insight_type": {
+      "type": "string",
+      "enum": [
+        "common_question",
+        "common_mistake",
+        "workflow_bottleneck",
+        "support_trend",
+        "feature_request",
+        "training_gap",
+        "process_improvement",
+        "documentation_gap",
+        "ui_confusion"
+      ],
+      "default": "common_question"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "frequency": {
+      "type": "number",
+      "default": 1
+    },
+    "affected_roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affected_workflows": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affected_modules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "converted_to_type": {
+      "type": "string",
+      "enum": [
+        "improvement_item",
+        "knowledge_article",
+        "training_update",
+        "workflow_improvement",
+        "feature_request",
+        "canon_gap",
+        "engineering_task",
+        "none"
+      ],
+      "default": "none"
+    },
+    "converted_to_id": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "daily_reflection",
+        "ai_observation",
+        "support_ticket",
+        "manual",
+        "system_scan"
+      ],
+      "default": "daily_reflection"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "investigating",
+        "resolved",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "insight_type",
+    "title"
+  ]
+}

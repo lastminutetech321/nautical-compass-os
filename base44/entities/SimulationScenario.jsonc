@@ -1,0 +1,68 @@
+{
+  "name": "SimulationScenario",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "scenario_type": {
+      "type": "string",
+      "enum": [
+        "growth_spike",
+        "provider_failure",
+        "cost_increase",
+        "load_spike",
+        "churn_spike",
+        "hiring_spike",
+        "enterprise_spike",
+        "custom"
+      ],
+      "default": "custom"
+    },
+    "question": {
+      "type": "string"
+    },
+    "parameters": {
+      "type": "object"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "running",
+        "completed",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "results": {
+      "type": "object"
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "risk_assessment": {
+      "type": "object"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "created_by": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "name",
+    "question",
+    "scenario_type"
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "name": "EngagementMetric",
+  "type": "object",
+  "properties": {
+    "metric_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "entity_type": {
+      "type": "string",
+      "enum": [
+        "artist",
+        "album",
+        "song",
+        "creator",
+        "podcast",
+        "video",
+        "event",
+        "playlist",
+        "radio",
+        "community",
+        "fan_club",
+        "marketplace",
+        "platform"
+      ],
+      "default": "platform"
+    },
+    "entity_id": {
+      "type": "string"
+    },
+    "entity_name": {
+      "type": "string"
+    },
+    "total_streams": {
+      "type": "number",
+      "default": 0
+    },
+    "total_views": {
+      "type": "number",
+      "default": 0
+    },
+    "total_downloads": {
+      "type": "number",
+      "default": 0
+    },
+    "unique_listeners": {
+      "type": "number",
+      "default": 0
+    },
+    "new_followers": {
+      "type": "number",
+      "default": 0
+    },
+    "likes": {
+      "type": "number",
+      "default": 0
+    },
+    "comments": {
+      "type": "number",
+      "default": 0
+    },
+    "shares": {
+      "type": "number",
+      "default": 0
+    },
+    "saves": {
+      "type": "number",
+      "default": 0
+    },
+    "engagement_rate": {
+      "type": "number",
+      "default": 0
+    },
+    "retention_rate": {
+      "type": "number",
+      "default": 0
+    },
+    "skip_rate": {
+      "type": "number",
+      "default": 0
+    },
+    "revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "demographic_data": {
+      "type": "object"
+    },
+    "geographic_data": {
+      "type": "object"
+    },
+    "device_breakdown": {
+      "type": "object"
+    },
+    "source_breakdown": {
+      "type": "object"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "metric_date",
+    "entity_type"
+  ]
+}

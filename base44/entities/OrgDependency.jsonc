@@ -1,0 +1,91 @@
+{
+  "name": "OrgDependency",
+  "type": "object",
+  "properties": {
+    "node_key": {
+      "type": "string"
+    },
+    "node_name": {
+      "type": "string"
+    },
+    "node_type": {
+      "type": "string",
+      "enum": [
+        "department",
+        "module",
+        "entity",
+        "automation",
+        "ai_agent",
+        "workflow"
+      ],
+      "default": "department"
+    },
+    "dept_key": {
+      "type": "string"
+    },
+    "depends_on": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "depended_by": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "health_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "is_bottleneck": {
+      "type": "boolean",
+      "default": false
+    },
+    "bottleneck_severity": {
+      "type": "string",
+      "enum": [
+        "none",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "none"
+    },
+    "blocked_count": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "dormant",
+        "broken",
+        "unregistered"
+      ],
+      "default": "active"
+    },
+    "last_updated": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "node_key",
+    "node_name",
+    "node_type"
+  ]
+}

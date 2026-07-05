@@ -1,0 +1,109 @@
+{
+  "name": "FounderBrain",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "default": "1.0"
+    },
+    "is_current": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending_approval",
+        "active",
+        "superseded",
+        "rejected"
+      ],
+      "default": "pending_approval"
+    },
+    "vision": {
+      "type": "string"
+    },
+    "mission": {
+      "type": "string"
+    },
+    "business_philosophy": {
+      "type": "string"
+    },
+    "product_philosophy": {
+      "type": "string"
+    },
+    "engineering_philosophy": {
+      "type": "string"
+    },
+    "legal_philosophy": {
+      "type": "string"
+    },
+    "leadership_style": {
+      "type": "string"
+    },
+    "approval_preferences": {
+      "type": "object"
+    },
+    "risk_tolerance": {
+      "type": "object"
+    },
+    "priorities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "communication_style": {
+      "type": "string"
+    },
+    "decision_history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "lessons_learned": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "strategic_goals": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "update_reason": {
+      "type": "string"
+    },
+    "change_summary": {
+      "type": "string"
+    },
+    "requested_by": {
+      "type": "string"
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "superseded_by_version": {
+      "type": "string"
+    },
+    "rejection_reason": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "version",
+    "status"
+  ]
+}

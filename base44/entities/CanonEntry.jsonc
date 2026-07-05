@@ -1,0 +1,244 @@
+{
+  "name": "CanonEntry",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "federal_constitution",
+        "state_constitution",
+        "federal_statute",
+        "state_statute",
+        "federal_rules",
+        "administrative_regulation",
+        "case_law",
+        "constitutional_law",
+        "civil_rights",
+        "standing_doctrine",
+        "jurisdiction",
+        "capacity_doctrine",
+        "administrative_law",
+        "consumer_protection",
+        "indigenous_rights",
+        "agency_guidance",
+        "policy",
+        "nc_doctrine",
+        "template",
+        "research_note",
+        "foia_guide",
+        "evidence_standard",
+        "labor_rail",
+        "resource_compass",
+        "culture_rail",
+        "authority_compass",
+        "court_compass",
+        "investigation_compass",
+        "ai_instruction",
+        "decision_tree",
+        "intake_workflow",
+        "prompt_library",
+        "other"
+      ],
+      "default": "other"
+    },
+    "subcategory": {
+      "type": "string"
+    },
+    "jurisdiction": {
+      "type": "string"
+    },
+    "authority_level": {
+      "type": "string",
+      "enum": [
+        "supreme_court",
+        "circuit_court",
+        "district_court",
+        "federal_agency",
+        "state_supreme",
+        "state_appellate",
+        "state_statute",
+        "municipal",
+        "constitutional",
+        "nc_doctrine",
+        "administrative",
+        "policy"
+      ],
+      "default": "federal_agency"
+    },
+    "content": {
+      "type": "string"
+    },
+    "full_text": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "citation": {
+      "type": "string"
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "superseded": {
+      "type": "boolean",
+      "default": false
+    },
+    "superseded_by": {
+      "type": "string"
+    },
+    "source_url": {
+      "type": "string"
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cross_references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "related_doctrines": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "related_constitutional_provisions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "related_statutes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "related_case_law": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cases_citing": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "statutes_citing": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "constitutional_topics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_entry_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ai_services": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ai_embedding": {
+      "type": "string"
+    },
+    "search_index": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "pending_review",
+        "active",
+        "superseded",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "version": {
+      "type": "string",
+      "default": "1.0"
+    },
+    "verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "reviewer": {
+      "type": "string"
+    },
+    "reviewed_at": {
+      "type": "string"
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "revision_history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "source_file_url": {
+      "type": "string"
+    },
+    "imported_at": {
+      "type": "string"
+    },
+    "indexed_at": {
+      "type": "string"
+    },
+    "is_canon_gap": {
+      "type": "boolean",
+      "default": false
+    },
+    "gap_import_status": {
+      "type": "string",
+      "enum": [
+        "not_imported",
+        "partial",
+        "pending_upload",
+        "imported"
+      ],
+      "default": "not_imported"
+    },
+    "gap_notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "category",
+    "content"
+  ]
+}

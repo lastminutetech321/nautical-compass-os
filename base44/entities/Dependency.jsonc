@@ -1,0 +1,129 @@
+{
+  "name": "Dependency",
+  "type": "object",
+  "properties": {
+    "dependency_type": {
+      "type": "string",
+      "enum": [
+        "requirement",
+        "entity",
+        "api",
+        "documentation",
+        "test",
+        "canon",
+        "permission",
+        "approval",
+        "infrastructure",
+        "integration",
+        "workflow"
+      ],
+      "default": "requirement"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "source_entity_type": {
+      "type": "string"
+    },
+    "source_entity_id": {
+      "type": "string"
+    },
+    "source_name": {
+      "type": "string"
+    },
+    "what_is_missing": {
+      "type": "string"
+    },
+    "why_blocked": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "estimated_completion": {
+      "type": "string",
+      "format": "date"
+    },
+    "estimated_hours": {
+      "type": "number",
+      "default": 0
+    },
+    "business_impact": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "financial_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "blocks_build_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "blocks_build_names": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "priority_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "unblock_count": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "missing",
+        "partial",
+        "in_progress",
+        "resolved",
+        "blocked"
+      ],
+      "default": "missing"
+    },
+    "resolution_steps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "detected_by": {
+      "type": "string",
+      "default": "NC Dependency Engine"
+    },
+    "detected_at": {
+      "type": "string"
+    },
+    "resolved_at": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "dependency_type",
+    "title",
+    "what_is_missing"
+  ]
+}

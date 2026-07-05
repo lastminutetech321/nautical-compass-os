@@ -1,0 +1,144 @@
+{
+  "name": "IndustryTemplate",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "industry_type": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "levels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "level_name": {
+            "type": "string"
+          },
+          "level_order": {
+            "type": "number",
+            "default": 0
+          },
+          "description": {
+            "type": "string"
+          },
+          "required_skills": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "required_training": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "required_certifications": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "min_readiness_score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 0
+          },
+          "suggested_pay_range_min": {
+            "type": "number",
+            "default": 0
+          },
+          "suggested_pay_range_max": {
+            "type": "number",
+            "default": 0
+          },
+          "suggested_pay_rate_type": {
+            "type": "string",
+            "enum": [
+              "hourly",
+              "daily",
+              "weekly",
+              "project",
+              "salary"
+            ],
+            "default": "hourly"
+          },
+          "promotion_requirements": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "safety_requirements": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "typical_responsibilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "default_readiness_thresholds": {
+      "type": "object",
+      "properties": {
+        "ready_for_work": {
+          "type": "number",
+          "default": 80
+        },
+        "needs_training": {
+          "type": "number",
+          "default": 60
+        },
+        "needs_mentor": {
+          "type": "number",
+          "default": 40
+        },
+        "needs_compliance": {
+          "type": "number",
+          "default": 30
+        }
+      }
+    },
+    "version": {
+      "type": "number",
+      "default": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "created_by": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "name",
+    "industry_type"
+  ]
+}

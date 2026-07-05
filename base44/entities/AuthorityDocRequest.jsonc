@@ -1,0 +1,107 @@
+{
+  "name": "AuthorityDocRequest",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "interaction_id": {
+      "type": "string"
+    },
+    "authority_type": {
+      "type": "string",
+      "enum": [
+        "police",
+        "court",
+        "employer",
+        "landlord",
+        "government",
+        "school",
+        "hoa",
+        "security",
+        "hospital",
+        "licensing_board",
+        "corporation",
+        "other"
+      ],
+      "default": "government"
+    },
+    "authority_name": {
+      "type": "string"
+    },
+    "request_type": {
+      "type": "string",
+      "enum": [
+        "foia",
+        "public_records",
+        "personnel_file",
+        "incident_report",
+        "warrant",
+        "policy_manual",
+        "license_records",
+        "court_records",
+        "employment_records",
+        "medical_records",
+        "other"
+      ],
+      "default": "public_records"
+    },
+    "documents_requested": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "submitted",
+        "acknowledged",
+        "partial_response",
+        "fulfilled",
+        "denied",
+        "appealed",
+        "overdue"
+      ],
+      "default": "draft"
+    },
+    "submitted_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "deadline": {
+      "type": "string",
+      "format": "date"
+    },
+    "response_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "reference_number": {
+      "type": "string"
+    },
+    "denial_reason": {
+      "type": "string"
+    },
+    "documents_received_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "title",
+    "request_type"
+  ]
+}

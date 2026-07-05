@@ -1,0 +1,132 @@
+{
+  "name": "RoyaltyTracking",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "song_id": {
+      "type": "string"
+    },
+    "song_name": {
+      "type": "string"
+    },
+    "artist_id": {
+      "type": "string"
+    },
+    "artist_name": {
+      "type": "string"
+    },
+    "album_id": {
+      "type": "string"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "spotify",
+        "apple_music",
+        "youtube",
+        "tidal",
+        "amazon_music",
+        "soundcloud",
+        "bandcamp",
+        "physical",
+        "sync",
+        "radio",
+        "other"
+      ],
+      "default": "spotify"
+    },
+    "stream_count": {
+      "type": "number",
+      "default": 0
+    },
+    "download_count": {
+      "type": "number",
+      "default": 0
+    },
+    "gross_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "platform_fee_pct": {
+      "type": "number",
+      "default": 30
+    },
+    "platform_fee_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "net_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "artist_share_pct": {
+      "type": "number",
+      "default": 100
+    },
+    "artist_payout": {
+      "type": "number",
+      "default": 0
+    },
+    "label_share_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "label_payout": {
+      "type": "number",
+      "default": 0
+    },
+    "producer_share_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "producer_payout": {
+      "type": "number",
+      "default": 0
+    },
+    "publisher_share_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "publisher_payout": {
+      "type": "number",
+      "default": 0
+    },
+    "ncos_share_pct": {
+      "type": "number",
+      "default": 10
+    },
+    "ncos_payout": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "calculated",
+        "pending_payout",
+        "paid",
+        "disputed",
+        "archived"
+      ],
+      "default": "calculated"
+    },
+    "paid_at": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "song_id",
+    "source"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "name": "Project Director Hourly Evaluation",
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "project_director_hourly",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "run_evaluation": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncProjectDirector",
+            "args": {
+              "operation": "evaluate",
+              "params": {}
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Run Hourly Evaluation",
+            "description": "Evaluate all projects, dependencies, risks, cash flow, velocity"
+          }
+        }
+      }
+    ]
+  },
+  "description": "Every hour, the NC Project Director evaluates all projects, deadlines, dependencies, resources, risks, cash flow, and engineering velocity \u2014 generating daily briefings, weekly roadmaps, monthly milestones, recommended sprints, staffing, and priorities. All outputs require Founder approval before execution.",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "0 * * * *",
+      "one_time_date": null,
+      "timezone": "America/New_York",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  }
+}

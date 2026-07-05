@@ -1,0 +1,112 @@
+{
+  "name": "AgentTask",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "agent_id": {
+      "type": "string"
+    },
+    "agent_name": {
+      "type": "string"
+    },
+    "task_type": {
+      "type": "string",
+      "enum": [
+        "analyze",
+        "draft",
+        "research",
+        "test",
+        "organize",
+        "summarize",
+        "monitor",
+        "report",
+        "escalate",
+        "custom"
+      ],
+      "default": "analyze"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "assigned",
+        "in_progress",
+        "blocked",
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "default": "queued"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "input_data": {
+      "type": "object"
+    },
+    "output_data": {
+      "type": "object"
+    },
+    "result_summary": {
+      "type": "string"
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "linked_entity_type": {
+      "type": "string"
+    },
+    "linked_entity_id": {
+      "type": "string"
+    },
+    "supervisor_agent": {
+      "type": "string"
+    },
+    "requires_approval": {
+      "type": "boolean",
+      "default": false
+    },
+    "approval_gate_id": {
+      "type": "string"
+    },
+    "scheduled_for": {
+      "type": "string"
+    },
+    "started_at": {
+      "type": "string"
+    },
+    "completed_at": {
+      "type": "string"
+    },
+    "estimated_hours": {
+      "type": "number",
+      "default": 1
+    },
+    "actual_hours": {
+      "type": "number"
+    },
+    "escalation_reason": {
+      "type": "string"
+    },
+    "retry_count": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "title",
+    "task_type"
+  ]
+}

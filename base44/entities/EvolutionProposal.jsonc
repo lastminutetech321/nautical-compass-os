@@ -1,0 +1,217 @@
+{
+  "name": "EvolutionProposal",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "task",
+        "project",
+        "sprint",
+        "manual",
+        "ai_scan"
+      ],
+      "default": "task"
+    },
+    "source_id": {
+      "type": "string"
+    },
+    "source_name": {
+      "type": "string"
+    },
+    "what_was_learned": {
+      "type": "string"
+    },
+    "what_can_be_automated": {
+      "type": "string"
+    },
+    "what_should_never_happen_again": {
+      "type": "string"
+    },
+    "what_documentation_should_be_updated": {
+      "type": "string"
+    },
+    "what_new_canon_knowledge_exists": {
+      "type": "string"
+    },
+    "which_ai_employee_became_smarter": {
+      "type": "string"
+    },
+    "which_workflow_became_faster": {
+      "type": "string"
+    },
+    "proposed_improvement": {
+      "type": "string"
+    },
+    "proposed_action": {
+      "type": "string"
+    },
+    "business_value_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "engineering_value_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "customer_value_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "legal_value_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "revenue_impact_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "implementation_effort_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "risk_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "overall_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "estimated_revenue_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "estimated_cost_savings": {
+      "type": "number",
+      "default": 0
+    },
+    "estimated_time_savings_hours": {
+      "type": "number",
+      "default": 0
+    },
+    "affected_modules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affected_agents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affected_workflows": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected",
+        "implemented",
+        "deferred"
+      ],
+      "default": "pending"
+    },
+    "approval_required": {
+      "type": "boolean",
+      "default": true
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "rejected_reason": {
+      "type": "string"
+    },
+    "founder_notes": {
+      "type": "string"
+    },
+    "roadmap_item_id": {
+      "type": "string"
+    },
+    "roadmap_item_created": {
+      "type": "boolean",
+      "default": false
+    },
+    "linked_lesson_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_canon_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "founder_alert": {
+      "type": "boolean",
+      "default": false
+    },
+    "alert_reason": {
+      "type": "string"
+    },
+    "generated_by": {
+      "type": "string",
+      "default": "NC Evolution Engine"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "implemented_at": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "title",
+    "source_type"
+  ]
+}

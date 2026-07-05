@@ -1,0 +1,141 @@
+{
+  "name": "CRMContract",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "deal_id": {
+      "type": "string"
+    },
+    "organization_id": {
+      "type": "string"
+    },
+    "contact_id": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "msa",
+        "sow",
+        "nda",
+        "license",
+        "partnership",
+        "retainer",
+        "service_agreement",
+        "enterprise"
+      ],
+      "default": "service_agreement"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "under_review",
+        "pending_signature",
+        "active",
+        "expired",
+        "terminated",
+        "renewed"
+      ],
+      "default": "draft"
+    },
+    "lifecycle_stage": {
+      "type": "string",
+      "enum": [
+        "negotiation",
+        "won",
+        "active",
+        "renewal",
+        "expired"
+      ],
+      "default": "negotiation"
+    },
+    "value": {
+      "type": "number",
+      "default": 0
+    },
+    "mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "auto_renews": {
+      "type": "boolean",
+      "default": false
+    },
+    "renewal_notice_days": {
+      "type": "number",
+      "default": 30
+    },
+    "signed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "signed_by": {
+      "type": "string"
+    },
+    "terms_summary": {
+      "type": "string"
+    },
+    "file_url": {
+      "type": "string"
+    },
+    "assigned_agent": {
+      "type": "string"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "next_action": {
+      "type": "string"
+    },
+    "next_action_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "requires_founder_approval": {
+      "type": "boolean",
+      "default": false
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "timeline": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "connected_evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

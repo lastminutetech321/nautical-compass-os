@@ -1,0 +1,92 @@
+{
+  "name": "AIService",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "service_type": {
+      "type": "string",
+      "enum": [
+        "juris_engine",
+        "resource_compass",
+        "labor_rail",
+        "court_compass",
+        "authority_compass",
+        "investigation_compass",
+        "custom"
+      ],
+      "default": "custom"
+    },
+    "description": {
+      "type": "string"
+    },
+    "department": {
+      "type": "string"
+    },
+    "canon_entry_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "canon_categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "system_prompt_template": {
+      "type": "string"
+    },
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "consuming_applications": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "agent_profile_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "beta",
+        "planned",
+        "deprecated"
+      ],
+      "default": "planned"
+    },
+    "version": {
+      "type": "string",
+      "default": "1.0"
+    },
+    "call_count": {
+      "type": "number",
+      "default": 0
+    },
+    "last_called": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "service_type"
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "name": "PublicAccountabilityRecord",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "authority_type": {
+      "type": "string",
+      "enum": [
+        "police",
+        "court",
+        "employer",
+        "landlord",
+        "government",
+        "school",
+        "hoa",
+        "security",
+        "hospital",
+        "licensing_board",
+        "corporation",
+        "other"
+      ],
+      "default": "government"
+    },
+    "authority_name": {
+      "type": "string"
+    },
+    "actor_name": {
+      "type": "string"
+    },
+    "actor_title": {
+      "type": "string"
+    },
+    "record_type": {
+      "type": "string",
+      "enum": [
+        "pattern_of_conduct",
+        "policy_violation",
+        "public_complaint",
+        "disciplinary_action",
+        "lawsuit",
+        "settlement",
+        "media_coverage",
+        "legislative_action",
+        "regulatory_finding",
+        "other"
+      ],
+      "default": "public_complaint"
+    },
+    "description": {
+      "type": "string"
+    },
+    "date_of_record": {
+      "type": "string",
+      "format": "date"
+    },
+    "source_url": {
+      "type": "string"
+    },
+    "source_name": {
+      "type": "string"
+    },
+    "verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "public_visibility": {
+      "type": "string",
+      "enum": [
+        "private",
+        "internal",
+        "public"
+      ],
+      "default": "internal"
+    },
+    "linked_interaction_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_complaint_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "authority_type",
+    "record_type"
+  ]
+}

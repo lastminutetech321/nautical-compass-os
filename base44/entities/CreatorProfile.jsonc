@@ -1,0 +1,122 @@
+{
+  "name": "CreatorProfile",
+  "type": "object",
+  "properties": {
+    "creator_id": {
+      "type": "string"
+    },
+    "creator_name": {
+      "type": "string"
+    },
+    "creator_type": {
+      "type": "string"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "headline": {
+      "type": "string"
+    },
+    "bio": {
+      "type": "string"
+    },
+    "avatar_url": {
+      "type": "string"
+    },
+    "banner_url": {
+      "type": "string"
+    },
+    "gallery_images": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "social_links": {
+      "type": "object"
+    },
+    "website": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "verification_badge": {
+      "type": "string",
+      "enum": [
+        "none",
+        "blue",
+        "gold",
+        "platinum"
+      ],
+      "default": "none"
+    },
+    "is_featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_trending": {
+      "type": "boolean",
+      "default": false
+    },
+    "content_count": {
+      "type": "number",
+      "default": 0
+    },
+    "follower_count": {
+      "type": "number",
+      "default": 0
+    },
+    "engagement_rate": {
+      "type": "number",
+      "default": 0
+    },
+    "specialties": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "achievements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "portfolio_links": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "contact_email": {
+      "type": "string"
+    },
+    "booking_email": {
+      "type": "string"
+    },
+    "is_public": {
+      "type": "boolean",
+      "default": true
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "hidden",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "creator_id",
+    "creator_name"
+  ]
+}

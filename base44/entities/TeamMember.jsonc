@@ -1,0 +1,68 @@
+{
+  "name": "TeamMember",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "department": {
+      "type": "string",
+      "enum": [
+        "engineering",
+        "design",
+        "marketing",
+        "sales",
+        "operations",
+        "finance",
+        "hr",
+        "executive",
+        "other"
+      ],
+      "default": "other"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "manager",
+        "member",
+        "viewer"
+      ],
+      "default": "member"
+    },
+    "avatar_url": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "away",
+        "offline"
+      ],
+      "default": "active"
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "name",
+    "email"
+  ]
+}

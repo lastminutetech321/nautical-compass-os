@@ -1,0 +1,68 @@
+{
+  "name": "ReferralRecord",
+  "type": "object",
+  "properties": {
+    "referrer_user_id": {
+      "type": "string"
+    },
+    "referrer_name": {
+      "type": "string"
+    },
+    "referred_org_id": {
+      "type": "string"
+    },
+    "referred_org_name": {
+      "type": "string"
+    },
+    "referral_code": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "converted",
+        "expired",
+        "paid",
+        "cancelled"
+      ],
+      "default": "pending"
+    },
+    "subscription_id": {
+      "type": "string"
+    },
+    "commission_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "commission_earned": {
+      "type": "number",
+      "default": 0
+    },
+    "commission_paid": {
+      "type": "number",
+      "default": 0
+    },
+    "director_id": {
+      "type": "string"
+    },
+    "director_commission_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "director_commission_earned": {
+      "type": "number",
+      "default": 0
+    },
+    "converted_at": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "referrer_user_id",
+    "referral_code"
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "name": "CareerPlan",
+  "type": "object",
+  "properties": {
+    "worker_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "current_role": {
+      "type": "string"
+    },
+    "target_role": {
+      "type": "string"
+    },
+    "target_industry": {
+      "type": "string"
+    },
+    "timeline_months": {
+      "type": "number",
+      "default": 12
+    },
+    "target_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "income_goal": {
+      "type": "number",
+      "default": 0
+    },
+    "current_income": {
+      "type": "number",
+      "default": 0
+    },
+    "milestones": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "skills_to_acquire": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "certifications_to_earn": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "training_courses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ai_recommendations": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "completed",
+        "abandoned"
+      ],
+      "default": "active"
+    },
+    "progress_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

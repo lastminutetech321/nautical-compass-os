@@ -1,0 +1,98 @@
+{
+  "name": "CompensationRule",
+  "type": "object",
+  "properties": {
+    "rule_name": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "default": "director"
+    },
+    "base_residual_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "performance_adjustment_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "contribution_adjustment_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "leadership_adjustment_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "innovation_adjustment_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "retention_adjustment_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "enterprise_adjustment_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "special_assignment_adjustment_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "max_compensation_cap": {
+      "type": "number",
+      "default": 0
+    },
+    "temporary_incentive_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "incentive_start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "incentive_end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "calculation_notes": {
+      "type": "string"
+    },
+    "version": {
+      "type": "number",
+      "default": 1
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "superseded",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "required": [
+    "rule_name",
+    "role"
+  ]
+}

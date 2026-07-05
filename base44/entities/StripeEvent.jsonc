@@ -1,0 +1,87 @@
+{
+  "name": "StripeEvent",
+  "type": "object",
+  "properties": {
+    "event_id": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string"
+    },
+    "api_version": {
+      "type": "string"
+    },
+    "created_at_stripe": {
+      "type": "string"
+    },
+    "received_at": {
+      "type": "string"
+    },
+    "data": {
+      "type": "object"
+    },
+    "object_id": {
+      "type": "string"
+    },
+    "object_type": {
+      "type": "string"
+    },
+    "customer_id": {
+      "type": "string"
+    },
+    "subscription_id": {
+      "type": "string"
+    },
+    "invoice_id": {
+      "type": "string"
+    },
+    "payment_intent_id": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number",
+      "default": 0
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "processed": {
+      "type": "boolean",
+      "default": false
+    },
+    "processing_error": {
+      "type": "string"
+    },
+    "linked_subscription_record": {
+      "type": "string"
+    },
+    "linked_invoice_record": {
+      "type": "string"
+    },
+    "action_taken": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "received",
+        "processed",
+        "failed",
+        "ignored",
+        "duplicate"
+      ],
+      "default": "received"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "event_id",
+    "event_type"
+  ]
+}

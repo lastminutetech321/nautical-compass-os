@@ -1,0 +1,63 @@
+{
+  "description": "Runs the NIOC health audit daily at 6 AM \u2014 calculates health scores for all 24 platform domains and updates SystemHealthScore, Executive Command, Mission Control, and Dev Memory.",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "0 6 * * *",
+      "one_time_date": null,
+      "timezone": "America/New_York",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  },
+  "name": "NIOC Daily Health Audit",
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "nioc_daily_health_audit",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "run_health_audit": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncIntelligenceOps",
+            "args": {
+              "operation": "health_audit"
+            }
+          },
+          "then": "sync_knowledge_graph",
+          "x-base44": {
+            "title": "Run health audit",
+            "description": "Calculate 24 domain scores"
+          }
+        }
+      },
+      {
+        "sync_knowledge_graph": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncKnowledgeGraphSync",
+            "args": {
+              "operation": "sync_all"
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Sync knowledge graph",
+            "description": "Register scores as nodes"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "name": "HealthCheck",
+  "type": "object",
+  "properties": {
+    "service": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "healthy",
+        "degraded",
+        "down",
+        "unknown"
+      ],
+      "default": "unknown"
+    },
+    "checked_at": {
+      "type": "string"
+    },
+    "response_time_ms": {
+      "type": "number"
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "uptime_pct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "consecutive_failures": {
+      "type": "number",
+      "default": 0
+    },
+    "last_healthy_at": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "api",
+        "database",
+        "ai_service",
+        "integration",
+        "canon",
+        "evidence",
+        "agents"
+      ],
+      "default": "api"
+    }
+  },
+  "required": [
+    "service",
+    "status"
+  ]
+}

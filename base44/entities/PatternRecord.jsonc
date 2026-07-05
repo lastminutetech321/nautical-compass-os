@@ -1,0 +1,113 @@
+{
+  "name": "PatternRecord",
+  "type": "object",
+  "properties": {
+    "pattern_type": {
+      "type": "string",
+      "enum": [
+        "temporal",
+        "behavioral",
+        "structural",
+        "anomaly",
+        "correlation",
+        "causal",
+        "cyclical",
+        "trend"
+      ],
+      "default": "behavioral"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "detected_entities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "entity_types_involved": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "frequency": {
+      "type": "number",
+      "default": 0
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "significance": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "first_seen": {
+      "type": "string",
+      "format": "date"
+    },
+    "last_seen": {
+      "type": "string",
+      "format": "date"
+    },
+    "occurrence_count": {
+      "type": "number",
+      "default": 1
+    },
+    "pattern_data": {
+      "type": "object"
+    },
+    "recommended_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_recommendation_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source_module": {
+      "type": "string"
+    },
+    "detected_by_agent": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "detected",
+        "confirmed",
+        "acted_on",
+        "dismissed",
+        "archived"
+      ],
+      "default": "detected"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "pattern_type",
+    "title",
+    "description"
+  ]
+}

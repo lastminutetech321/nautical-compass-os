@@ -1,0 +1,111 @@
+{
+  "name": "CareerPipelineStage",
+  "type": "object",
+  "properties": {
+    "stage_name": {
+      "type": "string"
+    },
+    "stage_key": {
+      "type": "string",
+      "enum": [
+        "interest",
+        "profile",
+        "assessment",
+        "training",
+        "compliance",
+        "readiness",
+        "mentor_assignment",
+        "eligible",
+        "assignments",
+        "performance_review",
+        "career_advancement"
+      ],
+      "default": "interest"
+    },
+    "stage_order": {
+      "type": "number",
+      "default": 0
+    },
+    "description": {
+      "type": "string"
+    },
+    "required_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "auto_advance": {
+      "type": "boolean",
+      "default": false
+    },
+    "min_readiness_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "min_trust_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "min_compliance_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in_review",
+        "compliant",
+        "non_compliant"
+      ],
+      "default": "pending"
+    },
+    "gate_criteria": {
+      "type": "object"
+    },
+    "assigned_role": {
+      "type": "string",
+      "enum": [
+        "system",
+        "director",
+        "mentor",
+        "founder",
+        "worker"
+      ],
+      "default": "director"
+    },
+    "estimated_duration_days": {
+      "type": "number",
+      "default": 0
+    },
+    "is_template": {
+      "type": "boolean",
+      "default": true
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "version": {
+      "type": "number",
+      "default": 1
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "stage_name",
+    "stage_key",
+    "stage_order"
+  ]
+}

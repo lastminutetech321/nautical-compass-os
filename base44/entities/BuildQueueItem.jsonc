@@ -1,0 +1,220 @@
+{
+  "name": "BuildQueueItem",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "feature_request",
+        "founder_idea",
+        "bug",
+        "ai_recommendation",
+        "architecture_gap",
+        "customer_request",
+        "payment_gap",
+        "canon_gap",
+        "technical_debt",
+        "workflow_failure"
+      ],
+      "default": "founder_idea"
+    },
+    "source_ref": {
+      "type": "string",
+      "description": "ID or link to originating record (FeatureRequest, Bug, RoadmapItem, etc.)"
+    },
+    "source_ref_type": {
+      "type": "string"
+    },
+    "proposed_by": {
+      "type": "string"
+    },
+    "proposed_by_id": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "description": "Module / domain area (payment, canon, workforce, etc.)"
+    },
+    "strategic_value": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "customer_value": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "revenue_impact": {
+      "type": "number",
+      "default": 0,
+      "description": "Estimated monthly $ impact"
+    },
+    "founder_time_saved_hours": {
+      "type": "number",
+      "default": 0
+    },
+    "engineering_effort": {
+      "type": "number",
+      "default": 0,
+      "description": "Estimated engineering hours"
+    },
+    "risk": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 30
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dependency_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "duplication_risk": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0,
+      "description": "Risk this duplicates existing capability"
+    },
+    "duplicate_of": {
+      "type": "string"
+    },
+    "required_approvals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [
+        "founder"
+      ]
+    },
+    "estimated_message_credits": {
+      "type": "number",
+      "default": 0
+    },
+    "estimated_integration_credits": {
+      "type": "number",
+      "default": 0
+    },
+    "estimated_infrastructure_cost": {
+      "type": "number",
+      "default": 0,
+      "description": "Estimated monthly infra $ cost"
+    },
+    "recommended_build_order": {
+      "type": "number",
+      "default": 0
+    },
+    "composite_score": {
+      "type": "number",
+      "default": 0
+    },
+    "roi_score": {
+      "type": "number",
+      "default": 0,
+      "description": "Value per engineering hour"
+    },
+    "cost_tier": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "low"
+    },
+    "requires_founder_approval": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "approved",
+        "blocked",
+        "queued",
+        "in_progress",
+        "testing",
+        "complete",
+        "deferred",
+        "rejected"
+      ],
+      "default": "proposed"
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "blocked_reason": {
+      "type": "string"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "started_at": {
+      "type": "string"
+    },
+    "completed_at": {
+      "type": "string"
+    },
+    "linked_execution_item": {
+      "type": "string"
+    },
+    "linked_roadmap_item": {
+      "type": "string"
+    },
+    "integration_targets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Systems this build connects to"
+    },
+    "audit_trail": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "memory_references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "source_type",
+    "status"
+  ]
+}

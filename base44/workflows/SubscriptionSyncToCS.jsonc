@@ -1,0 +1,51 @@
+{
+  "description": "When a new Subscription is created, automatically create a matching CustomerSuccessProfile so Customer Success tracks it from day one.",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "entity",
+      "events": [
+        "create"
+      ],
+      "entity_name": "Subscription"
+    }
+  },
+  "name": "Subscription \u2192 Customer Success Auto-Sync",
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "subscription_cs_sync",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "sync_subscription_to_cs": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncCustomerSync",
+            "args": {
+              "operation": "sync_subscription",
+              "params": {
+                "subscription": {
+                  "id": "${ .trigger.entity_id }",
+                  "customer_name": "${ .trigger.data.customer_name }",
+                  "customer_email": "${ .trigger.data.customer_email }",
+                  "plan_name": "${ .trigger.data.plan_name }",
+                  "status": "${ .trigger.data.status }",
+                  "mrr": "${ .trigger.data.mrr }",
+                  "arr": "${ .trigger.data.arr }"
+                }
+              }
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Create CS profile",
+            "description": "Auto-sync subscription to CS"
+          }
+        }
+      }
+    ]
+  }
+}

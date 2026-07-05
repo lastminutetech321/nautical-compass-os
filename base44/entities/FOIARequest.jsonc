@@ -1,0 +1,69 @@
+{
+  "name": "FOIARequest",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "agency_name": {
+      "type": "string"
+    },
+    "agency_contact": {
+      "type": "string"
+    },
+    "request_text": {
+      "type": "string"
+    },
+    "submitted_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "deadline_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "appeal_deadline": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "submitted",
+        "acknowledged",
+        "pending",
+        "partial_response",
+        "fulfilled",
+        "denied",
+        "appealed"
+      ],
+      "default": "draft"
+    },
+    "response_notes": {
+      "type": "string"
+    },
+    "received_evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "case_name": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "title",
+    "agency_name"
+  ]
+}

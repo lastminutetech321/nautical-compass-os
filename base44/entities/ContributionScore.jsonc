@@ -1,0 +1,96 @@
+{
+  "name": "ContributionScore",
+  "type": "object",
+  "properties": {
+    "participant_name": {
+      "type": "string"
+    },
+    "participant_id": {
+      "type": "string"
+    },
+    "participant_type": {
+      "type": "string",
+      "enum": [
+        "director",
+        "member",
+        "employee",
+        "vendor",
+        "ai_agent",
+        "founder"
+      ],
+      "default": "member"
+    },
+    "evaluation_period": {
+      "type": "string"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string"
+          },
+          "raw_score": {
+            "type": "number",
+            "default": 0
+          },
+          "weight": {
+            "type": "number",
+            "default": 1
+          },
+          "weighted_score": {
+            "type": "number",
+            "default": 0
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "explanation": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "total_score": {
+      "type": "number",
+      "default": 0
+    },
+    "max_possible_score": {
+      "type": "number",
+      "default": 100
+    },
+    "score_explanation": {
+      "type": "string"
+    },
+    "rank": {
+      "type": "number",
+      "default": 0
+    },
+    "evaluated_by": {
+      "type": "string",
+      "default": "NC Contribution Intelligence"
+    },
+    "evaluated_at": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "evaluated",
+        "disputed",
+        "archived"
+      ],
+      "default": "evaluated"
+    }
+  },
+  "required": [
+    "participant_name",
+    "participant_type",
+    "evaluation_period"
+  ]
+}

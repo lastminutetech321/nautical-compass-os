@@ -1,0 +1,85 @@
+{
+  "name": "TechnicalDebt",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "duplicate_logic",
+        "unused_entity",
+        "broken_reference",
+        "inconsistent_naming",
+        "security_concern",
+        "performance_bottleneck",
+        "accessibility",
+        "mobile_responsiveness",
+        "missing_index",
+        "missing_test",
+        "missing_documentation",
+        "dead_code",
+        "over_complexity",
+        "missing_error_handling"
+      ],
+      "default": "duplicate_logic"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "file_path": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "recommended_fix": {
+      "type": "string"
+    },
+    "estimated_hours": {
+      "type": "number",
+      "default": 1
+    },
+    "revenue_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "affected_modules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "in_progress",
+        "resolved",
+        "deferred",
+        "wont_fix"
+      ],
+      "default": "open"
+    },
+    "auto_detected": {
+      "type": "boolean",
+      "default": true
+    },
+    "detected_by": {
+      "type": "string",
+      "default": "NCOS Self-Review"
+    }
+  },
+  "required": [
+    "title",
+    "category"
+  ]
+}

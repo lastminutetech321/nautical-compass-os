@@ -1,0 +1,75 @@
+{
+  "name": "WorkerRating",
+  "type": "object",
+  "properties": {
+    "worker_id": {
+      "type": "string"
+    },
+    "rater_name": {
+      "type": "string"
+    },
+    "rater_type": {
+      "type": "string",
+      "enum": [
+        "client",
+        "employer",
+        "peer",
+        "supervisor",
+        "platform"
+      ],
+      "default": "client"
+    },
+    "contract_id": {
+      "type": "string"
+    },
+    "rating": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 5,
+      "default": 5
+    },
+    "quality_score": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "reliability_score": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "communication_score": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "skills_score": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "review_text": {
+      "type": "string"
+    },
+    "would_rehire": {
+      "type": "boolean",
+      "default": true
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "public": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "worker_id",
+    "rating"
+  ]
+}

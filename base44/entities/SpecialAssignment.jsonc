@@ -1,0 +1,94 @@
+{
+  "name": "SpecialAssignment",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "assignment_type": {
+      "type": "string",
+      "default": "custom"
+    },
+    "mission": {
+      "type": "string"
+    },
+    "responsibilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "success_metrics": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "contribution_weights": {
+      "type": "object"
+    },
+    "compensation_adjustment_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "duration_weeks": {
+      "type": "number",
+      "default": 0
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "assigned_to_id": {
+      "type": "string"
+    },
+    "assigned_ai_support": {
+      "type": "string"
+    },
+    "assigned_ai_support_id": {
+      "type": "string"
+    },
+    "is_template": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "template",
+        "proposed",
+        "active",
+        "paused",
+        "completed",
+        "cancelled"
+      ],
+      "default": "template"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "created_by": {
+      "type": "string"
+    },
+    "progress_notes": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "title",
+    "mission"
+  ]
+}

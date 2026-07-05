@@ -1,0 +1,204 @@
+{
+  "name": "EventProvider",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "provider_type": {
+      "type": "string",
+      "enum": [
+        "promoter",
+        "musician",
+        "dj",
+        "av_tech",
+        "lighting_tech",
+        "video_tech",
+        "project_manager",
+        "security_company",
+        "rental_company",
+        "photographer",
+        "videographer",
+        "caterer",
+        "cleaning_crew",
+        "ticketing_support",
+        "marketing_support",
+        "director",
+        "venue_owner",
+        "other"
+      ],
+      "default": "other"
+    },
+    "role": {
+      "type": "string"
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "location": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "availability": {
+      "type": "string",
+      "enum": [
+        "available",
+        "limited",
+        "booked",
+        "unavailable"
+      ],
+      "default": "available"
+    },
+    "portfolio": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "portfolio_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "certifications": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "insurance_status": {
+      "type": "string",
+      "enum": [
+        "none",
+        "basic",
+        "full_coverage",
+        "verified",
+        "expired"
+      ],
+      "default": "none"
+    },
+    "insurance_provider": {
+      "type": "string"
+    },
+    "insurance_expiry": {
+      "type": "string"
+    },
+    "equipment": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rates": {
+      "type": "object"
+    },
+    "hourly_rate": {
+      "type": "number",
+      "default": 0
+    },
+    "flat_rate": {
+      "type": "number",
+      "default": 0
+    },
+    "experience_years": {
+      "type": "number",
+      "default": 0
+    },
+    "trust_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "contribution_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "reviews": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "avg_rating": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5,
+      "default": 0
+    },
+    "total_reviews": {
+      "type": "number",
+      "default": 0
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": [
+        "unverified",
+        "pending",
+        "verified",
+        "rejected"
+      ],
+      "default": "unverified"
+    },
+    "verified_by": {
+      "type": "string"
+    },
+    "verified_at": {
+      "type": "string"
+    },
+    "contact_email": {
+      "type": "string"
+    },
+    "contact_phone": {
+      "type": "string"
+    },
+    "bio": {
+      "type": "string"
+    },
+    "profile_image": {
+      "type": "string"
+    },
+    "events_completed": {
+      "type": "number",
+      "default": 0
+    },
+    "total_revenue_generated": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "inactive",
+        "blacklisted"
+      ],
+      "default": "active"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "provider_type"
+  ]
+}

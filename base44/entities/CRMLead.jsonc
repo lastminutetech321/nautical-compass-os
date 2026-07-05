@@ -1,0 +1,181 @@
+{
+  "name": "CRMLead",
+  "type": "object",
+  "properties": {
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "website",
+        "referral",
+        "outbound",
+        "event",
+        "social",
+        "partner",
+        "inbound",
+        "cold",
+        "other"
+      ],
+      "default": "other"
+    },
+    "lifecycle_stage": {
+      "type": "string",
+      "enum": [
+        "lead",
+        "prospect",
+        "qualified",
+        "opportunity",
+        "proposal",
+        "negotiation",
+        "won",
+        "lost",
+        "inactive"
+      ],
+      "default": "lead"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "contacted",
+        "engaged",
+        "qualified",
+        "disqualified",
+        "converted"
+      ],
+      "default": "new"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "relationship_health": {
+      "type": "string",
+      "enum": [
+        "cold",
+        "warm",
+        "hot",
+        "at_risk",
+        "strong"
+      ],
+      "default": "cold"
+    },
+    "score": {
+      "type": "number",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 100
+    },
+    "revenue_potential": {
+      "type": "number",
+      "default": 0
+    },
+    "probability": {
+      "type": "number",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 100
+    },
+    "assigned_agent": {
+      "type": "string"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "last_contact_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "next_action": {
+      "type": "string"
+    },
+    "next_action_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "organization_id": {
+      "type": "string"
+    },
+    "contact_id": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "timeline": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "connected_evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "connected_canon_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "communication_history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "utm_source": {
+      "type": "string"
+    },
+    "utm_campaign": {
+      "type": "string"
+    },
+    "referral_id": {
+      "type": "string"
+    },
+    "converted_at": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "first_name",
+    "last_name"
+  ]
+}

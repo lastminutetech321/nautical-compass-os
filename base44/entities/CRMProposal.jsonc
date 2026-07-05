@@ -1,0 +1,105 @@
+{
+  "name": "CRMProposal",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "opportunity_id": {
+      "type": "string"
+    },
+    "organization_id": {
+      "type": "string"
+    },
+    "contact_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "sent",
+        "viewed",
+        "accepted",
+        "rejected",
+        "expired",
+        "revised"
+      ],
+      "default": "draft"
+    },
+    "lifecycle_stage": {
+      "type": "string",
+      "enum": [
+        "proposal",
+        "negotiation",
+        "won",
+        "lost"
+      ],
+      "default": "proposal"
+    },
+    "value": {
+      "type": "number",
+      "default": 0
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "valid_until": {
+      "type": "string",
+      "format": "date"
+    },
+    "sent_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "viewed_date": {
+      "type": "string"
+    },
+    "accepted_date": {
+      "type": "string"
+    },
+    "executive_summary": {
+      "type": "string"
+    },
+    "scope_of_work": {
+      "type": "string"
+    },
+    "pricing_details": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "file_url": {
+      "type": "string"
+    },
+    "assigned_agent": {
+      "type": "string"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "next_action": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "timeline": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

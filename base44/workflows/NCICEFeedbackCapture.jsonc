@@ -1,0 +1,47 @@
+{
+  "name": "NCICE Feedback Capture",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "0 */2 * * *",
+      "one_time_date": null,
+      "timezone": "America/New_York",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  },
+  "description": "Every 2 hours: scan recent meetings, customer interactions, executive reviews, and completed workflows and capture them into the continuous feedback loop so nothing valuable is forgotten.",
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "ncice_feedback_capture",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "capture_recent": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncIntelligenceEngine",
+            "args": {
+              "operation": "capture_recent"
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Capture Recent Events",
+            "description": "Auto-ingest recent organizational events into the feedback loop"
+          }
+        }
+      }
+    ]
+  }
+}

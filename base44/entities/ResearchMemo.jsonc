@@ -1,0 +1,100 @@
+{
+  "name": "ResearchMemo",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "case_name": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "memo_type": {
+      "type": "string",
+      "enum": [
+        "research_memo",
+        "motion",
+        "complaint",
+        "discovery_plan",
+        "case_strategy",
+        "issue_analysis",
+        "foia_request",
+        "demand_letter",
+        "brief",
+        "declaration",
+        "other"
+      ],
+      "default": "research_memo"
+    },
+    "question_presented": {
+      "type": "string"
+    },
+    "short_answer": {
+      "type": "string"
+    },
+    "facts": {
+      "type": "string"
+    },
+    "analysis": {
+      "type": "string"
+    },
+    "conclusion": {
+      "type": "string"
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "canon_entries_cited": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "issues_identified": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "canon_gaps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "review",
+        "final",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "generated_by": {
+      "type": "string",
+      "default": "JurisEngine"
+    },
+    "reviewed_by": {
+      "type": "string"
+    },
+    "is_informational": {
+      "type": "boolean",
+      "default": true
+    },
+    "word_count": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "title",
+    "memo_type"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "name": "WorkerCertification",
+  "type": "object",
+  "properties": {
+    "worker_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "certification",
+        "license",
+        "permit",
+        "credential",
+        "degree",
+        "course",
+        "badge",
+        "other"
+      ],
+      "default": "certification"
+    },
+    "issuing_body": {
+      "type": "string"
+    },
+    "credential_id": {
+      "type": "string"
+    },
+    "issued_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "expiry_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "expired",
+        "pending_renewal",
+        "suspended",
+        "revoked"
+      ],
+      "default": "active"
+    },
+    "jurisdiction": {
+      "type": "string"
+    },
+    "document_url": {
+      "type": "string"
+    },
+    "verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "type"
+  ]
+}

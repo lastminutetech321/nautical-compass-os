@@ -1,0 +1,161 @@
+{
+  "name": "WorkerProfile",
+  "type": "object",
+  "properties": {
+    "full_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "zip": {
+      "type": "string"
+    },
+    "worker_type": {
+      "type": "string",
+      "enum": [
+        "employee",
+        "contractor",
+        "freelancer",
+        "gig",
+        "union",
+        "vendor",
+        "intern",
+        "part_time",
+        "full_time",
+        "seasonal"
+      ],
+      "default": "contractor"
+    },
+    "headline": {
+      "type": "string"
+    },
+    "bio": {
+      "type": "string"
+    },
+    "avatar_url": {
+      "type": "string"
+    },
+    "industries": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "primary_trade": {
+      "type": "string"
+    },
+    "years_experience": {
+      "type": "number",
+      "default": 0
+    },
+    "hourly_rate": {
+      "type": "number",
+      "default": 0
+    },
+    "day_rate": {
+      "type": "number",
+      "default": 0
+    },
+    "salary_target": {
+      "type": "number",
+      "default": 0
+    },
+    "rate_currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "availability_status": {
+      "type": "string",
+      "enum": [
+        "available",
+        "busy",
+        "open_to_offers",
+        "unavailable",
+        "on_leave"
+      ],
+      "default": "available"
+    },
+    "available_from": {
+      "type": "string",
+      "format": "date"
+    },
+    "preferred_schedule": {
+      "type": "string"
+    },
+    "remote_ok": {
+      "type": "boolean",
+      "default": true
+    },
+    "travel_ok": {
+      "type": "boolean",
+      "default": false
+    },
+    "travel_radius_miles": {
+      "type": "number",
+      "default": 25
+    },
+    "linkedin_url": {
+      "type": "string"
+    },
+    "portfolio_url": {
+      "type": "string"
+    },
+    "resume_url": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "suspended",
+        "pending"
+      ],
+      "default": "active"
+    },
+    "rating_avg": {
+      "type": "number",
+      "default": 0
+    },
+    "rating_count": {
+      "type": "number",
+      "default": 0
+    },
+    "jobs_completed": {
+      "type": "number",
+      "default": 0
+    },
+    "union_member": {
+      "type": "boolean",
+      "default": false
+    },
+    "union_id": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "full_name"
+  ]
+}

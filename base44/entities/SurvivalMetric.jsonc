@@ -1,0 +1,74 @@
+{
+  "name": "SurvivalMetric",
+  "type": "object",
+  "properties": {
+    "period": {
+      "type": "string"
+    },
+    "period_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "monthly_platform_cost": {
+      "type": "number",
+      "default": 0
+    },
+    "ai_api_cost": {
+      "type": "number",
+      "default": 0
+    },
+    "hosting_cost": {
+      "type": "number",
+      "default": 0
+    },
+    "other_costs": {
+      "type": "number",
+      "default": 0
+    },
+    "stripe_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "subscription_mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "unpaid_invoices": {
+      "type": "number",
+      "default": 0
+    },
+    "cash_on_hand": {
+      "type": "number",
+      "default": 0
+    },
+    "cash_runway_months": {
+      "type": "number",
+      "default": 0
+    },
+    "break_even_mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "required_new_sales": {
+      "type": "number",
+      "default": 0
+    },
+    "highest_value_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "generated_by": {
+      "type": "string",
+      "default": "Survival Engine"
+    }
+  },
+  "required": [
+    "period",
+    "period_date"
+  ]
+}

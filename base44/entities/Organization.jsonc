@@ -1,0 +1,168 @@
+{
+  "name": "Organization",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "client",
+        "enterprise_client",
+        "member",
+        "prospect",
+        "partner",
+        "vendor",
+        "government",
+        "nonprofit",
+        "internal"
+      ],
+      "default": "prospect"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "prospect",
+        "at_risk",
+        "churned",
+        "archived"
+      ],
+      "default": "prospect"
+    },
+    "lifecycle_stage": {
+      "type": "string",
+      "enum": [
+        "lead",
+        "prospect",
+        "qualified",
+        "active",
+        "renewal",
+        "churned"
+      ],
+      "default": "prospect"
+    },
+    "relationship_health": {
+      "type": "string",
+      "enum": [
+        "cold",
+        "warm",
+        "hot",
+        "at_risk",
+        "strong"
+      ],
+      "default": "cold"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "logo_url": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "size": {
+      "type": "string",
+      "enum": [
+        "1-10",
+        "11-50",
+        "51-200",
+        "201-500",
+        "500+"
+      ],
+      "default": "1-10"
+    },
+    "revenue_value": {
+      "type": "number",
+      "default": 0
+    },
+    "mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "arr": {
+      "type": "number",
+      "default": 0
+    },
+    "probability": {
+      "type": "number",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 100
+    },
+    "last_contact_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "next_action": {
+      "type": "string"
+    },
+    "next_action_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "assigned_agent": {
+      "type": "string"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "primary_contact_id": {
+      "type": "string"
+    },
+    "contract_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "timeline": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "communication_history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "connected_evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

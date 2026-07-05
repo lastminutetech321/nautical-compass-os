@@ -1,0 +1,163 @@
+{
+  "name": "ContributionProfile",
+  "type": "object",
+  "properties": {
+    "participant_id": {
+      "type": "string"
+    },
+    "participant_name": {
+      "type": "string"
+    },
+    "participant_type": {
+      "type": "string",
+      "enum": [
+        "founder",
+        "director",
+        "employee",
+        "contractor",
+        "artist",
+        "creator",
+        "musician",
+        "workforce",
+        "promoter",
+        "referral_partner",
+        "enterprise_partner",
+        "marketplace_provider",
+        "member",
+        "ai_agent",
+        "vendor",
+        "custom"
+      ],
+      "default": "member"
+    },
+    "evaluation_period": {
+      "type": "string"
+    },
+    "scores": {
+      "type": "object",
+      "properties": {
+        "contribution": {
+          "type": "number",
+          "default": 0
+        },
+        "trust": {
+          "type": "number",
+          "default": 0
+        },
+        "reputation": {
+          "type": "number",
+          "default": 0
+        },
+        "experience": {
+          "type": "number",
+          "default": 0
+        },
+        "leadership": {
+          "type": "number",
+          "default": 0
+        },
+        "customer_success": {
+          "type": "number",
+          "default": 0
+        },
+        "retention": {
+          "type": "number",
+          "default": 0
+        },
+        "innovation": {
+          "type": "number",
+          "default": 0
+        },
+        "learning": {
+          "type": "number",
+          "default": 0
+        },
+        "quality": {
+          "type": "number",
+          "default": 0
+        },
+        "professionalism": {
+          "type": "number",
+          "default": 0
+        },
+        "ethics": {
+          "type": "number",
+          "default": 0
+        },
+        "reliability": {
+          "type": "number",
+          "default": 0
+        }
+      }
+    },
+    "verified_factors": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "violations": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "composite_score": {
+      "type": "number",
+      "default": 0
+    },
+    "rank": {
+      "type": "number",
+      "default": 0
+    },
+    "promotion_eligible": {
+      "type": "boolean",
+      "default": false
+    },
+    "mentorship_eligible": {
+      "type": "boolean",
+      "default": false
+    },
+    "leadership_eligible": {
+      "type": "boolean",
+      "default": false
+    },
+    "recognition_level": {
+      "type": "string",
+      "enum": [
+        "none",
+        "bronze",
+        "silver",
+        "gold",
+        "platinum",
+        "ambassador"
+      ],
+      "default": "none"
+    },
+    "last_updated": {
+      "type": "string"
+    },
+    "ai_summary": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "participant_id",
+    "participant_name",
+    "participant_type"
+  ]
+}

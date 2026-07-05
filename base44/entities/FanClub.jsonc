@@ -1,0 +1,94 @@
+{
+  "name": "FanClub",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "artist_id": {
+      "type": "string"
+    },
+    "artist_name": {
+      "type": "string"
+    },
+    "creator_id": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "tier": {
+      "type": "string",
+      "enum": [
+        "free",
+        "basic",
+        "premium",
+        "vip",
+        "all_access"
+      ],
+      "default": "free"
+    },
+    "monthly_price": {
+      "type": "number",
+      "default": 0
+    },
+    "annual_price": {
+      "type": "number",
+      "default": 0
+    },
+    "member_count": {
+      "type": "number",
+      "default": 0
+    },
+    "active_members": {
+      "type": "number",
+      "default": 0
+    },
+    "benefits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "perks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "exclusive_content_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "total_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "monthly_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "icon_url": {
+      "type": "string"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "discontinued"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "name",
+    "artist_id"
+  ]
+}

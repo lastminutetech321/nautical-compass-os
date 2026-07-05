@@ -1,0 +1,83 @@
+{
+  "name": "ExecutiveReview",
+  "type": "object",
+  "properties": {
+    "review_date": {
+      "type": "string"
+    },
+    "executive_name": {
+      "type": "string"
+    },
+    "executive_id": {
+      "type": "string"
+    },
+    "dept_key": {
+      "type": "string"
+    },
+    "department_health": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "biggest_risks": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "biggest_opportunities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "immediate_recommendations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forecast_30_day": {
+      "type": "object"
+    },
+    "forecast_90_day": {
+      "type": "object"
+    },
+    "knowledge_learned": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "automation_opportunities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "requires_founder_approval": {
+      "type": "boolean",
+      "default": false
+    },
+    "founder_review_items": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "completed",
+        "pending",
+        "archived"
+      ],
+      "default": "completed"
+    }
+  },
+  "required": [
+    "review_date",
+    "executive_name"
+  ]
+}

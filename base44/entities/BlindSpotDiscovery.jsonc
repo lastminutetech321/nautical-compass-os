@@ -1,0 +1,168 @@
+{
+  "name": "BlindSpotDiscovery",
+  "type": "object",
+  "properties": {
+    "discovery_key": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "missing_capability",
+        "architectural_weakness",
+        "business_opportunity",
+        "customer_opportunity",
+        "integration_opportunity",
+        "legal_gap",
+        "workflow_gap",
+        "documentation_gap",
+        "automation_gap",
+        "training_gap",
+        "engineering_gap",
+        "marketplace_opportunity",
+        "competitive_opportunity",
+        "ai_opportunity",
+        "founder_dependency",
+        "duplication",
+        "cost_leak",
+        "monitoring_gap",
+        "recovery_gap",
+        "backup_gap",
+        "approval_gap",
+        "knowledge_gap",
+        "testing_gap"
+      ],
+      "default": "missing_capability"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "affected_systems": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "warning",
+        "urgent",
+        "critical"
+      ],
+      "default": "warning"
+    },
+    "founder_dependency_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "legal_exposure": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "engineering_risk": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "customer_friction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "unnecessary_cost": {
+      "type": "number",
+      "default": 0
+    },
+    "duplication_risk": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "rank": {
+      "type": "number",
+      "default": 0
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "recommended_action_type": {
+      "type": "string",
+      "enum": [
+        "improvement_item",
+        "execution_item",
+        "build_queue_item",
+        "technical_debt",
+        "architecture_recommendation",
+        "training_recommendation",
+        "documentation_task",
+        "policy_update",
+        "canon_entry"
+      ],
+      "default": "improvement_item"
+    },
+    "linked_improvement_item": {
+      "type": "string"
+    },
+    "linked_execution_item": {
+      "type": "string"
+    },
+    "linked_build_queue_item": {
+      "type": "string"
+    },
+    "linked_tech_debt": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "addressing",
+        "resolved",
+        "ignored",
+        "deferred"
+      ],
+      "default": "open"
+    },
+    "discovered_by": {
+      "type": "string",
+      "enum": [
+        "system",
+        "founder",
+        "ai"
+      ],
+      "default": "system"
+    },
+    "discovered_at": {
+      "type": "string"
+    },
+    "resolved_at": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "discovery_key",
+    "category",
+    "title"
+  ]
+}

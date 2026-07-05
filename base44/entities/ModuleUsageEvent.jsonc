@@ -1,0 +1,51 @@
+{
+  "name": "ModuleUsageEvent",
+  "type": "object",
+  "properties": {
+    "module_id": {
+      "type": "string"
+    },
+    "module_name": {
+      "type": "string"
+    },
+    "installation_id": {
+      "type": "string"
+    },
+    "enterprise_id": {
+      "type": "string"
+    },
+    "enterprise_name": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "install",
+        "activate",
+        "login",
+        "feature_use",
+        "error",
+        "update",
+        "uninstall",
+        "trial_start",
+        "trial_end",
+        "license_renew",
+        "license_expire"
+      ],
+      "default": "feature_use"
+    },
+    "event_data": {
+      "type": "object"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "session_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "module_id",
+    "event_type"
+  ]
+}

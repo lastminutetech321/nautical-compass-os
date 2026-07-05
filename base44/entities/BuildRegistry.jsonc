@@ -1,0 +1,186 @@
+{
+  "name": "BuildRegistry",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "rail": {
+      "type": "string",
+      "enum": [
+        "legal_rail",
+        "jurisengine",
+        "culture_rail",
+        "workforce_rail",
+        "resource_compass",
+        "nc_canon",
+        "platform",
+        "mission_control",
+        "custom"
+      ],
+      "default": "platform"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "high"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_tasks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "completed_tasks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "estimated_hours": {
+      "type": "number",
+      "default": 0
+    },
+    "estimated_finish_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "deployment_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "staging",
+        "deployed"
+      ],
+      "default": "not_started"
+    },
+    "testing_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "passing",
+        "failing"
+      ],
+      "default": "not_started"
+    },
+    "production_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "live",
+        "deprecated"
+      ],
+      "default": "not_started"
+    },
+    "api_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "complete",
+        "broken"
+      ],
+      "default": "not_started"
+    },
+    "database_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "schema_defined",
+        "seeded",
+        "complete"
+      ],
+      "default": "not_started"
+    },
+    "ai_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "canon_linked",
+        "prompts_written",
+        "tested",
+        "complete"
+      ],
+      "default": "not_started"
+    },
+    "architecture_pct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "backend_pct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "database_pct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "ai_pct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "testing_pct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "documentation_pct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "deployment_pct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "notes": {
+      "type": "string"
+    },
+    "blocked_by": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "is_blocked": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "name",
+    "rail"
+  ]
+}

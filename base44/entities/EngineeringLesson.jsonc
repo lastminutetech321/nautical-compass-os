@@ -1,0 +1,129 @@
+{
+  "name": "EngineeringLesson",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "engineering",
+        "architecture",
+        "security",
+        "ux",
+        "database",
+        "performance",
+        "prompt",
+        "testing",
+        "documentation"
+      ],
+      "default": "engineering"
+    },
+    "content": {
+      "type": "string"
+    },
+    "key_takeaways": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mistakes_to_avoid": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "best_practices": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "beginner",
+        "intermediate",
+        "advanced",
+        "expert"
+      ],
+      "default": "intermediate"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "sprint",
+        "project",
+        "incident",
+        "bug_fix",
+        "review",
+        "manual"
+      ],
+      "default": "manual"
+    },
+    "source_id": {
+      "type": "string"
+    },
+    "source_name": {
+      "type": "string"
+    },
+    "source_sprint_id": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "applicable_roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "related_lesson_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "created_by": {
+      "type": "string"
+    },
+    "auto_generated": {
+      "type": "boolean",
+      "default": false
+    },
+    "assigned_count": {
+      "type": "number",
+      "default": 0
+    },
+    "learned_count": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "title",
+    "category",
+    "content"
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "name": "ModuleInstallation",
+  "type": "object",
+  "properties": {
+    "module_id": {
+      "type": "string"
+    },
+    "module_name": {
+      "type": "string"
+    },
+    "module_slug": {
+      "type": "string"
+    },
+    "installed_version": {
+      "type": "string"
+    },
+    "enterprise_id": {
+      "type": "string"
+    },
+    "enterprise_name": {
+      "type": "string"
+    },
+    "enterprise_clone_id": {
+      "type": "string"
+    },
+    "license_type": {
+      "type": "string",
+      "enum": [
+        "trial",
+        "subscription",
+        "enterprise",
+        "perpetual",
+        "free"
+      ],
+      "default": "subscription"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "installing",
+        "active",
+        "updating",
+        "suspended",
+        "expired",
+        "uninstalled"
+      ],
+      "default": "pending"
+    },
+    "install_date": {
+      "type": "string"
+    },
+    "trial_end_date": {
+      "type": "string"
+    },
+    "license_end_date": {
+      "type": "string"
+    },
+    "seats": {
+      "type": "number",
+      "default": 1
+    },
+    "configuration": {
+      "type": "object"
+    },
+    "auto_update": {
+      "type": "boolean",
+      "default": true
+    },
+    "installed_by": {
+      "type": "string"
+    },
+    "last_updated": {
+      "type": "string"
+    },
+    "update_available": {
+      "type": "boolean",
+      "default": false
+    },
+    "available_version": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "module_id",
+    "enterprise_id"
+  ]
+}

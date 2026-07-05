@@ -1,0 +1,117 @@
+{
+  "name": "PersonalIntelligenceProfile",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "user_name": {
+      "type": "string"
+    },
+    "user_role": {
+      "type": "string"
+    },
+    "preferred_communication_style": {
+      "type": "string",
+      "enum": [
+        "concise",
+        "detailed",
+        "visual",
+        "data_driven",
+        "narrative"
+      ],
+      "default": "concise"
+    },
+    "preferred_learning_style": {
+      "type": "string",
+      "enum": [
+        "reading",
+        "video",
+        "hands_on",
+        "mentor",
+        "self_directed"
+      ],
+      "default": "reading"
+    },
+    "productivity_patterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "favorite_workflows": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "frequently_used_tools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "preferred_dashboard_layout": {
+      "type": "string",
+      "enum": [
+        "compact",
+        "standard",
+        "detailed",
+        "minimal"
+      ],
+      "default": "standard"
+    },
+    "completed_training": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "common_questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "strengths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "areas_needing_support": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ai_interaction_history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "session_count": {
+      "type": "number",
+      "default": 0
+    },
+    "last_active": {
+      "type": "string"
+    },
+    "preferences": {
+      "type": "object"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_id"
+  ]
+}

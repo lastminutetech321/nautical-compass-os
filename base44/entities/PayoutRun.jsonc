@@ -1,0 +1,113 @@
+{
+  "name": "PayoutRun",
+  "type": "object",
+  "properties": {
+    "run_key": {
+      "type": "string"
+    },
+    "run_name": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date"
+    },
+    "payout_type": {
+      "type": "string",
+      "enum": [
+        "commission",
+        "residual",
+        "referral",
+        "artist",
+        "workforce",
+        "special_assignment",
+        "marketplace",
+        "enterprise",
+        "director",
+        "bonus",
+        "manual"
+      ],
+      "default": "commission"
+    },
+    "total_gross": {
+      "type": "number",
+      "default": 0
+    },
+    "total_net": {
+      "type": "number",
+      "default": 0
+    },
+    "total_payout": {
+      "type": "number",
+      "default": 0
+    },
+    "item_count": {
+      "type": "number",
+      "default": 0
+    },
+    "item_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "pending_approvals": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "calculated",
+        "pending_approval",
+        "approved",
+        "processing",
+        "completed",
+        "cancelled",
+        "failed"
+      ],
+      "default": "draft"
+    },
+    "approval_required": {
+      "type": "boolean",
+      "default": true
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "processed_at": {
+      "type": "string"
+    },
+    "created_by": {
+      "type": "string"
+    },
+    "ai_summary": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "run_key",
+    "run_name",
+    "period"
+  ]
+}

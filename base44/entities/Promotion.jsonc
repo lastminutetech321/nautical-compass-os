@@ -1,0 +1,147 @@
+{
+  "name": "Promotion",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "promotion_type": {
+      "type": "string",
+      "enum": [
+        "featured_placement",
+        "playlist_pitch",
+        "social_boost",
+        "email_blast",
+        "homepage_spotlight",
+        "push_notification",
+        "recommended",
+        "trending_boost",
+        "editorial_pick",
+        "sponsored"
+      ],
+      "default": "featured_placement"
+    },
+    "target_id": {
+      "type": "string"
+    },
+    "target_type": {
+      "type": "string",
+      "enum": [
+        "song",
+        "album",
+        "artist",
+        "podcast",
+        "video",
+        "event",
+        "playlist",
+        "creator",
+        "merch",
+        "marketplace_listing"
+      ],
+      "default": "song"
+    },
+    "target_name": {
+      "type": "string"
+    },
+    "creator_id": {
+      "type": "string"
+    },
+    "creator_name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "duration_days": {
+      "type": "number",
+      "default": 7
+    },
+    "budget": {
+      "type": "number",
+      "default": 0
+    },
+    "budget_spent": {
+      "type": "number",
+      "default": 0
+    },
+    "impressions_before": {
+      "type": "number",
+      "default": 0
+    },
+    "impressions_after": {
+      "type": "number",
+      "default": 0
+    },
+    "streams_before": {
+      "type": "number",
+      "default": 0
+    },
+    "streams_after": {
+      "type": "number",
+      "default": 0
+    },
+    "engagement_lift_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "revenue_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "roi_score": {
+      "type": "number",
+      "default": 0
+    },
+    "ai_recommendation": {
+      "type": "string"
+    },
+    "priority_score": {
+      "type": "number",
+      "default": 50
+    },
+    "auto_generated": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "suggested",
+        "approved",
+        "active",
+        "completed",
+        "cancelled"
+      ],
+      "default": "suggested"
+    },
+    "requires_founder_approval": {
+      "type": "boolean",
+      "default": true
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "title",
+    "promotion_type",
+    "target_type"
+  ]
+}

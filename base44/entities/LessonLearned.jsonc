@@ -1,0 +1,105 @@
+{
+  "name": "LessonLearned",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "sprint": {
+      "type": "string"
+    },
+    "project": {
+      "type": "string"
+    },
+    "lesson_type": {
+      "type": "string",
+      "enum": [
+        "what_worked",
+        "what_failed",
+        "what_should_change",
+        "what_should_repeat",
+        "recommendation"
+      ],
+      "default": "what_worked"
+    },
+    "description": {
+      "type": "string"
+    },
+    "context": {
+      "type": "string"
+    },
+    "impact": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "negative",
+        "neutral"
+      ],
+      "default": "neutral"
+    },
+    "impact_description": {
+      "type": "string"
+    },
+    "recommendations_for_future": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "action_items": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_journal_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_bug_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_adr_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "module": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "applied_to_future": {
+      "type": "boolean",
+      "default": false
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "created_date": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "lesson_type",
+    "description"
+  ]
+}

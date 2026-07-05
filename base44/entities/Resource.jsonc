@@ -1,0 +1,215 @@
+{
+  "name": "Resource",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "housing",
+        "employment",
+        "food",
+        "medical",
+        "mental_health",
+        "legal_aid",
+        "transportation",
+        "education",
+        "veteran",
+        "financial",
+        "emergency",
+        "disaster",
+        "childcare",
+        "utility",
+        "clothing",
+        "community",
+        "other"
+      ],
+      "default": "other"
+    },
+    "subcategory": {
+      "type": "string"
+    },
+    "provider_name": {
+      "type": "string"
+    },
+    "provider_type": {
+      "type": "string",
+      "enum": [
+        "federal",
+        "state",
+        "county",
+        "city",
+        "nonprofit",
+        "faith_based",
+        "private",
+        "other"
+      ],
+      "default": "nonprofit"
+    },
+    "jurisdiction": {
+      "type": "string",
+      "default": "North Carolina"
+    },
+    "county": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "eligibility_criteria": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_documents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "income_limit": {
+      "type": "string"
+    },
+    "asset_limit": {
+      "type": "string"
+    },
+    "citizenship_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "residency_required": {
+      "type": "boolean",
+      "default": true
+    },
+    "age_min": {
+      "type": "number"
+    },
+    "age_max": {
+      "type": "number"
+    },
+    "serves_veterans": {
+      "type": "boolean",
+      "default": false
+    },
+    "serves_families": {
+      "type": "boolean",
+      "default": true
+    },
+    "serves_individuals": {
+      "type": "boolean",
+      "default": true
+    },
+    "benefit_amount": {
+      "type": "string"
+    },
+    "benefit_type": {
+      "type": "string",
+      "enum": [
+        "cash",
+        "voucher",
+        "direct_service",
+        "referral",
+        "in_kind",
+        "mixed"
+      ],
+      "default": "direct_service"
+    },
+    "application_method": {
+      "type": "string",
+      "enum": [
+        "online",
+        "in_person",
+        "phone",
+        "mail",
+        "mixed"
+      ],
+      "default": "mixed"
+    },
+    "application_url": {
+      "type": "string"
+    },
+    "estimated_approval_days": {
+      "type": "number"
+    },
+    "renewal_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "renewal_frequency": {
+      "type": "string"
+    },
+    "common_blockers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "risk_factors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_followup": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "canon_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "seasonal",
+        "waitlist",
+        "unknown"
+      ],
+      "default": "active"
+    },
+    "verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "last_verified": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "category"
+  ]
+}

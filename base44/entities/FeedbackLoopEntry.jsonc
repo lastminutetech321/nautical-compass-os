@@ -1,0 +1,138 @@
+{
+  "name": "FeedbackLoopEntry",
+  "type": "object",
+  "properties": {
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "workflow",
+        "meeting",
+        "customer_interaction",
+        "ai_action",
+        "assignment",
+        "briefing",
+        "reflection",
+        "diagnostic",
+        "event",
+        "executive_review",
+        "coaching_session",
+        "project",
+        "other"
+      ],
+      "default": "workflow"
+    },
+    "source_id": {
+      "type": "string"
+    },
+    "source_title": {
+      "type": "string"
+    },
+    "loop_date": {
+      "type": "string"
+    },
+    "what_happened": {
+      "type": "string"
+    },
+    "objective_accomplished": {
+      "type": "boolean",
+      "default": false
+    },
+    "what_delayed_progress": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "what_accelerated_progress": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "what_should_improve": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "should_automate": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "should_become_training": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "should_become_policy": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "should_become_memory": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "should_become_canon": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "should_become_engineering_work": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "founder_review_items": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "confidence_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "department": {
+      "type": "string"
+    },
+    "ai_generated": {
+      "type": "boolean",
+      "default": true
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "source_type",
+    "loop_date"
+  ]
+}

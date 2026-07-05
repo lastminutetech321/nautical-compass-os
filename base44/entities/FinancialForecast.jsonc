@@ -1,0 +1,93 @@
+{
+  "name": "FinancialForecast",
+  "type": "object",
+  "properties": {
+    "forecast_type": {
+      "type": "string",
+      "enum": [
+        "quarterly",
+        "monthly",
+        "runway",
+        "revenue",
+        "expense"
+      ],
+      "default": "quarterly"
+    },
+    "forecast_date": {
+      "type": "string"
+    },
+    "forecast_period": {
+      "type": "string"
+    },
+    "scenario": {
+      "type": "string",
+      "enum": [
+        "base",
+        "optimistic",
+        "pessimistic",
+        "all"
+      ],
+      "default": "all"
+    },
+    "projected_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "projected_mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "projected_arr": {
+      "type": "number",
+      "default": 0
+    },
+    "projected_expenses": {
+      "type": "number",
+      "default": 0
+    },
+    "projected_profit": {
+      "type": "number",
+      "default": 0
+    },
+    "projected_runway_days": {
+      "type": "number",
+      "default": 0
+    },
+    "break_even_month": {
+      "type": "string"
+    },
+    "confidence_level": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 70
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "scenarios": {
+      "type": "object"
+    },
+    "recommended_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "summary": {
+      "type": "string"
+    },
+    "generated_by": {
+      "type": "string",
+      "default": "NC Financial Intelligence"
+    }
+  },
+  "required": [
+    "forecast_type",
+    "forecast_date",
+    "forecast_period"
+  ]
+}

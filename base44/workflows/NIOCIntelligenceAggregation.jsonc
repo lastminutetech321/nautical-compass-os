@@ -1,0 +1,95 @@
+{
+  "description": "Runs hourly \u2014 aggregates organizational intelligence from all NC modules, converts diagnostic findings into insights, syncs CS usage data, and syncs the knowledge graph.",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "0 * * * *",
+      "one_time_date": null,
+      "timezone": "America/New_York",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  },
+  "name": "NIOC Intelligence Aggregation (Hourly)",
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "nioc_intel_aggregation_hourly",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "aggregate_intelligence": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncIntelligenceOps",
+            "args": {
+              "operation": "aggregate_intelligence"
+            }
+          },
+          "then": "sync_cs_usage",
+          "x-base44": {
+            "title": "Aggregate intelligence",
+            "description": "Collect insights from all modules"
+          }
+        }
+      },
+      {
+        "sync_cs_usage": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncCustomerSync",
+            "args": {
+              "operation": "update_usage"
+            }
+          },
+          "then": "sync_cs_profiles",
+          "x-base44": {
+            "title": "Sync CS usage data",
+            "description": "Wire usage into CS profiles"
+          }
+        }
+      },
+      {
+        "sync_cs_profiles": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncCustomerSync",
+            "args": {
+              "operation": "sync_all"
+            }
+          },
+          "then": "scan_winback",
+          "x-base44": {
+            "title": "Sync CS profiles",
+            "description": "Create profiles for new subs"
+          }
+        }
+      },
+      {
+        "scan_winback": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncWinBack",
+            "args": {
+              "operation": "scan"
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Scan win-back targets",
+            "description": "Find churned/at-risk members"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "name": "EventReport",
+  "type": "object",
+  "properties": {
+    "event_id": {
+      "type": "string"
+    },
+    "event_title": {
+      "type": "string"
+    },
+    "venue_id": {
+      "type": "string"
+    },
+    "venue_name": {
+      "type": "string"
+    },
+    "report_date": {
+      "type": "string"
+    },
+    "venue_revenue_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "venue_revenue_baseline": {
+      "type": "number",
+      "default": 0
+    },
+    "venue_revenue_event_day": {
+      "type": "number",
+      "default": 0
+    },
+    "revenue_uplift_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "attendance_expected": {
+      "type": "number",
+      "default": 0
+    },
+    "attendance_actual": {
+      "type": "number",
+      "default": 0
+    },
+    "attendance_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "customer_satisfaction_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "customer_feedback": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "artist_performance_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "artist_notes": {
+      "type": "string"
+    },
+    "promoter_performance_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "promoter_notes": {
+      "type": "string"
+    },
+    "staffing_efficiency_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "staffing_notes": {
+      "type": "string"
+    },
+    "security_incidents": {
+      "type": "number",
+      "default": 0
+    },
+    "security_notes": {
+      "type": "string"
+    },
+    "production_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "production_notes": {
+      "type": "string"
+    },
+    "total_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "total_expenses": {
+      "type": "number",
+      "default": 0
+    },
+    "net_profit": {
+      "type": "number",
+      "default": 0
+    },
+    "future_recommendations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "generated_by": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "generated",
+        "reviewed",
+        "published"
+      ],
+      "default": "draft"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "event_id",
+    "report_date"
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "name": "MemoryRecord",
+  "type": "object",
+  "properties": {
+    "memory_type": {
+      "type": "string",
+      "enum": [
+        "decision",
+        "organization",
+        "business",
+        "engineering",
+        "legal",
+        "evidence",
+        "revenue",
+        "operational"
+      ],
+      "default": "operational"
+    },
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "source_entity_type": {
+      "type": "string"
+    },
+    "source_entity_id": {
+      "type": "string"
+    },
+    "source_module": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_memory_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_entity_refs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "importance_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "verified_by": {
+      "type": "string"
+    },
+    "created_by_agent": {
+      "type": "string"
+    },
+    "created_by_module": {
+      "type": "string"
+    },
+    "expiry_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "access_level": {
+      "type": "string",
+      "enum": [
+        "public",
+        "internal",
+        "restricted",
+        "confidential"
+      ],
+      "default": "internal"
+    },
+    "semantic_hash": {
+      "type": "string"
+    },
+    "embedding_text": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived",
+        "superseded",
+        "deprecated"
+      ],
+      "default": "active"
+    },
+    "revision_history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "consumption_count": {
+      "type": "number",
+      "default": 0
+    },
+    "last_consumed_at": {
+      "type": "string"
+    },
+    "last_consumed_by": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "memory_type",
+    "title",
+    "content"
+  ]
+}

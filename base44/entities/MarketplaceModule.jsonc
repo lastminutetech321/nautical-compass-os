@@ -1,0 +1,183 @@
+{
+  "name": "MarketplaceModule",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "long_description": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "productivity",
+        "crm",
+        "hr",
+        "legal",
+        "finance",
+        "culture",
+        "workforce",
+        "evidence",
+        "canon",
+        "ai",
+        "infrastructure",
+        "security",
+        "analytics",
+        "communication",
+        "operations",
+        "other"
+      ],
+      "default": "productivity"
+    },
+    "module_type": {
+      "type": "string",
+      "enum": [
+        "standalone",
+        "extension",
+        "integration",
+        "template",
+        "full_platform"
+      ],
+      "default": "standalone"
+    },
+    "publisher": {
+      "type": "string"
+    },
+    "developer": {
+      "type": "string"
+    },
+    "current_version": {
+      "type": "string",
+      "default": "1.0.0"
+    },
+    "version_history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "pricing_model": {
+      "type": "string",
+      "enum": [
+        "free",
+        "freemium",
+        "subscription",
+        "one_time",
+        "enterprise",
+        "usage_based",
+        "trial"
+      ],
+      "default": "subscription"
+    },
+    "price_monthly": {
+      "type": "number",
+      "default": 0
+    },
+    "price_annual": {
+      "type": "number",
+      "default": 0
+    },
+    "price_enterprise": {
+      "type": "number",
+      "default": 0
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "trial_days": {
+      "type": "number",
+      "default": 0
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "screenshots": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "documentation_url": {
+      "type": "string"
+    },
+    "documentation": {
+      "type": "string"
+    },
+    "install_instructions": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "published",
+        "deprecated",
+        "retired"
+      ],
+      "default": "draft"
+    },
+    "is_featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "total_installs": {
+      "type": "number",
+      "default": 0
+    },
+    "active_installs": {
+      "type": "number",
+      "default": 0
+    },
+    "avg_rating": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5,
+      "default": 0
+    },
+    "review_count": {
+      "type": "number",
+      "default": 0
+    },
+    "source_ncos_module": {
+      "type": "string"
+    },
+    "created_by": {
+      "type": "string"
+    },
+    "published_at": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "category",
+    "pricing_model"
+  ]
+}

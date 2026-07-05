@@ -1,0 +1,84 @@
+{
+  "name": "Podcast",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "creator_id": {
+      "type": "string"
+    },
+    "creator_name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "cover_url": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "episode_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "episode_count": {
+      "type": "number",
+      "default": 0
+    },
+    "total_downloads": {
+      "type": "number",
+      "default": 0
+    },
+    "monthly_listeners": {
+      "type": "number",
+      "default": 0
+    },
+    "subscriber_count": {
+      "type": "number",
+      "default": 0
+    },
+    "estimated_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "rss_feed_url": {
+      "type": "string"
+    },
+    "is_live": {
+      "type": "boolean",
+      "default": false
+    },
+    "schedule": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "ended",
+        "draft"
+      ],
+      "default": "active"
+    },
+    "language": {
+      "type": "string",
+      "default": "en"
+    }
+  },
+  "required": [
+    "title",
+    "creator_id"
+  ]
+}

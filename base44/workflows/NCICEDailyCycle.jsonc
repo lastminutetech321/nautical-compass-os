@@ -1,0 +1,47 @@
+{
+  "name": "NCICE Daily Cycle",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "0 6 * * *",
+      "one_time_date": null,
+      "timezone": "America/New_York",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  },
+  "description": "Every morning: generate the organizational digest, role-based briefings for all roles, process commitment follow-ups, and recompute intelligence metrics.",
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "ncice_daily_cycle",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "daily_cycle": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncIntelligenceEngine",
+            "args": {
+              "operation": "run_daily_cycle"
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "NCICE Daily Cycle",
+            "description": "Digest + role briefings + follow-ups + metrics"
+          }
+        }
+      }
+    ]
+  }
+}

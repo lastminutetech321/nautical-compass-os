@@ -1,0 +1,96 @@
+{
+  "name": "FeatureRequest",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "plain_description": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "feature_spec": {
+      "type": "string"
+    },
+    "user_stories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "screens": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "database_tables": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "api_routes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "automations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "testing_checklist": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "deployment_checklist": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "idea",
+        "planning",
+        "architecture_review",
+        "development",
+        "testing",
+        "approved",
+        "ready_for_deployment",
+        "deployed"
+      ],
+      "default": "idea"
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "plain_description"
+  ]
+}

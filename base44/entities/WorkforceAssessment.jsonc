@@ -1,0 +1,184 @@
+{
+  "name": "WorkforceAssessment",
+  "type": "object",
+  "properties": {
+    "worker_profile_id": {
+      "type": "string"
+    },
+    "worker_name": {
+      "type": "string"
+    },
+    "assessment_type": {
+      "type": "string",
+      "enum": [
+        "initial",
+        "readiness",
+        "performance",
+        "compliance",
+        "periodic",
+        "exit"
+      ],
+      "default": "initial"
+    },
+    "categories": {
+      "type": "object",
+      "properties": {
+        "professionalism": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 0
+        },
+        "attendance": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 0
+        },
+        "communication": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 0
+        },
+        "reliability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 0
+        },
+        "safety": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 0
+        },
+        "training": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 0
+        },
+        "technical_knowledge": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 0
+        },
+        "customer_service": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 0
+        },
+        "documentation": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 0
+        },
+        "ethics": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 0
+        },
+        "compliance": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 0
+        },
+        "leadership_potential": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 0
+        }
+      }
+    },
+    "category_weights": {
+      "type": "object"
+    },
+    "overall_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "readiness_level": {
+      "type": "string",
+      "enum": [
+        "ready_for_work",
+        "needs_training",
+        "needs_mentor",
+        "needs_compliance",
+        "needs_review"
+      ],
+      "default": "needs_review"
+    },
+    "strengths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "weaknesses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assessor_id": {
+      "type": "string"
+    },
+    "assessor_name": {
+      "type": "string"
+    },
+    "assessor_type": {
+      "type": "string",
+      "enum": [
+        "director",
+        "mentor",
+        "ai_agent",
+        "system",
+        "founder"
+      ],
+      "default": "director"
+    },
+    "assessment_date": {
+      "type": "string"
+    },
+    "next_assessment_date": {
+      "type": "string"
+    },
+    "linked_industry_template_id": {
+      "type": "string"
+    },
+    "linked_pipeline_stage": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "completed",
+        "archived"
+      ],
+      "default": "completed"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "worker_profile_id",
+    "assessment_type"
+  ]
+}

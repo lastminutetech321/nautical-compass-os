@@ -1,0 +1,80 @@
+{
+  "name": "SandboxEvent",
+  "type": "object",
+  "properties": {
+    "event_id": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string"
+    },
+    "api_version": {
+      "type": "string",
+      "default": "2024-04-10"
+    },
+    "simulated_at": {
+      "type": "string"
+    },
+    "mock_customer_id": {
+      "type": "string"
+    },
+    "mock_subscription_id": {
+      "type": "string"
+    },
+    "mock_invoice_id": {
+      "type": "string"
+    },
+    "mock_payment_intent_id": {
+      "type": "string"
+    },
+    "mock_charge_id": {
+      "type": "string"
+    },
+    "payload": {
+      "type": "object"
+    },
+    "sandbox_mode": {
+      "type": "boolean",
+      "default": true
+    },
+    "processed": {
+      "type": "boolean",
+      "default": false
+    },
+    "fabric_response": {
+      "type": "object"
+    },
+    "action_taken": {
+      "type": "string"
+    },
+    "linked_simulation_id": {
+      "type": "string"
+    },
+    "linked_webhook_test_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "simulated",
+        "processed",
+        "failed",
+        "ignored"
+      ],
+      "default": "simulated"
+    },
+    "processing_error": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "event_id",
+    "event_type"
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "name": "CommitmentTracker",
+  "type": "object",
+  "properties": {
+    "commitment_text": {
+      "type": "string"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "meeting",
+        "workflow",
+        "briefing",
+        "executive_review",
+        "customer_interaction",
+        "assignment",
+        "other"
+      ],
+      "default": "meeting"
+    },
+    "source_id": {
+      "type": "string"
+    },
+    "source_title": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "assigned_by": {
+      "type": "string"
+    },
+    "department": {
+      "type": "string"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "in_progress",
+        "completed",
+        "overdue",
+        "cancelled",
+        "blocked"
+      ],
+      "default": "open"
+    },
+    "progress_pct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "blocked_reason": {
+      "type": "string"
+    },
+    "escalation_path": {
+      "type": "string"
+    },
+    "notify_users": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_meeting_id": {
+      "type": "string"
+    },
+    "linked_customer_id": {
+      "type": "string"
+    },
+    "linked_project_id": {
+      "type": "string"
+    },
+    "completed_at": {
+      "type": "string"
+    },
+    "missed_deadline": {
+      "type": "boolean",
+      "default": false
+    },
+    "reminder_count": {
+      "type": "number",
+      "default": 0
+    },
+    "last_reminder_sent": {
+      "type": "string"
+    },
+    "requires_founder_approval": {
+      "type": "boolean",
+      "default": false
+    },
+    "founder_escalation": {
+      "type": "boolean",
+      "default": false
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "commitment_text"
+  ]
+}

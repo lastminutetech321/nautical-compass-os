@@ -1,0 +1,161 @@
+{
+  "name": "AuthorityInteraction",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "authority_type": {
+      "type": "string",
+      "enum": [
+        "police",
+        "court",
+        "employer",
+        "landlord",
+        "government",
+        "school",
+        "hoa",
+        "security",
+        "hospital",
+        "licensing_board",
+        "corporation",
+        "other"
+      ],
+      "default": "government"
+    },
+    "authority_name": {
+      "type": "string"
+    },
+    "authority_contact": {
+      "type": "string"
+    },
+    "actor_name": {
+      "type": "string"
+    },
+    "actor_title": {
+      "type": "string"
+    },
+    "badge_or_id": {
+      "type": "string"
+    },
+    "date_of_interaction": {
+      "type": "string",
+      "format": "date"
+    },
+    "time_of_interaction": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "claimed_authority": {
+      "type": "string"
+    },
+    "claimed_legal_basis": {
+      "type": "string"
+    },
+    "actual_authority_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "intake",
+        "under_review",
+        "validated",
+        "invalid",
+        "escalated",
+        "resolved",
+        "archived"
+      ],
+      "default": "intake"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "moderate",
+        "high",
+        "critical"
+      ],
+      "default": "moderate"
+    },
+    "jurisdiction": {
+      "type": "string"
+    },
+    "jurisdiction_type": {
+      "type": "string",
+      "enum": [
+        "federal",
+        "state",
+        "county",
+        "municipal",
+        "private",
+        "international",
+        "unknown"
+      ],
+      "default": "state"
+    },
+    "capacity_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "standing_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "jurisdiction_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "linked_evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_foia_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_complaint_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_canon_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "is_anonymous": {
+      "type": "boolean",
+      "default": false
+    },
+    "consent_given": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "title",
+    "authority_type"
+  ]
+}

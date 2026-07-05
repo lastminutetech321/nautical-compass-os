@@ -1,0 +1,111 @@
+{
+  "name": "PromptLibrary",
+  "type": "object",
+  "properties": {
+    "prompt": {
+      "type": "string"
+    },
+    "prompt_title": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "output": {
+      "type": "string"
+    },
+    "output_summary": {
+      "type": "string"
+    },
+    "files_affected": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "success_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "failures": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "lessons_learned": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reusable": {
+      "type": "boolean",
+      "default": true
+    },
+    "project": {
+      "type": "string"
+    },
+    "sprint": {
+      "type": "string"
+    },
+    "module": {
+      "type": "string"
+    },
+    "model_used": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "code_generation",
+        "analysis",
+        "research",
+        "legal",
+        "business",
+        "architecture",
+        "debugging",
+        "documentation",
+        "decision_support",
+        "data_extraction",
+        "other"
+      ],
+      "default": "code_generation"
+    },
+    "usage_count": {
+      "type": "number",
+      "default": 0
+    },
+    "last_used": {
+      "type": "string"
+    },
+    "linked_journal_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "deprecated",
+        "experimental",
+        "archived"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "prompt",
+    "purpose"
+  ]
+}

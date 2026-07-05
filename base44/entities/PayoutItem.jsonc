@@ -1,0 +1,201 @@
+{
+  "name": "PayoutItem",
+  "type": "object",
+  "properties": {
+    "payout_key": {
+      "type": "string"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "participant_id": {
+      "type": "string"
+    },
+    "participant_name": {
+      "type": "string"
+    },
+    "participant_type": {
+      "type": "string"
+    },
+    "payout_type": {
+      "type": "string",
+      "enum": [
+        "commission",
+        "residual",
+        "referral",
+        "artist",
+        "workforce",
+        "special_assignment",
+        "marketplace",
+        "enterprise",
+        "director",
+        "bonus",
+        "manual"
+      ],
+      "default": "commission"
+    },
+    "policy_id": {
+      "type": "string"
+    },
+    "policy_name": {
+      "type": "string"
+    },
+    "policy_version": {
+      "type": "number",
+      "default": 1
+    },
+    "gross_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "base_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "contribution_adjustment": {
+      "type": "number",
+      "default": 0
+    },
+    "trust_adjustment": {
+      "type": "number",
+      "default": 0
+    },
+    "penalty_adjustment": {
+      "type": "number",
+      "default": 0
+    },
+    "net_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "calculation_explanation": {
+      "type": "string"
+    },
+    "contribution_factors": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "trust_factors": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "approval_chain": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "memory_references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "hold_until": {
+      "type": "string"
+    },
+    "approval_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "not_required",
+        "pending",
+        "approved",
+        "rejected",
+        "expired"
+      ],
+      "default": "not_required"
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "calculated",
+        "pending_approval",
+        "approved",
+        "processing",
+        "paid",
+        "held",
+        "cancelled",
+        "failed",
+        "disputed"
+      ],
+      "default": "calculated"
+    },
+    "paid_at": {
+      "type": "string"
+    },
+    "payment_method": {
+      "type": "string"
+    },
+    "external_payout_id": {
+      "type": "string"
+    },
+    "stripe_charge_id": {
+      "type": "string",
+      "description": "Stripe charge that funded this payout \u2014 used to hold payouts on chargeback"
+    },
+    "stripe_invoice_id": {
+      "type": "string",
+      "description": "Stripe invoice that generated this payout \u2014 used to link chargebacks"
+    },
+    "dispute_status": {
+      "type": "string",
+      "enum": [
+        "none",
+        "open",
+        "resolved",
+        "lost",
+        "won"
+      ],
+      "default": "none"
+    },
+    "audit_trail": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "payout_key",
+    "participant_id",
+    "participant_name",
+    "payout_type",
+    "net_amount"
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "name": "SandboxSimulation",
+  "type": "object",
+  "properties": {
+    "simulation_key": {
+      "type": "string"
+    },
+    "scenario_type": {
+      "type": "string",
+      "enum": [
+        "new_subscription",
+        "renewal",
+        "upgrade",
+        "downgrade",
+        "cancellation",
+        "paused_subscription",
+        "expired_card",
+        "declined_card",
+        "ach_failure",
+        "chargeback",
+        "refund",
+        "coupon_application",
+        "enterprise_seat_expansion",
+        "referral_reward",
+        "director_residual",
+        "artist_royalty",
+        "workforce_assignment_payment",
+        "marketplace_purchase",
+        "split_payments",
+        "revenue_distribution",
+        "commission_adjustment",
+        "contribution_score_change",
+        "trust_score_change",
+        "promotion_eligibility",
+        "special_assignment_bonus",
+        "tax_calculation",
+        "grace_period",
+        "collection",
+        "enterprise_billing"
+      ],
+      "default": "new_subscription"
+    },
+    "simulation_mode": {
+      "type": "string",
+      "enum": [
+        "sandbox",
+        "production_dry_run"
+      ],
+      "default": "sandbox"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "running",
+        "passed",
+        "failed",
+        "partial",
+        "cancelled"
+      ],
+      "default": "queued"
+    },
+    "triggered_by": {
+      "type": "string"
+    },
+    "triggered_by_id": {
+      "type": "string"
+    },
+    "input_payload": {
+      "type": "object"
+    },
+    "mock_event_id": {
+      "type": "string"
+    },
+    "verification_result_id": {
+      "type": "string"
+    },
+    "affected_entities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "audit_summary": {
+      "type": "string"
+    },
+    "lessons_learned": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "automation_opportunities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "config_mistakes_detected": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "started_at": {
+      "type": "string"
+    },
+    "completed_at": {
+      "type": "string"
+    },
+    "duration_ms": {
+      "type": "number",
+      "default": 0
+    },
+    "memory_references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "knowledge_updates": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "simulation_key",
+    "scenario_type",
+    "status"
+  ]
+}

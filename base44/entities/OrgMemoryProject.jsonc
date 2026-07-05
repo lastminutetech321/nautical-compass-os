@@ -1,0 +1,113 @@
+{
+  "name": "OrgMemoryProject",
+  "type": "object",
+  "properties": {
+    "project_name": {
+      "type": "string"
+    },
+    "project_id_ref": {
+      "type": "string"
+    },
+    "completion_date": {
+      "type": "string"
+    },
+    "executive_summary": {
+      "type": "string"
+    },
+    "technical_summary": {
+      "type": "string"
+    },
+    "business_summary": {
+      "type": "string"
+    },
+    "lessons_learned": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mistakes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "future_improvements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affected_departments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "knowledge_graph_updates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ai_training_updates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "value_created": {
+      "type": "number",
+      "default": 0
+    },
+    "cost_incurred": {
+      "type": "number",
+      "default": 0
+    },
+    "time_spent_hours": {
+      "type": "number",
+      "default": 0
+    },
+    "team_members": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ai_agents_involved": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "departments_notified": {
+      "type": "boolean",
+      "default": false
+    },
+    "knowledge_stored": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "completed",
+        "archived"
+      ],
+      "default": "completed"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_name"
+  ]
+}

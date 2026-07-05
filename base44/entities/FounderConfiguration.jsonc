@@ -1,0 +1,96 @@
+{
+  "name": "FounderConfiguration",
+  "type": "object",
+  "properties": {
+    "config_key": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "compensation",
+        "trust",
+        "contribution",
+        "promotion",
+        "recognition",
+        "ethics",
+        "compliance",
+        "ai_permissions",
+        "approval_thresholds",
+        "revenue",
+        "referral",
+        "residual",
+        "role_definitions",
+        "organization_standards",
+        "training_requirements"
+      ],
+      "default": "compensation"
+    },
+    "value": {
+      "type": "object"
+    },
+    "default_value": {
+      "type": "object"
+    },
+    "data_type": {
+      "type": "string",
+      "enum": [
+        "number",
+        "percentage",
+        "boolean",
+        "string",
+        "object",
+        "array"
+      ],
+      "default": "object"
+    },
+    "description": {
+      "type": "string"
+    },
+    "version": {
+      "type": "number",
+      "default": 1
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "superseded",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "last_modified_by": {
+      "type": "string"
+    },
+    "last_modified_at": {
+      "type": "string"
+    },
+    "requires_founder_approval": {
+      "type": "boolean",
+      "default": true
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "config_key",
+    "category",
+    "value"
+  ]
+}

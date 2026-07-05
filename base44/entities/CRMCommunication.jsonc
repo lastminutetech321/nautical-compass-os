@@ -1,0 +1,110 @@
+{
+  "name": "CRMCommunication",
+  "type": "object",
+  "properties": {
+    "subject": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "email",
+        "call",
+        "meeting",
+        "sms",
+        "slack",
+        "linkedin",
+        "in_person",
+        "note",
+        "voicemail",
+        "other"
+      ],
+      "default": "email"
+    },
+    "direction": {
+      "type": "string",
+      "enum": [
+        "inbound",
+        "outbound",
+        "internal"
+      ],
+      "default": "outbound"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "scheduled",
+        "completed",
+        "missed",
+        "cancelled",
+        "no_response"
+      ],
+      "default": "completed"
+    },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "neutral",
+        "negative",
+        "follow_up_needed",
+        "won",
+        "lost"
+      ],
+      "default": "neutral"
+    },
+    "contact_id": {
+      "type": "string"
+    },
+    "organization_id": {
+      "type": "string"
+    },
+    "lead_id": {
+      "type": "string"
+    },
+    "opportunity_id": {
+      "type": "string"
+    },
+    "deal_id": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "duration_minutes": {
+      "type": "number"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "next_steps": {
+      "type": "string"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "assigned_agent": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "required": [
+    "subject",
+    "type"
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "name": "Creator",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "creator_type": {
+      "type": "string",
+      "enum": [
+        "musician",
+        "podcaster",
+        "video_creator",
+        "streamer",
+        "visual_artist",
+        "writer",
+        "producer",
+        "director",
+        "influencer",
+        "multi"
+      ],
+      "default": "musician"
+    },
+    "bio": {
+      "type": "string"
+    },
+    "avatar_url": {
+      "type": "string"
+    },
+    "banner_url": {
+      "type": "string"
+    },
+    "social_links": {
+      "type": "object"
+    },
+    "website": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "verification_id": {
+      "type": "string"
+    },
+    "profile_id": {
+      "type": "string"
+    },
+    "follower_count": {
+      "type": "number",
+      "default": 0
+    },
+    "subscriber_count": {
+      "type": "number",
+      "default": 0
+    },
+    "total_views": {
+      "type": "number",
+      "default": 0
+    },
+    "total_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "content_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "specialties": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "contract_status": {
+      "type": "string",
+      "enum": [
+        "independent",
+        "managed",
+        "exclusive",
+        "partnership"
+      ],
+      "default": "independent"
+    },
+    "revenue_share_pct": {
+      "type": "number",
+      "default": 100
+    },
+    "joined_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "suspended",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "name",
+    "creator_type"
+  ]
+}

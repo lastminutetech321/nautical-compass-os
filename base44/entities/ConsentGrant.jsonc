@@ -1,0 +1,81 @@
+{
+  "name": "ConsentGrant",
+  "type": "object",
+  "properties": {
+    "consent_key": {
+      "type": "string"
+    },
+    "integration_id": {
+      "type": "string"
+    },
+    "integration_name": {
+      "type": "string"
+    },
+    "scope": {
+      "type": "string",
+      "enum": [
+        "organization",
+        "individual"
+      ],
+      "default": "organization"
+    },
+    "grantor_id": {
+      "type": "string"
+    },
+    "grantor_name": {
+      "type": "string"
+    },
+    "data_requested": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "benefits": {
+      "type": "string"
+    },
+    "retention_policy": {
+      "type": "string"
+    },
+    "privacy_note": {
+      "type": "string"
+    },
+    "permissions": {
+      "type": "object",
+      "description": "Granular per-data-type permissions (true/false). e.g. {assignments: true, payroll: false}"
+    },
+    "revocable": {
+      "type": "boolean",
+      "default": true
+    },
+    "revoked": {
+      "type": "boolean",
+      "default": false
+    },
+    "revoked_at": {
+      "type": "string"
+    },
+    "granted_at": {
+      "type": "string"
+    },
+    "expires_at": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "consent_key",
+    "integration_id",
+    "scope",
+    "grantor_id",
+    "grantor_name"
+  ]
+}

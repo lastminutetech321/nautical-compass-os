@@ -1,0 +1,168 @@
+{
+  "name": "Subscription",
+  "type": "object",
+  "properties": {
+    "organization_id": {
+      "type": "string"
+    },
+    "customer_name": {
+      "type": "string"
+    },
+    "customer_email": {
+      "type": "string"
+    },
+    "plan_id": {
+      "type": "string"
+    },
+    "plan_name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "trialing",
+        "active",
+        "past_due",
+        "grace_period",
+        "cancelled",
+        "paused",
+        "expired"
+      ],
+      "default": "trialing"
+    },
+    "billing_cycle": {
+      "type": "string",
+      "enum": [
+        "monthly",
+        "annual",
+        "custom"
+      ],
+      "default": "monthly"
+    },
+    "payment_provider": {
+      "type": "string",
+      "enum": [
+        "stripe",
+        "square",
+        "paypal",
+        "authorizenet",
+        "manual_invoice",
+        "bank_transfer",
+        "custom"
+      ],
+      "default": "stripe"
+    },
+    "seats_purchased": {
+      "type": "number",
+      "default": 1
+    },
+    "seats_used": {
+      "type": "number",
+      "default": 0
+    },
+    "trial_ends_at": {
+      "type": "string"
+    },
+    "grace_period_ends_at": {
+      "type": "string"
+    },
+    "current_period_start": {
+      "type": "string"
+    },
+    "current_period_end": {
+      "type": "string"
+    },
+    "cancelled_at": {
+      "type": "string"
+    },
+    "pause_until": {
+      "type": "string"
+    },
+    "mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "arr": {
+      "type": "number",
+      "default": 0
+    },
+    "ltv": {
+      "type": "number",
+      "default": 0
+    },
+    "usage": {
+      "type": "object"
+    },
+    "coupon_code": {
+      "type": "string"
+    },
+    "discount_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "discount_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "referral_code": {
+      "type": "string"
+    },
+    "referred_by": {
+      "type": "string"
+    },
+    "director_id": {
+      "type": "string"
+    },
+    "failed_payment_count": {
+      "type": "number",
+      "default": 0
+    },
+    "last_payment_attempt": {
+      "type": "string"
+    },
+    "last_payment_status": {
+      "type": "string",
+      "enum": [
+        "success",
+        "failed",
+        "pending",
+        "none"
+      ],
+      "default": "none"
+    },
+    "in_collections": {
+      "type": "boolean",
+      "default": false
+    },
+    "stripe_subscription_id": {
+      "type": "string"
+    },
+    "stripe_customer_id": {
+      "type": "string"
+    },
+    "square_subscription_id": {
+      "type": "string"
+    },
+    "paypal_subscription_id": {
+      "type": "string"
+    },
+    "authnet_subscription_id": {
+      "type": "string"
+    },
+    "external_customer_id": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "plan_id"
+  ]
+}

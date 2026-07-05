@@ -1,0 +1,113 @@
+{
+  "name": "SafetyReport",
+  "type": "object",
+  "properties": {
+    "worker_id": {
+      "type": "string"
+    },
+    "reporter_name": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "report_type": {
+      "type": "string",
+      "enum": [
+        "near_miss",
+        "injury",
+        "illness",
+        "hazard",
+        "violation",
+        "equipment",
+        "environmental",
+        "harassment",
+        "wage_theft",
+        "other"
+      ],
+      "default": "hazard"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "moderate",
+        "high",
+        "critical"
+      ],
+      "default": "moderate"
+    },
+    "date_of_incident": {
+      "type": "string",
+      "format": "date"
+    },
+    "location": {
+      "type": "string"
+    },
+    "employer_name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "immediate_action_taken": {
+      "type": "string"
+    },
+    "witnesses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reported_to_osha": {
+      "type": "boolean",
+      "default": false
+    },
+    "osha_case_number": {
+      "type": "string"
+    },
+    "reported_to_employer": {
+      "type": "boolean",
+      "default": false
+    },
+    "employer_response": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "under_review",
+        "resolved",
+        "escalated",
+        "closed"
+      ],
+      "default": "open"
+    },
+    "follow_up_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "follow_up_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "evidence_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "anonymous": {
+      "type": "boolean",
+      "default": false
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "report_type"
+  ]
+}

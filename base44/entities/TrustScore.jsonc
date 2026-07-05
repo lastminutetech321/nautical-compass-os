@@ -1,0 +1,92 @@
+{
+  "name": "TrustScore",
+  "type": "object",
+  "properties": {
+    "entity_type": {
+      "type": "string",
+      "enum": [
+        "member",
+        "director",
+        "organization"
+      ],
+      "default": "member"
+    },
+    "entity_id": {
+      "type": "string"
+    },
+    "entity_name": {
+      "type": "string"
+    },
+    "trust_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "trust_level": {
+      "type": "string",
+      "enum": [
+        "building",
+        "established",
+        "strong",
+        "ambassador"
+      ],
+      "default": "building"
+    },
+    "trust_trend": {
+      "type": "string",
+      "enum": [
+        "improving",
+        "stable",
+        "declining"
+      ],
+      "default": "stable"
+    },
+    "factors": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "questions_answered_clearly": {
+      "type": "number",
+      "default": 0
+    },
+    "resources_helpful": {
+      "type": "number",
+      "default": 0
+    },
+    "onboarding_completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "voluntary_returns": {
+      "type": "number",
+      "default": 0
+    },
+    "satisfaction_reports": {
+      "type": "number",
+      "default": 0
+    },
+    "goals_achieved": {
+      "type": "number",
+      "default": 0
+    },
+    "last_interaction": {
+      "type": "string"
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "entity_type",
+    "entity_id"
+  ]
+}

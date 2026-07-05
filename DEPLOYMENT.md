@@ -1,25 +1,25 @@
 # NCOS — DigitalOcean Deployment Guide
 
-This is a Base44 application: a Vite + React SPA frontend that talks to the Base44 BaaS (entities, serverless functions, auth) over HTTPS.
+This is a **Base44 application**: a Vite + React single-page app (SPA) frontend that talks to the Base44 Backend-as-a-Service (entities, serverless functions, auth) over HTTPS.
 
-**What deploys to DigitalOcean:** the static frontend build (`dist/`), served by nginx in Docker.
+**What deploys to DigitalOcean:** the static frontend build (`dist/`), served by nginx inside a Docker container.
 
-**What stays on Base44:** the entire backend — database, serverless functions, auth, file storage, GitHub connector. No backend code runs on DigitalOcean.
+**What stays on Base44:** the entire backend — database (entities), serverless functions (`base44/functions/*`), authentication, file storage, and the GitHub connector. The frontend calls these via the `@base44/sdk` client. No backend code runs on DigitalOcean.
 
 ---
 
 ## Prerequisites
 
-1. Base44 account with a published app — note the App ID from the Base44 dashboard.
-2. DigitalOcean account with App Platform access.
-3. `doctl` CLI installed (optional, for CLI deploy).
+1. **Base44 account** with a published app — note the **App ID** from the Base44 dashboard.
+2. **DigitalOcean account** with App Platform access.
+3. **`doctl` CLI** installed (optional, for CLI deploy).
 4. A custom domain (optional but recommended for production).
 
 ---
 
 ## Environment Variables
 
-All `VITE_*` variables are build-time only — Vite inlines them into the JS bundle during `npm run build`. Changing any value requires a rebuild.
+All `VITE_*` variables are **build-time only** — Vite inlines them into the JS bundle during `npm run build`. **Changing any value requires a rebuild.**
 
 | Variable | Required | Scope | Description |
 |---|---|---|---|
@@ -27,53 +27,64 @@ All `VITE_*` variables are build-time only — Vite inlines them into the JS bun
 | `VITE_BASE44_FUNCTIONS_VERSION` | No | Build | Pin a functions version; blank = latest |
 | `VITE_BASE44_APP_BASE_URL` | Recommended | Build | Public URL of this frontend (must match Base44 allowed origins) |
 
-No runtime env vars. Set them as BUILD_TIME env vars in DigitalOcean.
+> No runtime env vars. Set them as **BUILD_TIME** env vars in DigitalOcean.
 
 ---
 
-## Option A — DigitalOcean App Platform (recommended)
+## Option A — Deploy via DigitalOcean App Platform (recommended)
 
-Via dashboard:
-1. DigitalOcean then Apps then Create App
-2. Choose GitHub source then select your repo
-3. DO auto-detects the Dockerfile — keep it.
+### Via dashboard
+1. DigitalOcean → **Apps** → **Create App**
+2. Choose **GitHub** source → select your repo
+3. DO auto-detects the `Dockerfile` → keep it.
 4. Set Build Time Environment Variables: `VITE_BASE44_APP_ID`, `VITE_BASE44_APP_BASE_URL`.
-5. HTTP port = 80.
-6. Create Resources.
+5. HTTP port = **80**.
+6. **Create Resources**.
 
-Via doctl (CLI):
+### Via doctl (CLI)
+```bash
+doctl auth init
+export VITE_BASE44_APP_ID="your_app_id"
+export VITE_BASE44_FUNCTIONS_VERSION=""
+export VITE_BASE44_APP_BASE_URL="https://ncos.ondigitalocean.app"
+doctl app spec deploy .do/app.yaml
+```
 
-    doctl auth init
-    export VITE_BASE44_APP_ID="your_app_id"
-    export VITE_BASE44_APP_BASE_URL="https://ncos.ondigitalocean.app"
-    doctl app spec deploy .do/app.yaml
-
-Configure Base44 backend:
-1. Base44 dashboard then app Settings then Domains.
+### Configure Base44 backend
+1. Base44 dashboard → app **Settings → Domains**.
 2. Add your DO domain to allowed redirect origins.
 3. Confirm App ID matches `VITE_BASE44_APP_ID`.
 
 ---
 
-## Option B — DigitalOcean Droplet (Docker)
+## Option B — Deploy on a DigitalOcean Droplet (Docker)
 
-    ssh root@your-droplet-ip
-    apt update && apt install -y docker.io
-    git clone https://github.com/your-org/your-repo.git && cd your-repo
-    docker build --build-arg VITE_BASE44_APP_ID="your_app_id" -t ncos-frontend .
-    docker run -d --name ncos-frontend --restart unless-stopped -p 80:80 ncos-frontend
-    curl -I http://localhost
+```bash
+ssh root@your-droplet-ip
+apt update && apt install -y docker.io
+git clone https://github.com/your-org/your-repo.git && cd your-repo
 
-For production on a Droplet, put nginx-proxy + Let Encrypt (or Caddy) in front for TLS.
+docker build \
+  --build-arg VITE_BASE44_APP_ID="your_app_id" \
+  --build-arg VITE_BASE44_APP_BASE_URL="https://your-domain.com" \
+  -t ncos-frontend .
+
+docker run -d --name ncos-frontend --restart unless-stopped -p 80:80 ncos-frontend
+curl -I http://localhost   # → HTTP/1.1 200 OK
+```
+
+For production on a Droplet, put nginx-proxy + Let's Encrypt (or Caddy) in front for TLS.
 
 ---
 
 ## Build Verification (local)
 
-    cp .env.example .env
-    npm install
-    npm run build
-    npm run preview
+```bash
+cp .env.example .env   # fill in VITE_BASE44_APP_ID
+npm install
+npm run build          # → dist/ folder
+npm run preview        # → http://localhost:4173
+```
 
 ---
 
@@ -89,19 +100,19 @@ For production on a Droplet, put nginx-proxy + Let Encrypt (or Caddy) in front f
 | Workflows | Base44 platform |
 | AI agents | Base44 platform |
 
-Do not run `base44/` on DigitalOcean — it uses Base44-specific runtime APIs.
+Do **not** run `base44/` on DigitalOcean — it uses Base44-specific runtime APIs.
 
 ---
 
 ## Post-Deploy Checklist
 
-- App loads at DO domain (no blank screen / 404)
-- Login flow redirects to Base44 auth and back
-- Entity data loads (Daily Compass shows data)
-- No CORS errors (add DO domain to Base44 allowed origins if so)
-- `VITE_BASE44_APP_BASE_URL` matches deployed domain exactly
-- HTTPS active
-- Health check passes
+- [ ] App loads at DO domain (no blank screen / 404)
+- [ ] Login flow redirects to Base44 auth and back
+- [ ] Entity data loads (Daily Compass shows data)
+- [ ] No CORS errors (add DO domain to Base44 allowed origins if so)
+- [ ] `VITE_BASE44_APP_BASE_URL` matches deployed domain exactly
+- [ ] HTTPS active
+- [ ] Health check passes
 
 ---
 
@@ -109,9 +120,9 @@ Do not run `base44/` on DigitalOcean — it uses Base44-specific runtime APIs.
 
 | Symptom | Fix |
 |---|---|
-| Blank screen | `VITE_BASE44_APP_ID` missing — set BUILD_TIME, redeploy |
-| Auth redirect fails | DO domain not in Base44 allowed origins — add it |
-| 404 on refresh | nginx SPA fallback missing — confirm `nginx.conf` |
+| Blank screen | `VITE_BASE44_APP_ID` missing → set BUILD_TIME, redeploy |
+| Auth redirect fails | DO domain not in Base44 allowed origins → add it |
+| 404 on refresh | nginx SPA fallback missing → confirm `nginx.conf` |
 | CORS errors | Add DO domain to Base44 allowed origins |
 | Old content | Hard refresh / confirm DO deploy completed |
 
@@ -119,6 +130,6 @@ Do not run `base44/` on DigitalOcean — it uses Base44-specific runtime APIs.
 
 ## Rollback
 
-DO App Platform: Apps then your app then Deployments then select previous then Rollback.
+DO App Platform: Apps → your app → **Deployments** → select previous → **Rollback**.
 
-Droplet: `docker stop ncos-frontend && docker rm ncos-frontend && docker run -d --name ncos-frontend -p 80:80 ncos-frontend:previous-tag`
+Droplet: `docker stop ncos-frontend && docker rm ncos-frontend && docker run -d --name ncos-frontend -p 80:80 ncos-frontend:previous-tag

@@ -1,0 +1,291 @@
+{
+  "name": "ExecutionItem",
+  "type": "object",
+  "properties": {
+    "execution_key": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "orchestration_insight",
+        "diagnostic_finding",
+        "nail_brief",
+        "noos_department_issue",
+        "customer_success_risk",
+        "workforce_gap",
+        "canon_gap",
+        "revenue_opportunity",
+        "daily_reflection",
+        "executive_review",
+        "founder_decision",
+        "improvement_item",
+        "meeting_action",
+        "canon_verification",
+        "other"
+      ],
+      "default": "other"
+    },
+    "source_id": {
+      "type": "string"
+    },
+    "source_title": {
+      "type": "string"
+    },
+    "source_link": {
+      "type": "string"
+    },
+    "why_it_matters": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "action_steps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "owner": {
+      "type": "string"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "department": {
+      "type": "string"
+    },
+    "assigned_ai_agent": {
+      "type": "string"
+    },
+    "assigned_ai_agent_id": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item_id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "dependency_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "blocked_by": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "approval_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "approval_category": {
+      "type": "string",
+      "enum": [
+        "none",
+        "legal",
+        "governance",
+        "compensation",
+        "pricing",
+        "external_message",
+        "customer_charge",
+        "production_deployment",
+        "data_deletion",
+        "canon_change",
+        "general"
+      ],
+      "default": "none"
+    },
+    "approval_gate_id": {
+      "type": "string"
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "not_required",
+        "pending",
+        "approved",
+        "rejected",
+        "expired"
+      ],
+      "default": "not_required"
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "dispatched",
+        "in_progress",
+        "blocked",
+        "awaiting_approval",
+        "completed",
+        "cancelled",
+        "failed"
+      ],
+      "default": "queued"
+    },
+    "progress_pct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "expected_impact": {
+      "type": "string"
+    },
+    "expected_readiness_increase": {
+      "type": "number",
+      "default": 0
+    },
+    "expected_revenue_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "actual_impact": {
+      "type": "string"
+    },
+    "actual_readiness_increase": {
+      "type": "number",
+      "default": 0
+    },
+    "actual_revenue_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "outcome_match": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "exceeded",
+        "met",
+        "partial",
+        "missed",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "completion_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "recorded_by": {
+            "type": "string"
+          },
+          "recorded_at": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "lessons_learned": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "memory_records": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "knowledge_graph_updates": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "training_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "engineering_journal_entries": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "completion_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "completion_verified_by": {
+      "type": "string"
+    },
+    "completed_at": {
+      "type": "string"
+    },
+    "auto_created": {
+      "type": "boolean",
+      "default": false
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "source_type",
+    "why_it_matters"
+  ]
+}

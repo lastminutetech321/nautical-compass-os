@@ -1,0 +1,172 @@
+{
+  "name": "PayoutPolicy",
+  "type": "object",
+  "properties": {
+    "policy_name": {
+      "type": "string"
+    },
+    "policy_key": {
+      "type": "string"
+    },
+    "target_role": {
+      "type": "string",
+      "enum": [
+        "founder",
+        "director",
+        "employee",
+        "contractor",
+        "artist",
+        "creator",
+        "musician",
+        "workforce",
+        "promoter",
+        "referral_partner",
+        "enterprise_partner",
+        "marketplace_provider",
+        "special_assignment",
+        "custom"
+      ],
+      "default": "director"
+    },
+    "assignment_id": {
+      "type": "string"
+    },
+    "assignment_name": {
+      "type": "string"
+    },
+    "base_pct": {
+      "type": "number",
+      "default": 20
+    },
+    "max_cap_pct": {
+      "type": "number",
+      "default": 30
+    },
+    "max_cap_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "contribution_weights": {
+      "type": "object"
+    },
+    "trust_weight": {
+      "type": "number",
+      "default": 1
+    },
+    "hold_period_days": {
+      "type": "number",
+      "default": 0
+    },
+    "approval_threshold": {
+      "type": "number",
+      "default": 0
+    },
+    "requires_founder_approval": {
+      "type": "boolean",
+      "default": true
+    },
+    "residual_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "residual_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "residual_duration_months": {
+      "type": "number",
+      "default": 0
+    },
+    "referral_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "referral_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "referral_duration_months": {
+      "type": "number",
+      "default": 0
+    },
+    "payout_timing": {
+      "type": "string",
+      "enum": [
+        "immediate",
+        "weekly",
+        "biweekly",
+        "monthly",
+        "quarterly",
+        "on_completion",
+        "custom"
+      ],
+      "default": "monthly"
+    },
+    "calculation_formula": {
+      "type": "string"
+    },
+    "formula_config": {
+      "type": "object"
+    },
+    "min_trust_score": {
+      "type": "number",
+      "default": 0
+    },
+    "min_reputation_score": {
+      "type": "number",
+      "default": 0
+    },
+    "violation_penalty_config": {
+      "type": "object"
+    },
+    "version": {
+      "type": "number",
+      "default": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "superseded",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "requires_founder_approval_to_activate": {
+      "type": "boolean",
+      "default": true
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "policy_name",
+    "policy_key",
+    "target_role",
+    "base_pct"
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "name": "Automation",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "department": {
+      "type": "string"
+    },
+    "trigger_type": {
+      "type": "string",
+      "enum": [
+        "manual",
+        "schedule",
+        "event",
+        "webhook",
+        "condition"
+      ],
+      "default": "manual"
+    },
+    "trigger_config": {
+      "type": "object"
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "notifications": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "logs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "testing",
+        "production",
+        "disabled"
+      ],
+      "default": "testing"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "error",
+        "draft"
+      ],
+      "default": "draft"
+    },
+    "last_run": {
+      "type": "string"
+    },
+    "run_count": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

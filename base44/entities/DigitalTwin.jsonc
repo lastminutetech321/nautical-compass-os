@@ -1,0 +1,200 @@
+{
+  "name": "DigitalTwin",
+  "type": "object",
+  "properties": {
+    "snapshot_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "snapshot_time": {
+      "type": "string"
+    },
+    "subsystems": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "health_score": {
+            "type": "number"
+          },
+          "risk_score": {
+            "type": "number"
+          },
+          "growth_score": {
+            "type": "number"
+          },
+          "confidence_score": {
+            "type": "number"
+          },
+          "forecast_score": {
+            "type": "number"
+          },
+          "self_improvement_score": {
+            "type": "number"
+          },
+          "dependency_score": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "top_opportunities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "top_risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "highest_roi_projects": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "critical_bottlenecks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "revenue_opportunities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "infrastructure_weaknesses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "founder_attention": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "autonomous_improvements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "scenario_answers": {
+      "type": "object",
+      "properties": {
+        "one_engineering_day": {
+          "type": "string"
+        },
+        "one_ai_employee": {
+          "type": "string"
+        },
+        "five_hundred_dollars": {
+          "type": "string"
+        },
+        "one_enterprise_client": {
+          "type": "string"
+        },
+        "revenue_this_week": {
+          "type": "string"
+        },
+        "ten_x_growth": {
+          "type": "string"
+        },
+        "what_should_ncos_do": {
+          "type": "string"
+        }
+      }
+    },
+    "executive_recommendation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rank": {
+            "type": "number"
+          },
+          "action": {
+            "type": "string"
+          },
+          "roi_score": {
+            "type": "number"
+          },
+          "urgency_score": {
+            "type": "number"
+          },
+          "effort_score": {
+            "type": "number"
+          },
+          "strategic_value": {
+            "type": "number"
+          },
+          "combined_score": {
+            "type": "number"
+          },
+          "category": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "platform_health_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "revenue_health_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "engineering_health_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "legal_health_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "operational_health_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "mission_readiness_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "raw_metrics": {
+      "type": "object"
+    },
+    "generated_by": {
+      "type": "string",
+      "default": "NCOS Digital Twin Engine"
+    }
+  },
+  "required": [
+    "snapshot_date"
+  ]
+}

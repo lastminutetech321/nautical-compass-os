@@ -1,0 +1,129 @@
+{
+  "name": "WorkerContract",
+  "type": "object",
+  "properties": {
+    "worker_id": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "contract_type": {
+      "type": "string",
+      "enum": [
+        "service_agreement",
+        "employment",
+        "gig",
+        "retainer",
+        "project",
+        "nda",
+        "subcontract",
+        "union",
+        "vendor",
+        "other"
+      ],
+      "default": "service_agreement"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "sent",
+        "negotiating",
+        "signed",
+        "active",
+        "completed",
+        "terminated",
+        "expired"
+      ],
+      "default": "draft"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "rate_type": {
+      "type": "string",
+      "enum": [
+        "hourly",
+        "daily",
+        "project",
+        "retainer",
+        "salary",
+        "commission",
+        "mixed"
+      ],
+      "default": "hourly"
+    },
+    "rate_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "total_value": {
+      "type": "number",
+      "default": 0
+    },
+    "hours_per_week": {
+      "type": "number",
+      "default": 0
+    },
+    "scope_of_work": {
+      "type": "string"
+    },
+    "deliverables": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "payment_terms": {
+      "type": "string"
+    },
+    "non_compete": {
+      "type": "boolean",
+      "default": false
+    },
+    "nda_included": {
+      "type": "boolean",
+      "default": false
+    },
+    "document_url": {
+      "type": "string"
+    },
+    "signed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "renewal_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "auto_renew": {
+      "type": "boolean",
+      "default": false
+    },
+    "notes": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "title",
+    "contract_type"
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "name": "AuthorityComplaint",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "interaction_id": {
+      "type": "string"
+    },
+    "authority_type": {
+      "type": "string",
+      "enum": [
+        "police",
+        "court",
+        "employer",
+        "landlord",
+        "government",
+        "school",
+        "hoa",
+        "security",
+        "hospital",
+        "licensing_board",
+        "corporation",
+        "other"
+      ],
+      "default": "government"
+    },
+    "authority_name": {
+      "type": "string"
+    },
+    "complaint_type": {
+      "type": "string",
+      "enum": [
+        "excessive_force",
+        "unlawful_search",
+        "due_process",
+        "discrimination",
+        "retaliation",
+        "fraud",
+        "misconduct",
+        "unauthorized_action",
+        "privacy_violation",
+        "first_amendment",
+        "other"
+      ],
+      "default": "misconduct"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "filed",
+        "pending",
+        "acknowledged",
+        "under_investigation",
+        "resolved",
+        "dismissed",
+        "appealed",
+        "closed"
+      ],
+      "default": "draft"
+    },
+    "filed_with": {
+      "type": "string"
+    },
+    "filed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "reference_number": {
+      "type": "string"
+    },
+    "narrative": {
+      "type": "string"
+    },
+    "relief_requested": {
+      "type": "string"
+    },
+    "response_received": {
+      "type": "boolean",
+      "default": false
+    },
+    "response_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "response_summary": {
+      "type": "string"
+    },
+    "outcome": {
+      "type": "string"
+    },
+    "appeal_deadline": {
+      "type": "string",
+      "format": "date"
+    },
+    "linked_evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "canon_citations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "witness_names": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "title",
+    "authority_type",
+    "complaint_type"
+  ]
+}

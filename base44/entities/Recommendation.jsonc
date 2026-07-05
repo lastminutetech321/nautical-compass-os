@@ -1,0 +1,136 @@
+{
+  "name": "Recommendation",
+  "type": "object",
+  "properties": {
+    "recommendation_type": {
+      "type": "string",
+      "enum": [
+        "action",
+        "optimization",
+        "risk_mitigation",
+        "opportunity",
+        "improvement",
+        "automation",
+        "resource_allocation",
+        "strategic"
+      ],
+      "default": "action"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "rationale": {
+      "type": "string"
+    },
+    "target_module": {
+      "type": "string"
+    },
+    "target_entity_type": {
+      "type": "string"
+    },
+    "target_entity_id": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "expected_impact": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "transformative"
+      ],
+      "default": "medium"
+    },
+    "expected_impact_description": {
+      "type": "string"
+    },
+    "effort_estimate": {
+      "type": "string",
+      "enum": [
+        "xs",
+        "sm",
+        "md",
+        "lg",
+        "xl"
+      ],
+      "default": "md"
+    },
+    "source_pattern_id": {
+      "type": "string"
+    },
+    "source_memory_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "generated_by_agent": {
+      "type": "string"
+    },
+    "action_steps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "accepted",
+        "rejected",
+        "in_progress",
+        "implemented",
+        "expired"
+      ],
+      "default": "pending"
+    },
+    "accepted_at": {
+      "type": "string"
+    },
+    "implemented_at": {
+      "type": "string"
+    },
+    "outcome": {
+      "type": "string"
+    },
+    "outcome_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "expires_at": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "recommendation_type",
+    "title",
+    "description"
+  ]
+}

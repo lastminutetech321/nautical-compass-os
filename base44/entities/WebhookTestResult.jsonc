@@ -1,0 +1,88 @@
+{
+  "name": "WebhookTestResult",
+  "type": "object",
+  "properties": {
+    "test_key": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string"
+    },
+    "simulated_payload": {
+      "type": "object"
+    },
+    "fabric_response": {
+      "type": "object"
+    },
+    "responded_correctly": {
+      "type": "boolean",
+      "default": false
+    },
+    "expected_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "actual_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "missing_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "latency_ms": {
+      "type": "number",
+      "default": 0
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_verification_id": {
+      "type": "string"
+    },
+    "linked_sandbox_event_id": {
+      "type": "string"
+    },
+    "test_mode": {
+      "type": "string",
+      "enum": [
+        "sandbox",
+        "production_dry_run"
+      ],
+      "default": "sandbox"
+    },
+    "passed": {
+      "type": "boolean",
+      "default": false
+    },
+    "tested_at": {
+      "type": "string"
+    },
+    "tested_by": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "test_key",
+    "event_type",
+    "passed"
+  ]
+}

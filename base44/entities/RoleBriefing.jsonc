@@ -1,0 +1,129 @@
+{
+  "name": "RoleBriefing",
+  "type": "object",
+  "properties": {
+    "briefing_date": {
+      "type": "string"
+    },
+    "target_role": {
+      "type": "string",
+      "enum": [
+        "founder",
+        "executive_ai",
+        "director",
+        "employee",
+        "worker",
+        "mentor",
+        "customer",
+        "other"
+      ],
+      "default": "founder"
+    },
+    "target_user_id": {
+      "type": "string"
+    },
+    "target_name": {
+      "type": "string"
+    },
+    "department": {
+      "type": "string"
+    },
+    "todays_priorities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "upcoming_deadlines": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "pending_approvals": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "new_opportunities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "assigned_work": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "knowledge_learned_overnight": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "predictions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "recommended_conversations": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "suggested_automations": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "training_reminders": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "compliance_reminders": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "executive_summary": {
+      "type": "string"
+    },
+    "read_time_minutes": {
+      "type": "number",
+      "default": 5
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "briefing_date",
+    "target_role"
+  ]
+}

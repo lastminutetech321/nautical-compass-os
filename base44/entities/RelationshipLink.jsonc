@@ -1,0 +1,109 @@
+{
+  "name": "RelationshipLink",
+  "type": "object",
+  "properties": {
+    "source_entity_type": {
+      "type": "string"
+    },
+    "source_entity_id": {
+      "type": "string"
+    },
+    "source_entity_name": {
+      "type": "string"
+    },
+    "target_entity_type": {
+      "type": "string"
+    },
+    "target_entity_id": {
+      "type": "string"
+    },
+    "target_entity_name": {
+      "type": "string"
+    },
+    "relationship_type": {
+      "type": "string",
+      "enum": [
+        "depends_on",
+        "references",
+        "related_to",
+        "blocks",
+        "enables",
+        "supersedes",
+        "cites",
+        "owns",
+        "part_of",
+        "derives_from",
+        "contradicts",
+        "supports",
+        "generated_by",
+        "consumes"
+      ],
+      "default": "related_to"
+    },
+    "strength": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "direction": {
+      "type": "string",
+      "enum": [
+        "unidirectional",
+        "bidirectional"
+      ],
+      "default": "unidirectional"
+    },
+    "description": {
+      "type": "string"
+    },
+    "discovered_by": {
+      "type": "string",
+      "enum": [
+        "ai",
+        "manual",
+        "system",
+        "imported"
+      ],
+      "default": "ai"
+    },
+    "verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "verified_by": {
+      "type": "string"
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "source_module": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived",
+        "disputed"
+      ],
+      "default": "active"
+    },
+    "created_date": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "source_entity_type",
+    "source_entity_id",
+    "target_entity_type",
+    "target_entity_id",
+    "relationship_type"
+  ]
+}

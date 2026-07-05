@@ -1,0 +1,160 @@
+{
+  "name": "EngineeringJournal",
+  "type": "object",
+  "properties": {
+    "timestamp": {
+      "type": "string"
+    },
+    "sprint": {
+      "type": "string"
+    },
+    "entry_type": {
+      "type": "string",
+      "enum": [
+        "feature_build",
+        "bug_fix",
+        "refactor",
+        "entity_creation",
+        "page_creation",
+        "component_change",
+        "function_add",
+        "integration",
+        "config_change",
+        "deployment",
+        "research",
+        "other"
+      ],
+      "default": "feature_build"
+    },
+    "title": {
+      "type": "string"
+    },
+    "files_modified": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "entities_created": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "functions_added": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "pages_created": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "components_changed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reason_for_change": {
+      "type": "string"
+    },
+    "expected_outcome": {
+      "type": "string"
+    },
+    "actual_outcome": {
+      "type": "string"
+    },
+    "readiness_increase": {
+      "type": "number",
+      "default": 0
+    },
+    "ai_employee_responsible": {
+      "type": "string"
+    },
+    "founder_approval": {
+      "type": "boolean",
+      "default": false
+    },
+    "founder_approval_date": {
+      "type": "string"
+    },
+    "dependencies_created": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dependencies_removed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "time_required_hours": {
+      "type": "number",
+      "default": 0
+    },
+    "business_value": {
+      "type": "string",
+      "enum": [
+        "none",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "revenue_impact": {
+      "type": "string"
+    },
+    "revenue_impact_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "linked_adr_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_bug_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_lesson_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_prompt_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "module": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "entry_type"
+  ]
+}

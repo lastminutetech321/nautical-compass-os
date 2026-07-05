@@ -1,0 +1,117 @@
+{
+  "name": "RevenueEvent",
+  "type": "object",
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "new_subscription",
+        "renewal",
+        "upgrade",
+        "downgrade",
+        "cancellation",
+        "reactivation",
+        "churn",
+        "expansion",
+        "contraction",
+        "refund",
+        "failed_payment",
+        "recovery",
+        "manual_payment",
+        "bank_transfer"
+      ],
+      "default": "new_subscription"
+    },
+    "organization_id": {
+      "type": "string"
+    },
+    "subscription_id": {
+      "type": "string"
+    },
+    "invoice_id": {
+      "type": "string"
+    },
+    "customer_name": {
+      "type": "string"
+    },
+    "customer_email": {
+      "type": "string"
+    },
+    "plan_id": {
+      "type": "string"
+    },
+    "plan_name": {
+      "type": "string"
+    },
+    "payment_provider": {
+      "type": "string",
+      "enum": [
+        "stripe",
+        "square",
+        "paypal",
+        "authorizenet",
+        "manual_invoice",
+        "bank_transfer",
+        "custom"
+      ],
+      "default": "stripe"
+    },
+    "amount": {
+      "type": "number",
+      "default": 0
+    },
+    "mrr_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "arr_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "billing_cycle": {
+      "type": "string",
+      "enum": [
+        "monthly",
+        "annual",
+        "one_time"
+      ],
+      "default": "monthly"
+    },
+    "previous_plan_id": {
+      "type": "string"
+    },
+    "previous_mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "coupon_code": {
+      "type": "string"
+    },
+    "discount_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "churn_reason": {
+      "type": "string"
+    },
+    "recovery_source": {
+      "type": "string"
+    },
+    "external_transaction_id": {
+      "type": "string"
+    },
+    "event_date": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "event_type"
+  ]
+}

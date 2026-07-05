@@ -1,0 +1,109 @@
+{
+  "name": "MemberJourney",
+  "type": "object",
+  "properties": {
+    "member_id": {
+      "type": "string"
+    },
+    "member_name": {
+      "type": "string"
+    },
+    "journey_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "active",
+        "paused",
+        "completed"
+      ],
+      "default": "not_started"
+    },
+    "current_stage": {
+      "type": "string",
+      "enum": [
+        "intake",
+        "orientation",
+        "first_step",
+        "exploration",
+        "adoption",
+        "mastery",
+        "graduation"
+      ],
+      "default": "intake"
+    },
+    "today_step": {
+      "type": "object"
+    },
+    "tomorrow_step": {
+      "type": "object"
+    },
+    "this_week_priorities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "learning_modules": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "recommended_ai_assistants": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_rails": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_compasses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "milestones": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "milestones_completed": {
+      "type": "number",
+      "default": 0
+    },
+    "milestones_total": {
+      "type": "number",
+      "default": 0
+    },
+    "progress_pct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "last_updated": {
+      "type": "string"
+    },
+    "linked_intake_id": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "member_id"
+  ]
+}

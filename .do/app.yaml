@@ -1,5 +1,13 @@
+# DigitalOcean App Platform spec — NCOS Frontend
+# Deploy with:  doctl app spec deploy .do/app.yaml
+#   (or create via dashboard → Apps → Create App → Use Spec YAML)
+#
+# This deploys the static SPA built inside the Dockerfile.
+# The backend (entities, functions, auth) stays on Base44.
+
 name: nautical-compass-os
 region: nyc
+
 services:
   - name: web
     dockerfile_path: Dockerfile
@@ -7,19 +15,24 @@ services:
     http_port: 80
     instance_count: 1
     instance_size_slug: basic-xxs
+
+    # Build-time env vars — VITE_* are inlined into the JS bundle at build.
+    # Changing any of these triggers a rebuild automatically.
     envs:
       - key: VITE_BASE44_APP_ID
         scope: BUILD_TIME
-        value: ${VITE_BASE44_APP_ID}
+        value: "${VITE_BASE44_APP_ID}"
       - key: VITE_BASE44_FUNCTIONS_VERSION
         scope: BUILD_TIME
-        value: ${VITE_BASE44_FUNCTIONS_VERSION}
+        value: "${VITE_BASE44_FUNCTIONS_VERSION}"
       - key: VITE_BASE44_APP_BASE_URL
         scope: BUILD_TIME
-        value: ${VITE_BASE44_APP_BASE_URL}
+        value: "${VITE_BASE44_APP_BASE_URL}"
+
     routes:
       - path: /
         preserve_trailing_path: false
+
     health_check:
       http_path: /
       initial_delay_seconds: 10

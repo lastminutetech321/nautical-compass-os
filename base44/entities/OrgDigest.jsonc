@@ -1,0 +1,102 @@
+{
+  "name": "OrgDigest",
+  "type": "object",
+  "properties": {
+    "digest_date": {
+      "type": "string"
+    },
+    "digest_type": {
+      "type": "string",
+      "enum": [
+        "morning",
+        "midday",
+        "evening",
+        "on_demand"
+      ],
+      "default": "morning"
+    },
+    "organization_summary": {
+      "type": "string"
+    },
+    "department_summaries": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "revenue_summary": {
+      "type": "object"
+    },
+    "customer_summary": {
+      "type": "object"
+    },
+    "workforce_summary": {
+      "type": "object"
+    },
+    "legal_summary": {
+      "type": "object"
+    },
+    "engineering_summary": {
+      "type": "object"
+    },
+    "research_summary": {
+      "type": "object"
+    },
+    "event_summary": {
+      "type": "object"
+    },
+    "risk_summary": {
+      "type": "object"
+    },
+    "knowledge_summary": {
+      "type": "object"
+    },
+    "automation_summary": {
+      "type": "object"
+    },
+    "memory_growth": {
+      "type": "number",
+      "default": 0
+    },
+    "organizational_iq": {
+      "type": "number",
+      "default": 0
+    },
+    "self_improvement_index": {
+      "type": "number",
+      "default": 0
+    },
+    "founder_time_saved_hours": {
+      "type": "number",
+      "default": 0
+    },
+    "top_recommended_decision": {
+      "type": "object"
+    },
+    "communication_intelligence_score": {
+      "type": "number",
+      "default": 0
+    },
+    "memory_coverage_score": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "digest_date"
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "name": "FinancialTransaction",
+  "type": "object",
+  "properties": {
+    "transaction_date": {
+      "type": "string"
+    },
+    "transaction_type": {
+      "type": "string",
+      "enum": [
+        "revenue",
+        "expense",
+        "refund",
+        "adjustment"
+      ],
+      "default": "expense"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "subscription",
+        "api_cost",
+        "hosting",
+        "ai_usage",
+        "payroll",
+        "marketing",
+        "tools",
+        "infrastructure",
+        "other_expense",
+        "other_revenue"
+      ],
+      "default": "other_expense"
+    },
+    "amount": {
+      "type": "number",
+      "default": 0
+    },
+    "description": {
+      "type": "string"
+    },
+    "vendor": {
+      "type": "string"
+    },
+    "subscription_id": {
+      "type": "string"
+    },
+    "customer_name": {
+      "type": "string"
+    },
+    "recurring": {
+      "type": "boolean",
+      "default": false
+    },
+    "recurring_frequency": {
+      "type": "string",
+      "enum": [
+        "one_time",
+        "daily",
+        "weekly",
+        "monthly",
+        "quarterly",
+        "annual"
+      ],
+      "default": "one_time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "completed",
+        "failed",
+        "reversed"
+      ],
+      "default": "completed"
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "transaction_date",
+    "transaction_type",
+    "category",
+    "amount"
+  ]
+}

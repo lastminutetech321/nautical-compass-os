@@ -1,0 +1,148 @@
+{
+  "name": "CRMDeal",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "opportunity_id": {
+      "type": "string"
+    },
+    "organization_id": {
+      "type": "string"
+    },
+    "contact_id": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "saas",
+        "consulting",
+        "retainer",
+        "one_time",
+        "enterprise",
+        "partnership",
+        "license"
+      ],
+      "default": "saas"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "negotiating",
+        "pending_signature",
+        "signed",
+        "active",
+        "on_hold",
+        "cancelled",
+        "completed"
+      ],
+      "default": "negotiating"
+    },
+    "lifecycle_stage": {
+      "type": "string",
+      "enum": [
+        "proposal",
+        "negotiation",
+        "won",
+        "lost"
+      ],
+      "default": "negotiation"
+    },
+    "relationship_health": {
+      "type": "string",
+      "enum": [
+        "cold",
+        "warm",
+        "hot",
+        "at_risk",
+        "strong"
+      ],
+      "default": "warm"
+    },
+    "value": {
+      "type": "number",
+      "default": 0
+    },
+    "mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "arr": {
+      "type": "number",
+      "default": 0
+    },
+    "probability": {
+      "type": "number",
+      "default": 80,
+      "minimum": 0,
+      "maximum": 100
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "close_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "contract_id": {
+      "type": "string"
+    },
+    "subscription_id": {
+      "type": "string"
+    },
+    "assigned_agent": {
+      "type": "string"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "last_contact_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "next_action": {
+      "type": "string"
+    },
+    "next_action_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "timeline": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "communication_history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

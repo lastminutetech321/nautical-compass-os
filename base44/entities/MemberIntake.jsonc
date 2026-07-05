@@ -1,0 +1,177 @@
+{
+  "name": "MemberIntake",
+  "type": "object",
+  "properties": {
+    "member_id": {
+      "type": "string"
+    },
+    "member_name": {
+      "type": "string"
+    },
+    "member_email": {
+      "type": "string"
+    },
+    "director_id": {
+      "type": "string"
+    },
+    "director_name": {
+      "type": "string"
+    },
+    "intake_date": {
+      "type": "string"
+    },
+    "intake_status": {
+      "type": "string",
+      "enum": [
+        "in_progress",
+        "completed",
+        "archived"
+      ],
+      "default": "in_progress"
+    },
+    "reason_for_visit": {
+      "type": "string"
+    },
+    "current_challenges": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "urgent_issues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "short_term_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "long_term_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "occupation": {
+      "type": "string"
+    },
+    "education": {
+      "type": "string"
+    },
+    "business_interests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "legal_interests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "community_interests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "financial_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "preferred_communication_style": {
+      "type": "string",
+      "enum": [
+        "concise",
+        "detailed",
+        "visual",
+        "data_driven",
+        "narrative"
+      ],
+      "default": "concise"
+    },
+    "preferred_learning_style": {
+      "type": "string",
+      "enum": [
+        "reading",
+        "video",
+        "hands_on",
+        "mentor",
+        "self_directed"
+      ],
+      "default": "reading"
+    },
+    "current_nc_knowledge": {
+      "type": "string",
+      "enum": [
+        "none",
+        "basic",
+        "intermediate",
+        "advanced"
+      ],
+      "default": "none"
+    },
+    "identified_needs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_starting_point": {
+      "type": "string"
+    },
+    "recommended_modules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_rails": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_compasses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_ai_assistants": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_learning_modules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "completed_at": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "member_id",
+    "intake_date"
+  ]
+}

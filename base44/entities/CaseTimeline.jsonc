@@ -1,0 +1,63 @@
+{
+  "name": "CaseTimeline",
+  "type": "object",
+  "properties": {
+    "case_name": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "event_date": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "note",
+        "file",
+        "video",
+        "email",
+        "event",
+        "statement",
+        "action"
+      ],
+      "default": "event"
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "confirmed",
+        "probable",
+        "disputed",
+        "unknown"
+      ],
+      "default": "unknown"
+    },
+    "source": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "title",
+    "case_name"
+  ]
+}

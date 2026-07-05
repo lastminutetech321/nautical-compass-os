@@ -1,0 +1,199 @@
+{
+  "name": "CareerPassportEntry",
+  "type": "object",
+  "properties": {
+    "worker_profile_id": {
+      "type": "string"
+    },
+    "worker_name": {
+      "type": "string"
+    },
+    "entry_type": {
+      "type": "string",
+      "enum": [
+        "assignment",
+        "training",
+        "certification",
+        "feedback",
+        "milestone",
+        "knowledge_capture",
+        "coaching",
+        "level_change"
+      ],
+      "default": "assignment"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "assignment_id": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "level": {
+      "type": "string"
+    },
+    "start_date": {
+      "type": "string"
+    },
+    "end_date": {
+      "type": "string"
+    },
+    "hours_worked": {
+      "type": "number",
+      "default": 0
+    },
+    "location": {
+      "type": "string"
+    },
+    "equipment_used": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "skills_learned": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "skills_demonstrated": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "certifications_earned": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "training_completed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "supervisor_feedback": {
+      "type": "string"
+    },
+    "supervisor_rating": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5,
+      "default": 0
+    },
+    "supervisor_name": {
+      "type": "string"
+    },
+    "customer_feedback": {
+      "type": "string"
+    },
+    "customer_rating": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5,
+      "default": 0
+    },
+    "contribution_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "trust_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "reputation_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "what_worked": {
+      "type": "string"
+    },
+    "what_failed": {
+      "type": "string"
+    },
+    "what_was_learned": {
+      "type": "string"
+    },
+    "what_nc_should_remember": {
+      "type": "string"
+    },
+    "suggested_improvements": {
+      "type": "string"
+    },
+    "knowledge_stored": {
+      "type": "boolean",
+      "default": false
+    },
+    "enterprise_memory_id": {
+      "type": "string"
+    },
+    "dev_memory_id": {
+      "type": "string"
+    },
+    "knowledge_graph_id": {
+      "type": "string"
+    },
+    "training_library_id": {
+      "type": "string"
+    },
+    "contribution_intelligence_id": {
+      "type": "string"
+    },
+    "org_intelligence_id": {
+      "type": "string"
+    },
+    "entry_date": {
+      "type": "string"
+    },
+    "verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "verified_by": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "worker_profile_id",
+    "entry_type",
+    "title"
+  ]
+}

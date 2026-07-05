@@ -1,0 +1,66 @@
+{
+  "name": "CanonCoverage",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "short_code": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "coverage_status": {
+      "type": "string",
+      "enum": [
+        "imported",
+        "partial",
+        "missing",
+        "needed_soon",
+        "not_priority"
+      ],
+      "default": "missing"
+    },
+    "priority_rank": {
+      "type": "number",
+      "default": 99
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "us_code_title",
+        "civil_rules",
+        "constitutional",
+        "case_law_corpus",
+        "federal_regulation",
+        "nc_doctrine",
+        "other"
+      ],
+      "default": "us_code_title"
+    },
+    "canon_entry_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "entry_count": {
+      "type": "number",
+      "default": 0
+    },
+    "notes": {
+      "type": "string"
+    },
+    "assigned_services": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "title",
+    "short_code"
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "name": "LaunchReadinessCheck",
+  "type": "object",
+  "properties": {
+    "domain": {
+      "type": "string",
+      "enum": [
+        "overall",
+        "payment",
+        "canon",
+        "workforce",
+        "director",
+        "customer_success",
+        "marketplace",
+        "experience_network",
+        "culture_rail",
+        "resource_compass",
+        "legal",
+        "infrastructure",
+        "security",
+        "ai",
+        "automation",
+        "knowledge",
+        "documentation",
+        "testing",
+        "production",
+        "talent_partnership"
+      ],
+      "default": "overall"
+    },
+    "check_name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "warn",
+        "fail",
+        "blocked",
+        "unknown"
+      ],
+      "default": "unknown"
+    },
+    "blocker_reason": {
+      "type": "string"
+    },
+    "risk": {
+      "type": "string"
+    },
+    "solution": {
+      "type": "string"
+    },
+    "estimated_time": {
+      "type": "string"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "responsible_department": {
+      "type": "string"
+    },
+    "recommended_priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "weight": {
+      "type": "number",
+      "default": 1
+    },
+    "score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "last_checked": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "domain",
+    "check_name",
+    "status"
+  ]
+}

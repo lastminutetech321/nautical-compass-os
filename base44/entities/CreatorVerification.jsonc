@@ -1,0 +1,88 @@
+{
+  "name": "CreatorVerification",
+  "type": "object",
+  "properties": {
+    "creator_id": {
+      "type": "string"
+    },
+    "creator_name": {
+      "type": "string"
+    },
+    "creator_type": {
+      "type": "string"
+    },
+    "verification_level": {
+      "type": "string",
+      "enum": [
+        "unverified",
+        "pending",
+        "verified",
+        "blue_check",
+        "gold_check",
+        "rejected",
+        "expired"
+      ],
+      "default": "pending"
+    },
+    "submitted_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "reviewed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "reviewed_by": {
+      "type": "string"
+    },
+    "identity_documents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "social_proof": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "follower_count_submitted": {
+      "type": "number",
+      "default": 0
+    },
+    "rejection_reason": {
+      "type": "string"
+    },
+    "verification_notes": {
+      "type": "string"
+    },
+    "verified_badge_type": {
+      "type": "string",
+      "enum": [
+        "none",
+        "blue",
+        "gold",
+        "platinum"
+      ],
+      "default": "none"
+    },
+    "expires_at": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected",
+        "expired"
+      ],
+      "default": "pending"
+    }
+  },
+  "required": [
+    "creator_id",
+    "creator_name"
+  ]
+}

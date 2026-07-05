@@ -1,0 +1,146 @@
+{
+  "name": "ResourceCase",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "client_email": {
+      "type": "string"
+    },
+    "client_phone": {
+      "type": "string"
+    },
+    "jurisdiction": {
+      "type": "string",
+      "default": "North Carolina"
+    },
+    "county": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "intake",
+        "assessment",
+        "active",
+        "stabilized",
+        "closed",
+        "referred"
+      ],
+      "default": "intake"
+    },
+    "crisis_level": {
+      "type": "string",
+      "enum": [
+        "stable",
+        "moderate",
+        "urgent",
+        "crisis",
+        "emergency"
+      ],
+      "default": "moderate"
+    },
+    "primary_needs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "household_size": {
+      "type": "number",
+      "default": 1
+    },
+    "monthly_income": {
+      "type": "number",
+      "default": 0
+    },
+    "has_children": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_veteran": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_disabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "has_criminal_history": {
+      "type": "boolean",
+      "default": false
+    },
+    "citizenship_status": {
+      "type": "string",
+      "enum": [
+        "citizen",
+        "permanent_resident",
+        "visa",
+        "undocumented",
+        "unknown"
+      ],
+      "default": "citizen"
+    },
+    "housing_situation": {
+      "type": "string",
+      "enum": [
+        "housed",
+        "at_risk",
+        "doubled_up",
+        "shelter",
+        "unsheltered",
+        "transitional"
+      ],
+      "default": "housed"
+    },
+    "employment_status": {
+      "type": "string",
+      "enum": [
+        "employed_full",
+        "employed_part",
+        "unemployed",
+        "self_employed",
+        "unable_to_work",
+        "student",
+        "retired"
+      ],
+      "default": "unemployed"
+    },
+    "linked_applications": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_case_file_id": {
+      "type": "string"
+    },
+    "assigned_navigator": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "intake_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "target_stability_date": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

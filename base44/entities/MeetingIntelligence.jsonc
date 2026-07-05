@@ -1,0 +1,188 @@
+{
+  "name": "MeetingIntelligence",
+  "type": "object",
+  "properties": {
+    "meeting_title": {
+      "type": "string"
+    },
+    "meeting_type": {
+      "type": "string",
+      "enum": [
+        "founder",
+        "director",
+        "customer",
+        "vendor",
+        "legal",
+        "engineering",
+        "workforce",
+        "research",
+        "event_planning",
+        "other"
+      ],
+      "default": "other"
+    },
+    "meeting_date": {
+      "type": "string"
+    },
+    "duration_minutes": {
+      "type": "number",
+      "default": 0
+    },
+    "organizer": {
+      "type": "string"
+    },
+    "department": {
+      "type": "string"
+    },
+    "participants": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "raw_notes": {
+      "type": "string"
+    },
+    "transcript": {
+      "type": "string"
+    },
+    "executive_summary": {
+      "type": "string"
+    },
+    "action_items": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "decisions_made": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "open_questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "follow_ups": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "assigned_owners": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "deadlines": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "memory_updates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "knowledge_graph_updates": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "training_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "policy_recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "workflow_recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "future_meeting_agenda": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "requires_founder_approval": {
+      "type": "boolean",
+      "default": false
+    },
+    "approval_category": {
+      "type": "string",
+      "default": "general"
+    },
+    "sentiment": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "neutral",
+        "negative",
+        "mixed"
+      ],
+      "default": "neutral"
+    },
+    "outcomes_achieved": {
+      "type": "boolean",
+      "default": false
+    },
+    "linked_customers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_projects": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "scheduled",
+        "in_progress",
+        "completed",
+        "cancelled"
+      ],
+      "default": "completed"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "meeting_title",
+    "meeting_type"
+  ]
+}

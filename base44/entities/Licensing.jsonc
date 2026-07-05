@@ -1,0 +1,114 @@
+{
+  "name": "Licensing",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "song_id": {
+      "type": "string"
+    },
+    "song_name": {
+      "type": "string"
+    },
+    "artist_id": {
+      "type": "string"
+    },
+    "artist_name": {
+      "type": "string"
+    },
+    "licensee_name": {
+      "type": "string"
+    },
+    "licensee_company": {
+      "type": "string"
+    },
+    "license_type": {
+      "type": "string",
+      "enum": [
+        "sync_film",
+        "sync_tv",
+        "sync_ad",
+        "mechanical",
+        "performance",
+        "master_use",
+        "sampling",
+        "cover",
+        "print",
+        "digital_streaming"
+      ],
+      "default": "sync_film"
+    },
+    "territory": {
+      "type": "string",
+      "default": "worldwide"
+    },
+    "duration_months": {
+      "type": "number",
+      "default": 12
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "fee_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "royalty_rate_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "advance_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "contract_url": {
+      "type": "string"
+    },
+    "usage_description": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "negotiating",
+        "approved",
+        "active",
+        "expired",
+        "rejected",
+        "cancelled"
+      ],
+      "default": "pending"
+    },
+    "requires_founder_approval": {
+      "type": "boolean",
+      "default": true
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "title",
+    "license_type"
+  ]
+}

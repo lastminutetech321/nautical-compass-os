@@ -1,0 +1,131 @@
+{
+  "name": "PartnerService",
+  "type": "object",
+  "properties": {
+    "service_key": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "financial",
+        "protection",
+        "compliance",
+        "learning",
+        "hr",
+        "infrastructure",
+        "operations",
+        "legal",
+        "marketing",
+        "custom"
+      ],
+      "default": "custom"
+    },
+    "provider_name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "pricing_model": {
+      "type": "string",
+      "enum": [
+        "flat_fee",
+        "per_use",
+        "subscription",
+        "passthrough",
+        "revenue_share",
+        "tiered"
+      ],
+      "default": "per_use"
+    },
+    "base_price": {
+      "type": "number",
+      "default": 0
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "platform_revenue_pct": {
+      "type": "number",
+      "default": 0,
+      "description": "NC platform revenue percentage"
+    },
+    "referral_revenue_pct": {
+      "type": "number",
+      "default": 0,
+      "description": "Referral revenue percentage for referring partner"
+    },
+    "founder_configurable": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_optional": {
+      "type": "boolean",
+      "default": true,
+      "description": "Users pay only when they choose this service"
+    },
+    "pay_per_use": {
+      "type": "boolean",
+      "default": true
+    },
+    "linked_subscription_tier": {
+      "type": "string",
+      "description": "Subscription tier this service is bundled with, if any"
+    },
+    "integration_connector_id": {
+      "type": "string",
+      "description": "IntegrationConnector id if backed by an external integration"
+    },
+    "marketplace_listing_id": {
+      "type": "string",
+      "description": "MarketplaceListing id if surfaced in marketplace"
+    },
+    "terms_url": {
+      "type": "string"
+    },
+    "availability": {
+      "type": "string",
+      "enum": [
+        "available",
+        "coming_soon",
+        "invite_only",
+        "unavailable"
+      ],
+      "default": "available"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "available",
+        "pending",
+        "active",
+        "paused",
+        "deprecated"
+      ],
+      "default": "available"
+    },
+    "sort_order": {
+      "type": "number",
+      "default": 0
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "category",
+    "status"
+  ]
+}

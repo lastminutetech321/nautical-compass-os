@@ -1,0 +1,100 @@
+{
+  "name": "RevenueDistribution",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date"
+    },
+    "total_gross_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "total_platform_fees": {
+      "type": "number",
+      "default": 0
+    },
+    "total_net_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "distributions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "artist_total_payout": {
+      "type": "number",
+      "default": 0
+    },
+    "label_total_payout": {
+      "type": "number",
+      "default": 0
+    },
+    "producer_total_payout": {
+      "type": "number",
+      "default": 0
+    },
+    "publisher_total_payout": {
+      "type": "number",
+      "default": 0
+    },
+    "ncos_total_payout": {
+      "type": "number",
+      "default": 0
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "calculated",
+        "pending_approval",
+        "approved",
+        "processing",
+        "completed",
+        "disputed"
+      ],
+      "default": "calculated"
+    },
+    "requires_founder_approval": {
+      "type": "boolean",
+      "default": true
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "processed_at": {
+      "type": "string"
+    },
+    "royalty_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "period"
+  ]
+}

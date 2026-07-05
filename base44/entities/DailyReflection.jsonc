@@ -1,0 +1,75 @@
+{
+  "name": "DailyReflection",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "user_name": {
+      "type": "string"
+    },
+    "user_role": {
+      "type": "string"
+    },
+    "reflection_date": {
+      "type": "string"
+    },
+    "session_duration_minutes": {
+      "type": "number",
+      "default": 0
+    },
+    "what_slowed_you_down": {
+      "type": "string"
+    },
+    "what_was_confusing": {
+      "type": "string"
+    },
+    "what_worked_well": {
+      "type": "string"
+    },
+    "better_workflow_discovered": {
+      "type": "string"
+    },
+    "what_nc_should_improve": {
+      "type": "string"
+    },
+    "ai_recommendation_helped": {
+      "type": "string",
+      "enum": [
+        "yes",
+        "no",
+        "partially",
+        "not_applicable"
+      ],
+      "default": "not_applicable"
+    },
+    "would_change": {
+      "type": "string"
+    },
+    "converted_to": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "organizational_insights_generated": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "submitted",
+        "processed",
+        "archived"
+      ],
+      "default": "submitted"
+    }
+  },
+  "required": [
+    "user_id",
+    "reflection_date"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "name": "WorkerSkill",
+  "type": "object",
+  "properties": {
+    "worker_id": {
+      "type": "string"
+    },
+    "skill_name": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "proficiency": {
+      "type": "string",
+      "enum": [
+        "beginner",
+        "intermediate",
+        "advanced",
+        "expert"
+      ],
+      "default": "intermediate"
+    },
+    "years_used": {
+      "type": "number",
+      "default": 0
+    },
+    "verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "verified_by": {
+      "type": "string"
+    },
+    "last_used_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "skill_name"
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "name": "CustomerInteraction",
+  "type": "object",
+  "properties": {
+    "customer_profile_id": {
+      "type": "string"
+    },
+    "customer_name": {
+      "type": "string"
+    },
+    "interaction_type": {
+      "type": "string",
+      "enum": [
+        "email",
+        "call",
+        "meeting",
+        "support_ticket",
+        "feature_use",
+        "onboarding_step",
+        "check_in",
+        "renewal_discussion",
+        "escalation",
+        "feedback"
+      ],
+      "default": "check_in"
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "email",
+        "phone",
+        "video",
+        "in_app",
+        "in_person",
+        "chat",
+        "other"
+      ],
+      "default": "email"
+    },
+    "description": {
+      "type": "string"
+    },
+    "outcome": {
+      "type": "string"
+    },
+    "sentiment": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "neutral",
+        "negative",
+        "very_negative"
+      ],
+      "default": "neutral"
+    },
+    "interaction_date": {
+      "type": "string"
+    },
+    "agent_name": {
+      "type": "string"
+    },
+    "agent_id": {
+      "type": "string"
+    },
+    "follow_up_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "follow_up_date": {
+      "type": "string"
+    },
+    "linked_subscription_id": {
+      "type": "string"
+    },
+    "linked_crm_lead_id": {
+      "type": "string"
+    },
+    "impact_on_health": {
+      "type": "number",
+      "default": 0
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "customer_profile_id",
+    "interaction_type"
+  ]
+}

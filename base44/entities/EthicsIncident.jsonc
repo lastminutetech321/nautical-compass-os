@@ -1,0 +1,113 @@
+{
+  "name": "EthicsIncident",
+  "type": "object",
+  "properties": {
+    "incident_type": {
+      "type": "string",
+      "enum": [
+        "pressure_based_behavior",
+        "misrepresentation",
+        "compliance_concern",
+        "conflict_of_interest",
+        "privacy_violation",
+        "inaccuracy",
+        "exaggerated_capability",
+        "false_promise",
+        "unauthorized_action",
+        "other"
+      ],
+      "default": "other"
+    },
+    "description": {
+      "type": "string"
+    },
+    "detected_by": {
+      "type": "string",
+      "default": "NC Ethics Engine"
+    },
+    "detection_method": {
+      "type": "string",
+      "enum": [
+        "ai_observation",
+        "manual_report",
+        "automated_scan",
+        "member_feedback",
+        "audit"
+      ],
+      "default": "ai_observation"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "involved_entities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "escalation_level": {
+      "type": "number",
+      "default": 0
+    },
+    "escalation_path": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "founder_alert_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "detected",
+        "investigating",
+        "escalated",
+        "resolved",
+        "dismissed",
+        "archived"
+      ],
+      "default": "detected"
+    },
+    "resolution": {
+      "type": "string"
+    },
+    "detected_at": {
+      "type": "string"
+    },
+    "resolved_at": {
+      "type": "string"
+    },
+    "resolved_by": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "incident_type",
+    "description"
+  ]
+}

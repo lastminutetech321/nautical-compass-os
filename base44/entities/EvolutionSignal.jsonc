@@ -1,0 +1,129 @@
+{
+  "name": "EvolutionSignal",
+  "type": "object",
+  "properties": {
+    "signal_key": {
+      "type": "string"
+    },
+    "source_system": {
+      "type": "string",
+      "enum": [
+        "noos",
+        "nail",
+        "nioc",
+        "ncice",
+        "executive_command",
+        "mission_control",
+        "build_director",
+        "execution_engine",
+        "payment_fabric",
+        "payment_sandbox",
+        "workforce_gateway",
+        "experience_network",
+        "culture_rail",
+        "canon",
+        "jurisengine",
+        "knowledge_graph",
+        "enterprise_memory",
+        "development_memory",
+        "contribution_economy",
+        "trust_system",
+        "reputation_system",
+        "career_passport",
+        "living_ledger",
+        "crm",
+        "resource_compass",
+        "talent_partnership",
+        "evosystem",
+        "integration_fabric",
+        "other"
+      ],
+      "default": "other"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "what_happened",
+        "what_improved",
+        "what_failed",
+        "what_surprised",
+        "should_remember",
+        "should_automate",
+        "should_remove",
+        "should_simplify",
+        "should_become_policy",
+        "should_become_training",
+        "should_become_canon",
+        "marketplace_intelligence",
+        "competitive_intelligence"
+      ],
+      "default": "what_happened"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "warning",
+        "urgent",
+        "critical"
+      ],
+      "default": "info"
+    },
+    "impact": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "linked_entity_id": {
+      "type": "string"
+    },
+    "linked_entity_type": {
+      "type": "string"
+    },
+    "became_policy": {
+      "type": "boolean",
+      "default": false
+    },
+    "became_training": {
+      "type": "boolean",
+      "default": false
+    },
+    "became_canon": {
+      "type": "boolean",
+      "default": false
+    },
+    "became_automation": {
+      "type": "boolean",
+      "default": false
+    },
+    "ai_summary": {
+      "type": "string"
+    },
+    "discovered_at": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "signal_key",
+    "source_system",
+    "event_type",
+    "title"
+  ]
+}

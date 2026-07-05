@@ -1,0 +1,105 @@
+{
+  "name": "DepartmentCollaboration",
+  "type": "object",
+  "properties": {
+    "collaboration_key": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "source_dept": {
+      "type": "string"
+    },
+    "source_dept_name": {
+      "type": "string"
+    },
+    "trigger_event": {
+      "type": "string"
+    },
+    "trigger_description": {
+      "type": "string"
+    },
+    "trigger_entity": {
+      "type": "string"
+    },
+    "trigger_entity_id": {
+      "type": "string"
+    },
+    "chain": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "step_order": {
+            "type": "number",
+            "default": 0
+          },
+          "dept_key": {
+            "type": "string"
+          },
+          "dept_name": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "in_progress",
+              "completed",
+              "failed",
+              "skipped"
+            ],
+            "default": "pending"
+          },
+          "completed_at": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "initiated",
+        "in_progress",
+        "completed",
+        "stalled",
+        "failed"
+      ],
+      "default": "initiated"
+    },
+    "auto_initiated": {
+      "type": "boolean",
+      "default": true
+    },
+    "completed_at": {
+      "type": "string"
+    },
+    "knowledge_captured": {
+      "type": "boolean",
+      "default": false
+    },
+    "value_generated": {
+      "type": "number",
+      "default": 0
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "collaboration_key",
+    "source_dept",
+    "trigger_event"
+  ]
+}

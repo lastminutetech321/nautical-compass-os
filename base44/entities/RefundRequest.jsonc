@@ -1,0 +1,147 @@
+{
+  "name": "RefundRequest",
+  "type": "object",
+  "properties": {
+    "request_key": {
+      "type": "string"
+    },
+    "invoice_id": {
+      "type": "string"
+    },
+    "invoice_number": {
+      "type": "string"
+    },
+    "subscription_id": {
+      "type": "string"
+    },
+    "customer_name": {
+      "type": "string"
+    },
+    "customer_email": {
+      "type": "string"
+    },
+    "stripe_charge_id": {
+      "type": "string"
+    },
+    "original_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "refund_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "refund_reason": {
+      "type": "string",
+      "enum": [
+        "duplicate",
+        "fraudulent",
+        "customer_request",
+        "service_issue",
+        "billing_error",
+        "goodwill",
+        "other"
+      ],
+      "default": "customer_request"
+    },
+    "reason_details": {
+      "type": "string"
+    },
+    "requested_by": {
+      "type": "string"
+    },
+    "requested_at": {
+      "type": "string"
+    },
+    "refund_type": {
+      "type": "string",
+      "enum": [
+        "full",
+        "partial"
+      ],
+      "default": "full"
+    },
+    "policy_reviewed": {
+      "type": "boolean",
+      "default": false
+    },
+    "policy_id": {
+      "type": "string"
+    },
+    "approval_required": {
+      "type": "boolean",
+      "default": true
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected",
+        "expired"
+      ],
+      "default": "pending"
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "stripe_refund_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "processing",
+        "completed",
+        "rejected",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "processed_at": {
+      "type": "string"
+    },
+    "chargeback_triggered": {
+      "type": "boolean",
+      "default": false
+    },
+    "chargeback_id": {
+      "type": "string"
+    },
+    "financial_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "memory_references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "audit_trail": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "request_key",
+    "customer_name",
+    "refund_amount"
+  ]
+}

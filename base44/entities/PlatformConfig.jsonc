@@ -1,0 +1,73 @@
+{
+  "name": "PlatformConfig",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    },
+    "value_type": {
+      "type": "string",
+      "enum": [
+        "string",
+        "number",
+        "boolean",
+        "json",
+        "secret_ref"
+      ],
+      "default": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "general",
+        "security",
+        "payments",
+        "email",
+        "ai",
+        "legal",
+        "canon",
+        "notifications",
+        "enterprise",
+        "feature_flags",
+        "integrations"
+      ],
+      "default": "general"
+    },
+    "description": {
+      "type": "string"
+    },
+    "editable_by": {
+      "type": "string",
+      "enum": [
+        "founder",
+        "admin",
+        "system"
+      ],
+      "default": "admin"
+    },
+    "is_secret": {
+      "type": "boolean",
+      "default": false
+    },
+    "last_changed_by": {
+      "type": "string"
+    },
+    "environment": {
+      "type": "string",
+      "enum": [
+        "production",
+        "staging",
+        "development",
+        "all"
+      ],
+      "default": "all"
+    }
+  },
+  "required": [
+    "key",
+    "category"
+  ]
+}

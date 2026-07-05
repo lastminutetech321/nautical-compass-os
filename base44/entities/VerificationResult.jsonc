@@ -1,0 +1,157 @@
+{
+  "name": "VerificationResult",
+  "type": "object",
+  "properties": {
+    "verification_key": {
+      "type": "string"
+    },
+    "simulation_id": {
+      "type": "string"
+    },
+    "workflow_type": {
+      "type": "string",
+      "enum": [
+        "subscription_activation",
+        "payment_confirmation",
+        "commission_calculation",
+        "residual_calculation",
+        "contribution_calculation",
+        "trust_calculation",
+        "payout_eligibility",
+        "revenue_allocation",
+        "platform_share",
+        "artist_share",
+        "director_share",
+        "workforce_share",
+        "referral_reward",
+        "enterprise_billing",
+        "invoice_accuracy",
+        "tax_calculation",
+        "audit_record",
+        "founder_approval_rules",
+        "webhook_response",
+        "refund_processing",
+        "chargeback_handling",
+        "grace_period",
+        "collections_flow",
+        "split_payment"
+      ],
+      "default": "subscription_activation"
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "check_name": {
+            "type": "string"
+          },
+          "expected": {
+            "type": "string"
+          },
+          "actual": {
+            "type": "string"
+          },
+          "passed": {
+            "type": "boolean"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "info",
+              "warning",
+              "error"
+            ],
+            "default": "info"
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "passed_checks": {
+      "type": "number",
+      "default": 0
+    },
+    "total_checks": {
+      "type": "number",
+      "default": 0
+    },
+    "pass_rate": {
+      "type": "number",
+      "default": 0
+    },
+    "failures": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "passed",
+        "failed",
+        "partial",
+        "pending"
+      ],
+      "default": "pending"
+    },
+    "verified_at": {
+      "type": "string"
+    },
+    "auditor": {
+      "type": "string",
+      "enum": [
+        "system",
+        "founder"
+      ],
+      "default": "system"
+    },
+    "audit_explanation": {
+      "type": "string"
+    },
+    "policy_used": {
+      "type": "string"
+    },
+    "contribution_factors": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "trust_factors": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "affected_departments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "memory_references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "verification_key",
+    "workflow_type",
+    "status"
+  ]
+}

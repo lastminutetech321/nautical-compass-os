@@ -1,0 +1,139 @@
+{
+  "name": "IntegrationConnector",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "integration_type": {
+      "type": "string",
+      "enum": [
+        "scheduling",
+        "payroll",
+        "crm",
+        "accounting",
+        "erp",
+        "hr",
+        "event_platform",
+        "inventory",
+        "dispatch",
+        "learning",
+        "communication",
+        "production",
+        "ticketing",
+        "venue",
+        "rental",
+        "security",
+        "financial",
+        "marketing",
+        "analytics",
+        "custom"
+      ],
+      "default": "custom"
+    },
+    "provider_name": {
+      "type": "string"
+    },
+    "connection_mode": {
+      "type": "string",
+      "enum": [
+        "oauth",
+        "api_key",
+        "webhook",
+        "rest",
+        "graphql",
+        "csv_import",
+        "csv_export",
+        "sdk",
+        "manual",
+        "future_api"
+      ],
+      "default": "rest"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "connected",
+        "disconnected",
+        "broken",
+        "unused",
+        "pending",
+        "testing",
+        "deprecated"
+      ],
+      "default": "pending"
+    },
+    "connected_by": {
+      "type": "string"
+    },
+    "connected_at": {
+      "type": "string"
+    },
+    "health_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "last_health_check": {
+      "type": "string"
+    },
+    "last_error": {
+      "type": "string"
+    },
+    "adoption_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "roi_score": {
+      "type": "number",
+      "default": 0
+    },
+    "usage_count": {
+      "type": "number",
+      "default": 0
+    },
+    "authorized_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "consent_grant_id": {
+      "type": "string"
+    },
+    "organization_id": {
+      "type": "string"
+    },
+    "organization_name": {
+      "type": "string"
+    },
+    "is_system_default": {
+      "type": "boolean",
+      "default": false
+    },
+    "suggested": {
+      "type": "boolean",
+      "default": false
+    },
+    "redundant_with": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "integration_type",
+    "status"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "name": "VideoEvidence",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "file_url": {
+      "type": "string"
+    },
+    "evidence_id": {
+      "type": "string"
+    },
+    "duration_seconds": {
+      "type": "number"
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "transcript": {
+      "type": "string"
+    },
+    "ai_observations": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "human_notes": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "uploaded",
+        "processing",
+        "transcribed",
+        "reviewed"
+      ],
+      "default": "uploaded"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "case_name": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

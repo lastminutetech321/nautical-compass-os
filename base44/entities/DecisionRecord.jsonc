@@ -1,0 +1,77 @@
+{
+  "name": "DecisionRecord",
+  "type": "object",
+  "properties": {
+    "question": {
+      "type": "string"
+    },
+    "situation": {
+      "type": "string"
+    },
+    "jurisdiction": {
+      "type": "string"
+    },
+    "benefit_type": {
+      "type": "string"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium"
+    },
+    "risk_triggers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "documentation_checklist": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "outcome_scenarios": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "analysis_result": {
+      "type": "object"
+    },
+    "actual_outcome": {
+      "type": "string"
+    },
+    "outcome_notes": {
+      "type": "string"
+    },
+    "outcome_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "was_helpful": {
+      "type": "boolean"
+    },
+    "linked_case_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "analyzed",
+        "pending_outcome",
+        "outcome_recorded",
+        "archived"
+      ],
+      "default": "analyzed"
+    }
+  },
+  "required": [
+    "question"
+  ]
+}

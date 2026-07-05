@@ -1,0 +1,132 @@
+{
+  "name": "AdCampaign",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "advertiser_name": {
+      "type": "string"
+    },
+    "advertiser_id": {
+      "type": "string"
+    },
+    "campaign_type": {
+      "type": "string",
+      "enum": [
+        "display",
+        "audio",
+        "video",
+        "sponsored_content",
+        "banner",
+        "newsletter",
+        "social",
+        "in_stream"
+      ],
+      "default": "display"
+    },
+    "description": {
+      "type": "string"
+    },
+    "creative_url": {
+      "type": "string"
+    },
+    "target_url": {
+      "type": "string"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "budget_total": {
+      "type": "number",
+      "default": 0
+    },
+    "budget_spent": {
+      "type": "number",
+      "default": 0
+    },
+    "budget_remaining": {
+      "type": "number",
+      "default": 0
+    },
+    "cpm_rate": {
+      "type": "number",
+      "default": 0
+    },
+    "cpc_rate": {
+      "type": "number",
+      "default": 0
+    },
+    "impressions": {
+      "type": "number",
+      "default": 0
+    },
+    "clicks": {
+      "type": "number",
+      "default": 0
+    },
+    "conversions": {
+      "type": "number",
+      "default": 0
+    },
+    "ctr": {
+      "type": "number",
+      "default": 0
+    },
+    "conversion_rate": {
+      "type": "number",
+      "default": 0
+    },
+    "revenue_generated": {
+      "type": "number",
+      "default": 0
+    },
+    "roi": {
+      "type": "number",
+      "default": 0
+    },
+    "target_audience": {
+      "type": "string"
+    },
+    "target_genres": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "target_demographics": {
+      "type": "object"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "pending_approval",
+        "active",
+        "paused",
+        "completed",
+        "cancelled"
+      ],
+      "default": "draft"
+    },
+    "requires_founder_approval": {
+      "type": "boolean",
+      "default": true
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "advertiser_name"
+  ]
+}

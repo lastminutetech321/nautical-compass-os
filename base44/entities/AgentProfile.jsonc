@@ -1,0 +1,182 @@
+{
+  "name": "AgentProfile",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "department": {
+      "type": "string"
+    },
+    "agent_type": {
+      "type": "string",
+      "enum": [
+        "legal_research",
+        "foia",
+        "evidence",
+        "investigation",
+        "court",
+        "compliance",
+        "civil_rights",
+        "document_review",
+        "risk_assessment",
+        "business_ops",
+        "product_manager",
+        "qa",
+        "architecture",
+        "security",
+        "automation",
+        "documentation",
+        "marketing",
+        "finance",
+        "referral",
+        "customer_support",
+        "custom",
+        "c_suite"
+      ],
+      "default": "custom"
+    },
+    "c_suite_title": {
+      "type": "string"
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "connected_modules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assigned_work": {
+      "type": "string"
+    },
+    "supervisor": {
+      "type": "string"
+    },
+    "approval_chain": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "canon_categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "memory": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "performance_metrics": {
+      "type": "object"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "idle",
+        "paused",
+        "error"
+      ],
+      "default": "idle"
+    },
+    "activity_log": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "avatar_color": {
+      "type": "string"
+    },
+    "tasks_completed": {
+      "type": "number",
+      "default": 0
+    },
+    "tasks_failed": {
+      "type": "number",
+      "default": 0
+    },
+    "last_active": {
+      "type": "string"
+    },
+    "responsibilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "authority_limits": {
+      "type": "string"
+    },
+    "kpis": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "performance_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "task_queue": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "knowledge_domain": {
+      "type": "string"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reports_to": {
+      "type": "string"
+    },
+    "escalation_path": {
+      "type": "string"
+    },
+    "executive_reporting": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "purpose"
+  ]
+}

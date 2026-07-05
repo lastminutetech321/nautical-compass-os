@@ -1,0 +1,75 @@
+{
+  "name": "ADR",
+  "type": "object",
+  "properties": {
+    "number": {
+      "type": "number"
+    },
+    "title": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "accepted",
+        "deprecated",
+        "superseded"
+      ],
+      "default": "proposed"
+    },
+    "context": {
+      "type": "string"
+    },
+    "decision": {
+      "type": "string"
+    },
+    "consequences": {
+      "type": "string"
+    },
+    "future_implications": {
+      "type": "string"
+    },
+    "alternatives_considered": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affected_modules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "related_adr_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "decision_maker": {
+      "type": "string"
+    },
+    "superseded_by": {
+      "type": "string"
+    },
+    "requires_founder_approval": {
+      "type": "boolean",
+      "default": false
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "title",
+    "status"
+  ]
+}

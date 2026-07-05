@@ -1,0 +1,109 @@
+{
+  "name": "Artist",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "stage_name": {
+      "type": "string"
+    },
+    "bio": {
+      "type": "string"
+    },
+    "genres": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "banner_url": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "social_links": {
+      "type": "object"
+    },
+    "hometown": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "verification_id": {
+      "type": "string"
+    },
+    "monthly_listeners": {
+      "type": "number",
+      "default": 0
+    },
+    "total_streams": {
+      "type": "number",
+      "default": 0
+    },
+    "follower_count": {
+      "type": "number",
+      "default": 0
+    },
+    "album_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "song_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "label": {
+      "type": "string"
+    },
+    "is_independent": {
+      "type": "boolean",
+      "default": true
+    },
+    "contract_status": {
+      "type": "string",
+      "enum": [
+        "unsigned",
+        "signed",
+        "managed",
+        "partnership"
+      ],
+      "default": "unsigned"
+    },
+    "royalty_split_pct": {
+      "type": "number",
+      "default": 100
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

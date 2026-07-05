@@ -1,0 +1,124 @@
+{
+  "name": "StripeReadinessConfig",
+  "type": "object",
+  "properties": {
+    "config_key": {
+      "type": "string",
+      "default": "stripe_readiness"
+    },
+    "operating_mode": {
+      "type": "string",
+      "enum": [
+        "sandbox",
+        "production"
+      ],
+      "default": "sandbox"
+    },
+    "sandbox_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "production_active": {
+      "type": "boolean",
+      "default": false
+    },
+    "required_secrets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [
+        "STRIPE_SECRET_KEY",
+        "STRIPE_PUBLISHABLE_KEY",
+        "STRIPE_WEBHOOK_SECRET"
+      ]
+    },
+    "secrets_status": {
+      "type": "object",
+      "description": "Map of secret name to { set: boolean, valid: boolean, last_checked: string }"
+    },
+    "validation_errors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "readiness_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "readiness_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "check": {
+            "type": "string"
+          },
+          "passed": {
+            "type": "boolean"
+          },
+          "weight": {
+            "type": "number"
+          },
+          "detail": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "last_validation": {
+      "type": "string"
+    },
+    "production_activated_by": {
+      "type": "string"
+    },
+    "production_activated_at": {
+      "type": "string"
+    },
+    "sandbox_activated_by": {
+      "type": "string"
+    },
+    "sandbox_activated_at": {
+      "type": "string"
+    },
+    "risk_tolerances": {
+      "type": "object",
+      "description": "Founder-configured risk tolerances (max auto-payout, refund threshold, etc.)"
+    },
+    "testing_rules": {
+      "type": "object",
+      "description": "Founder-configured testing rules (required scenarios before production, min pass rate)"
+    },
+    "deployment_blockers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "sandbox",
+        "ready_for_production",
+        "production",
+        "blocked"
+      ],
+      "default": "sandbox"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "config_key"
+  ]
+}

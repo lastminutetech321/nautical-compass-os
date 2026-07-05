@@ -1,0 +1,82 @@
+{
+  "name": "SemanticIndex",
+  "type": "object",
+  "properties": {
+    "entity_type": {
+      "type": "string"
+    },
+    "entity_id": {
+      "type": "string"
+    },
+    "entity_name": {
+      "type": "string"
+    },
+    "content_text": {
+      "type": "string"
+    },
+    "summary_text": {
+      "type": "string"
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "memory_type": {
+      "type": "string"
+    },
+    "semantic_hash": {
+      "type": "string"
+    },
+    "similarity_fingerprint": {
+      "type": "string"
+    },
+    "source_module": {
+      "type": "string"
+    },
+    "is_duplicate_of_id": {
+      "type": "string"
+    },
+    "duplicate_confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "similar_entity_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "last_indexed": {
+      "type": "string"
+    },
+    "index_version": {
+      "type": "string",
+      "default": "1.0"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "indexed",
+        "stale",
+        "reindexing",
+        "error"
+      ],
+      "default": "indexed"
+    }
+  },
+  "required": [
+    "entity_type",
+    "entity_id",
+    "content_text"
+  ]
+}

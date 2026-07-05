@@ -1,0 +1,89 @@
+{
+  "name": "BuildProject",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "owner_client": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "internal_nc",
+        "client_project",
+        "partner_project",
+        "nc_venture",
+        "experimental"
+      ],
+      "default": "internal_nc"
+    },
+    "main_prompt": {
+      "type": "string"
+    },
+    "goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "pages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "automations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ai_agents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "integrations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "database_needs": {
+      "type": "string"
+    },
+    "security_needs": {
+      "type": "string"
+    },
+    "budget": {
+      "type": "number"
+    },
+    "timeline": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "idea",
+        "planning",
+        "architecture",
+        "development",
+        "testing",
+        "approved",
+        "ready",
+        "deployed"
+      ],
+      "default": "idea"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "type"
+  ]
+}

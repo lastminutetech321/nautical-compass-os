@@ -1,0 +1,83 @@
+{
+  "name": "NCOSMemory",
+  "type": "object",
+  "properties": {
+    "memory_type": {
+      "type": "string",
+      "enum": [
+        "founder_decision",
+        "architecture_decision",
+        "completed_work",
+        "rejected_idea",
+        "known_risk",
+        "known_workaround",
+        "lesson_learned",
+        "duplicate_warning",
+        "canon_gap_note",
+        "technical_debt",
+        "integration_note"
+      ],
+      "default": "architecture_decision"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "context": {
+      "type": "string"
+    },
+    "decision_made": {
+      "type": "string"
+    },
+    "rationale": {
+      "type": "string"
+    },
+    "outcome": {
+      "type": "string"
+    },
+    "linked_entity_type": {
+      "type": "string"
+    },
+    "linked_entity_id": {
+      "type": "string"
+    },
+    "linked_entity_name": {
+      "type": "string"
+    },
+    "related_modules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "do_not_repeat": {
+      "type": "boolean",
+      "default": false
+    },
+    "archived": {
+      "type": "boolean",
+      "default": false
+    },
+    "recorded_by": {
+      "type": "string"
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 80
+    }
+  },
+  "required": [
+    "title",
+    "memory_type"
+  ]
+}

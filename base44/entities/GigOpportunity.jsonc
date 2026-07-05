@@ -1,0 +1,126 @@
+{
+  "name": "GigOpportunity",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "trade": {
+      "type": "string"
+    },
+    "opportunity_type": {
+      "type": "string",
+      "enum": [
+        "gig",
+        "contract",
+        "full_time",
+        "part_time",
+        "temp",
+        "seasonal",
+        "apprenticeship",
+        "internship",
+        "volunteer",
+        "other"
+      ],
+      "default": "gig"
+    },
+    "location": {
+      "type": "string"
+    },
+    "remote": {
+      "type": "boolean",
+      "default": false
+    },
+    "rate_type": {
+      "type": "string",
+      "enum": [
+        "hourly",
+        "fixed",
+        "daily",
+        "salary",
+        "tbd"
+      ],
+      "default": "hourly"
+    },
+    "rate_min": {
+      "type": "number",
+      "default": 0
+    },
+    "rate_max": {
+      "type": "number",
+      "default": 0
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "hours_per_week": {
+      "type": "number",
+      "default": 0
+    },
+    "required_skills": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_certifications": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "filled",
+        "cancelled",
+        "expired",
+        "draft"
+      ],
+      "default": "open"
+    },
+    "applications_count": {
+      "type": "number",
+      "default": 0
+    },
+    "posted_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "expiry_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "opportunity_type"
+  ]
+}

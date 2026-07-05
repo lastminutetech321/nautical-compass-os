@@ -1,0 +1,116 @@
+{
+  "name": "PayoutRecommendation",
+  "type": "object",
+  "properties": {
+    "recommendation_key": {
+      "type": "string"
+    },
+    "participant_id": {
+      "type": "string"
+    },
+    "participant_name": {
+      "type": "string"
+    },
+    "participant_type": {
+      "type": "string"
+    },
+    "recommendation_type": {
+      "type": "string",
+      "enum": [
+        "compensation_adjustment",
+        "promotion",
+        "mentorship",
+        "leadership",
+        "recognition",
+        "training",
+        "special_assignment",
+        "policy_change",
+        "residual_adjustment",
+        "referral_adjustment"
+      ],
+      "default": "compensation_adjustment"
+    },
+    "recommendation_text": {
+      "type": "string"
+    },
+    "rationale": {
+      "type": "string"
+    },
+    "supporting_scores": {
+      "type": "object"
+    },
+    "supporting_factors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "suggested_action": {
+      "type": "object"
+    },
+    "policy_impact": {
+      "type": "boolean",
+      "default": false
+    },
+    "requires_founder_approval": {
+      "type": "boolean",
+      "default": true
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected",
+        "expired",
+        "implemented"
+      ],
+      "default": "pending"
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "implemented_at": {
+      "type": "string"
+    },
+    "ai_generated": {
+      "type": "boolean",
+      "default": true
+    },
+    "ai_confidence": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived",
+        "implemented",
+        "rejected"
+      ],
+      "default": "active"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "recommendation_key",
+    "participant_id",
+    "participant_name",
+    "recommendation_type"
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "description": "Continuously scans the entire NC ecosystem every 4 hours \u2014 detects bottlenecks, missing relationships, duplicates, unused assets, generates ranked insights, auto-applies low-risk improvements, and updates the Executive Readiness Score.",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "0 */4 * * *",
+      "one_time_date": null,
+      "timezone": "America/New_York",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  },
+  "name": "Ecosystem Orchestrator Scan",
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "ecosystem_orchestrator_scan",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "run_full_scan": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncEcosystemOrchestrator",
+            "args": {
+              "operation": "scan"
+            }
+          },
+          "then": "aggregate_intelligence",
+          "x-base44": {
+            "title": "Run full ecosystem scan",
+            "description": "Scan all 26 modules, detect bottlenecks/duplicates/unused, generate ranked insights"
+          }
+        }
+      },
+      {
+        "aggregate_intelligence": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ncIntelligenceOps",
+            "args": {
+              "operation": "aggregate_intelligence"
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Aggregate intelligence",
+            "description": "Convert scan findings into organizational intelligence"
+          }
+        }
+      }
+    ]
+  }
+}

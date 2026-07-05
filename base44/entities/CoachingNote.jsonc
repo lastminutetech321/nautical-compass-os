@@ -1,0 +1,108 @@
+{
+  "name": "CoachingNote",
+  "type": "object",
+  "properties": {
+    "worker_profile_id": {
+      "type": "string"
+    },
+    "worker_name": {
+      "type": "string"
+    },
+    "director_id": {
+      "type": "string"
+    },
+    "director_name": {
+      "type": "string"
+    },
+    "note_type": {
+      "type": "string",
+      "enum": [
+        "coaching",
+        "feedback",
+        "corrective",
+        "praise",
+        "development",
+        "check_in"
+      ],
+      "default": "coaching"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "professionalism",
+        "attendance",
+        "communication",
+        "reliability",
+        "safety",
+        "technical",
+        "customer_service",
+        "ethics",
+        "compliance",
+        "leadership",
+        "general"
+      ],
+      "default": "general"
+    },
+    "note_text": {
+      "type": "string"
+    },
+    "rating": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 5,
+      "default": 3
+    },
+    "action_items": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "follow_up_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "knowledge_captured": {
+      "type": "boolean",
+      "default": false
+    },
+    "enterprise_memory_id": {
+      "type": "string"
+    },
+    "dev_memory_id": {
+      "type": "string"
+    },
+    "knowledge_graph_id": {
+      "type": "string"
+    },
+    "org_intelligence_id": {
+      "type": "string"
+    },
+    "impact_on_readiness": {
+      "type": "number",
+      "default": 0
+    },
+    "impact_on_trust": {
+      "type": "number",
+      "default": 0
+    },
+    "impact_on_contribution": {
+      "type": "number",
+      "default": 0
+    },
+    "created_date": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "worker_profile_id",
+    "note_type",
+    "note_text"
+  ]
+}
