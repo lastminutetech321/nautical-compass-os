@@ -1,0 +1,47 @@
+# DigitalOcean App Platform spec — NC Transcode Worker
+#
+# Deploy as a SEPARATE App Platform component from the frontend SPA.
+#   doctl app spec deploy worker/transcode-worker/.do/app.yaml
+# (or create via dashboard → Apps → Create App → Use Spec YAML, pointing at
+#  the worker/transcode-worker directory)
+#
+# After deploy, copy the worker's public URL (e.g. https://nc-transcode-worker-xxxx.ondigitalocean.app)
+# and configure it in NC via the ncCreatorMedia set_transcode_config operation:
+#   { worker_url: "<worker-url>", worker_token: "<the same TRANSCODE_WORKER_TOKEN>" }
+
+name: nc-transcode-worker
+region: nyc
+
+services:
+  - name: worker
+    dockerfile_path: worker/transcode-worker/Dockerfile
+    source_dir: /
+    http_port: 8080
+    instance_count: 1
+    instance_size_slug: basic-xs
+
+    # Runtime env — the shared bearer token that NC also stores in
+    # FounderConfiguration.transcode_worker_config.worker_token (Part 14).
+    # Set this in the DO dashboard as a secret, or via doctl.
+    envs:
+      - key: TRANSCODE_WORKER_TOKEN
+        scope: RUN_TIME
+        value: "${TRANSCODE_WORKER_TOKEN}"
+      - key: MAX_MASTER_SIZE_MB
+        scope: RUN_TIME
+        value: "200"
+      - key: MAX_DURATION_SECONDS
+        scope: RUN_TIME
+        value: "1800"
+
+    routes:
+      - path: /
+        preserve_trailing_path: false
+
+    health_check:
+      http_path: /health
+      initial_delay_seconds: 10
+      period_seconds: 30
+      timeout_seconds: 5
+      success_threshold: 1
+      failure_threshold: 3
