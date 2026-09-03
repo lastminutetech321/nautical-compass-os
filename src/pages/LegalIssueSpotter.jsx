@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { base44 } from "@/api/base44Client";
+import { legalPilotGateway, listFrom } from "@/api/pilotGateways";
 import { Plus, Scale, AlertTriangle, Loader2, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,10 +26,15 @@ export default function LegalIssueSpotter() {
   const [caseName, setCaseName] = useState("");
   const [form, setForm] = useState({ title: "", category: "other", description: "", case_name: "", severity: "medium" });
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
 
   const load = () => {
     setLoading(true);
-    base44.entities.LegalIssue.list("-created_date", 100).then(setIssues).finally(() => setLoading(false));
+    setError("");
+    legalPilotGateway.listLegalIssues()
+      .then(result => setIssues(listFrom(result, "legal_issues")))
+      .catch(err => { setIssues([]); setError(err.message || "Legal issues could not be loaded."); })
+      .finally(() => setLoading(false));
   };
 
   useEffect(load, []);
@@ -37,55 +42,7 @@ export default function LegalIssueSpotter() {
   const handleScan = async (e) => {
     e.preventDefault();
     setScanning(true);
-    const result = await base44.integrations.Core.InvokeLLM({
-      prompt: `You are a legal issue identification system. Analyze the following facts/documents and identify potential legal issues.
-
-IMPORTANT DISCLAIMER: All outputs are INFORMATIONAL ONLY and do not constitute legal advice. Users must consult a licensed attorney.
-
-Case/Context: ${caseName}
-Facts/Documents: ${scanText}
-
-Identify potential legal issues in these categories: standing, capacity, civil_rights, contracts, housing, employment, consumer_finance, foia, animal_control, other.
-
-For each issue found, provide:
-- category (from the list above)
-- title (brief name)
-- description (what the issue is and why it may apply)
-- severity: low, medium, high, or critical
-
-Be thorough but note that this is a preliminary scan only.`,
-      response_json_schema: {
-        type: "object",
-        properties: {
-          issues: {
-            type: "array",
-            items: {
-              type: "object",
-              properties: {
-                category: { type: "string" },
-                title: { type: "string" },
-                description: { type: "string" },
-                severity: { type: "string" }
-              },
-              required: ["category", "title", "description", "severity"]
-            }
-          },
-          summary: { type: "string" }
-        },
-        required: ["issues", "summary"]
-      }
-    });
-    const issueCreations = (result.issues || []).map(issue =>
-      base44.entities.LegalIssue.create({
-        ...issue,
-        case_name: caseName,
-        ai_analysis: issue.description,
-        status: "flagged",
-        is_informational: true,
-        supporting_evidence_ids: []
-      })
-    );
-    await Promise.all(issueCreations);
+    await legalPilotGateway.scanLegalIssues(caseName, scanText);
     setScanning(false);
     setScanOpen(false);
     setScanText("");
@@ -96,7 +53,7 @@ Be thorough but note that this is a preliminary scan only.`,
   const handleAdd = async (e) => {
     e.preventDefault();
     setSaving(true);
-    await base44.entities.LegalIssue.create({ ...form, is_informational: true, supporting_evidence_ids: [] });
+    await legalPilotGateway.createLegalIssue({ ...form, is_informational: true, supporting_evidence_ids: [] });
     setSaving(false);
     setAddOpen(false);
     setForm({ title: "", category: "other", description: "", case_name: "", severity: "medium" });
@@ -107,6 +64,7 @@ Be thorough but note that this is a preliminary scan only.`,
 
   return (
     <div>
+      {error && <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800">{error}</div>}
       <PageHeader
         title="Legal Issue Spotter"
         subtitle="AI-assisted identification of potential legal issues"

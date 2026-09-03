@@ -10,9 +10,11 @@ import ProtectedRoute from '@/components/ProtectedRoute';
 
 // Auth
 import Login from '@/pages/Login';
-import Register from '@/pages/Register';
 import ForgotPassword from '@/pages/ForgotPassword';
 import ResetPassword from '@/pages/ResetPassword';
+import AccountEntry from '@/pages/AccountEntry';
+import NCLegalPilot from '@/pages/NCLegalPilot';
+import LegalPilotGuard from '@/components/legal/LegalPilotGuard';
 
 // Layout
 import AppLayout from '@/components/layout/AppLayout';
@@ -289,14 +291,22 @@ const AuthenticatedApp = () => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="/register" element={<Navigate to="/login" replace />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
 
       <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
         <Route element={<AppLayout />}>
-          {/* Personal Operating Console — Daily Compass is the default landing */}
-          <Route path="/" element={<DailyCompass />} />
+          <Route path="/" element={<AccountEntry />} />
+          <Route path="/daily-compass" element={<DailyCompass />} />
+          <Route path="/nc-legal" element={<NCLegalPilot />} />
+          <Route element={<LegalPilotGuard />}>
+            <Route path="/cases" element={<CaseFileManager />} />
+            <Route path="/evidence" element={<EvidenceVault />} />
+            <Route path="/case-timeline" element={<CaseTimelinePage />} />
+            <Route path="/legal-issues" element={<LegalIssueSpotter />} />
+            <Route path="/jurisengine" element={<JurisEngine />} />
+          </Route>
 
           {/* Director Navigation System */}
           <Route path="/director-assistant" element={<DirectorAssistant />} />
@@ -319,12 +329,9 @@ const AuthenticatedApp = () => {
           <Route path="/infrastructure" element={<InfrastructureLibrary />} />
 
           {/* Evidence Command */}
-          <Route path="/evidence" element={<EvidenceVault />} />
           <Route path="/evidence-checklist" element={<EvidenceChecklist />} />
           <Route path="/video-evidence" element={<VideoEvidenceReview />} />
-          <Route path="/case-timeline" element={<CaseTimelinePage />} />
           <Route path="/witnesses" element={<WitnessTracker />} />
-          <Route path="/legal-issues" element={<LegalIssueSpotter />} />
           <Route path="/foia" element={<FOIATracker />} />
 
           {/* Knowledge & Automation */}
@@ -340,7 +347,6 @@ const AuthenticatedApp = () => {
           <Route path="/activity" element={<ActivityLog />} />
 
           {/* JurisEngine */}
-          <Route path="/jurisengine" element={<JurisEngine />} />
           <Route path="/juris-tests" element={<JurisTestLibrary />} />
 
           {/* Decision Compass */}
@@ -433,7 +439,6 @@ const AuthenticatedApp = () => {
           <Route path="/roadmap" element={<RoadmapPage />} />
 
           {/* Case File Manager */}
-          <Route path="/cases" element={<CaseFileManager />} />
 
           {/* Agent Work Queue */}
           <Route path="/agent-queue" element={<AgentWorkQueue />} />

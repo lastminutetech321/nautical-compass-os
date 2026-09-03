@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { base44 } from "@/api/base44Client";
+import { legalPilotGateway, listFrom } from "@/api/pilotGateways";
+import { useAuth } from "@/lib/AuthContext";
 import { Plus, Search, Upload, Shield, FileText, Image, Video, Music, File, Eye, Hash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,7 +24,17 @@ async function hashFile(file) {
   return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
+function readFileAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(reader.error || new Error("File could not be read."));
+    reader.readAsDataURL(file);
+  });
+}
+
 export default function EvidenceVault() {
+  const { user } = useAuth();
   const [evidence, setEvidence] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -32,7 +43,7 @@ export default function EvidenceVault() {
   const [viewing, setViewing] = useState(null);
   const [uploading, setUploading] = useState(false);
   const fileRef = useRef();
-  const [user, setUser] = useState(null);
+  const [error, setError] = useState("");
   const [form, setForm] = useState({
     title: "", source: "", collected_date: "", collected_by: "", case_name: "",
     notes: "", category: "document", tags: "", issue_tags: "", person_tags: "", event_tags: "", location_tags: ""
@@ -40,13 +51,16 @@ export default function EvidenceVault() {
   const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
-    base44.auth.me().then(setUser).catch(() => {});
     load();
   }, []);
 
   const load = () => {
     setLoading(true);
-    base44.entities.Evidence.list("-created_date", 100).then(setEvidence).finally(() => setLoading(false));
+    setError("");
+    legalPilotGateway.listEvidence()
+      .then(result => setEvidence(listFrom(result, "evidence")))
+      .catch(err => { setEvidence([]); setError(err.message || "Evidence could not be loaded."); })
+      .finally(() => setLoading(false));
   };
 
   const handleFileSelect = (e) => {
@@ -68,10 +82,9 @@ export default function EvidenceVault() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setUploading(true);
-    let file_url = null, file_name = null, file_hash = null, file_size = null, file_type = null;
+    let file_content = null, file_name = null, file_hash = null, file_size = null, file_type = null;
     if (selectedFile) {
-      const uploadRes = await base44.integrations.Core.UploadFile({ file: selectedFile });
-      file_url = uploadRes.file_url;
+      file_content = await readFileAsDataUrl(selectedFile);
       file_name = selectedFile.name;
       file_size = selectedFile.size;
       file_type = selectedFile.type;
@@ -85,7 +98,7 @@ export default function EvidenceVault() {
     };
     const data = {
       ...form,
-      file_url, file_name, file_hash, file_size, file_type,
+      file_content, file_name, file_hash, file_size, file_type,
       tags: form.tags ? form.tags.split(",").map(t => t.trim()).filter(Boolean) : [],
       issue_tags: form.issue_tags ? form.issue_tags.split(",").map(t => t.trim()).filter(Boolean) : [],
       person_tags: form.person_tags ? form.person_tags.split(",").map(t => t.trim()).filter(Boolean) : [],
@@ -93,12 +106,25 @@ export default function EvidenceVault() {
       location_tags: form.location_tags ? form.location_tags.split(",").map(t => t.trim()).filter(Boolean) : [],
       chain_of_custody: [custodyEntry],
     };
-    await base44.entities.Evidence.create(data);
+    await legalPilotGateway.uploadEvidence(data);
     setUploading(false);
     setFormOpen(false);
     setSelectedFile(null);
     setForm({ title: "", source: "", collected_date: "", collected_by: "", case_name: "", notes: "", category: "document", tags: "", issue_tags: "", person_tags: "", event_tags: "", location_tags: "" });
     load();
+  };
+
+  const handleDownload = async () => {
+    if (!viewing?.id) return;
+    setError("");
+    try {
+      const result = await legalPilotGateway.getEvidenceDownload(viewing.id);
+      const authorizedUrl = result.download_url || result.url;
+      if (!authorizedUrl) throw new Error("The authorized download was not returned.");
+      window.open(authorizedUrl, "_blank", "noopener,noreferrer");
+    } catch (err) {
+      setError(err.message || "Evidence download was denied.");
+    }
   };
 
   const filtered = evidence.filter(e => {
@@ -111,6 +137,7 @@ export default function EvidenceVault() {
 
   return (
     <div>
+      {error && <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800">{error}</div>}
       <PageHeader
         title="Evidence Vault"
         subtitle={`${evidence.length} items · secured with SHA-256 integrity hashing`}
@@ -245,14 +272,7 @@ export default function EvidenceVault() {
             <>
               <DialogHeader><DialogTitle>{viewing.title}</DialogTitle></DialogHeader>
               <div className="space-y-4">
-                {viewing.file_url && viewing.category === "photo" && (
-                  <img src={viewing.file_url} alt={viewing.title} className="w-full rounded-lg max-h-64 object-contain bg-muted" />
-                )}
-                {viewing.file_url && (
-                  <a href={viewing.file_url} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" size="sm"><Eye className="w-4 h-4 mr-2" />View / Download File</Button>
-                  </a>
-                )}
+                {viewing.file_name && <Button type="button" variant="outline" size="sm" onClick={handleDownload}><Eye className="w-4 h-4 mr-2" />Request authorized download</Button>}
                 <div className="grid grid-cols-2 gap-3 text-sm">
                   <div><p className="text-xs text-muted-foreground">Source</p><p className="font-medium">{viewing.source || "—"}</p></div>
                   <div><p className="text-xs text-muted-foreground">Case</p><p className="font-medium">{viewing.case_name || "—"}</p></div>

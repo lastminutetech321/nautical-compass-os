@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { base44 } from "@/api/base44Client";
+import { legalPilotGateway, listFrom } from "@/api/pilotGateways";
 import { Plus, GitCommitHorizontal, Link2, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,14 +33,20 @@ export default function CaseTimelinePage() {
   const [formOpen, setFormOpen] = useState(false);
   const [form, setForm] = useState({ case_name: "", title: "", description: "", event_date: "", event_type: "event", confidence: "unknown", source: "" });
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
 
   const load = () => {
     setLoading(true);
-    base44.entities.CaseTimeline.list("event_date", 200).then(data => {
+    setError("");
+    legalPilotGateway.listTimeline().then(result => {
+      const data = listFrom(result, "timeline_entries");
       setEntries(data);
       const uniqueCases = [...new Set(data.map(e => e.case_name).filter(Boolean))];
       setCases(uniqueCases);
       if (uniqueCases.length > 0 && !caseFilter) setCaseFilter(uniqueCases[0]);
+    }).catch(err => {
+      setEntries([]);
+      setError(err.message || "Timeline could not be loaded.");
     }).finally(() => setLoading(false));
   };
 
@@ -49,7 +55,7 @@ export default function CaseTimelinePage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
-    await base44.entities.CaseTimeline.create(form);
+    await legalPilotGateway.createTimelineEntry(form);
     setSaving(false);
     setFormOpen(false);
     setForm({ case_name: "", title: "", description: "", event_date: "", event_type: "event", confidence: "unknown", source: "" });
@@ -62,6 +68,7 @@ export default function CaseTimelinePage() {
 
   return (
     <div>
+      {error && <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800">{error}</div>}
       <PageHeader
         title="Case Timeline"
         subtitle="Chronological reconstruction of events"

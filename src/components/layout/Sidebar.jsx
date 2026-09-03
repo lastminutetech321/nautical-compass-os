@@ -14,7 +14,9 @@ const navGroups = [
     icon: Crown,
     color: "text-amber-400",
     items: [
-      { label: "🧭 Daily Compass", path: "/" },
+      { label: "⚓ Account & Services", path: "/" },
+      { label: "⚖️ NC Legal Pilot", path: "/nc-legal" },
+      { label: "🧭 Daily Compass", path: "/daily-compass" },
       { label: "🧭 Director Assistant", path: "/director-assistant" },
       { label: "👑 Executive Command", path: "/executive-command" },
       { label: "👑 Founder Dashboard", path: "/founder-dashboard" },

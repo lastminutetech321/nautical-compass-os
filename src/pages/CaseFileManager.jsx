@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { base44 } from "@/api/base44Client";
+import { legalPilotGateway, listFrom } from "@/api/pilotGateways";
 import { FolderOpen, Plus, Search, AlertTriangle, CheckCircle, Clock, Loader2, Tag, Link2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -29,21 +29,29 @@ export default function CaseFileManager() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [typeFilter, setTypeFilter] = useState("all");
+  const [error, setError] = useState("");
 
   const load = async () => {
     setLoading(true);
-    const data = await base44.entities.CaseFile.list("-created_date", 200).catch(() => []);
-    setCases(data);
-    if (data.length > 0 && !selected) setSelected(data[0]);
-    setLoading(false);
+    setError("");
+    try {
+      const data = listFrom(await legalPilotGateway.listCaseFiles(), "case_files");
+      setCases(data);
+      if (data.length > 0 && !selected) setSelected(data[0]);
+    } catch (err) {
+      setCases([]);
+      setError(err.message || "Case files could not be loaded.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => { load(); }, []);
 
   const save = async () => {
     setSaving(true);
-    if (editId) await base44.entities.CaseFile.update(editId, form);
-    else await base44.entities.CaseFile.create({ ...form, case_number: `NCOS-${Date.now().toString().slice(-6)}` });
+    if (editId) await legalPilotGateway.updateCaseFile(editId, form);
+    else await legalPilotGateway.createCaseFile({ ...form, case_number: `NCOS-${Date.now().toString().slice(-6)}` });
     setSaving(false); setShowForm(false); setEditId(null); setForm(emptyForm); load();
   };
 
@@ -64,6 +72,7 @@ export default function CaseFileManager() {
 
   return (
     <div>
+      {error && <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800">{error}</div>}
       <div className="flex items-start justify-between mb-6 flex-wrap gap-3">
         <div>
           <p className="text-xs text-muted-foreground uppercase tracking-widest font-semibold mb-1">NCOS · Legal Rail</p>

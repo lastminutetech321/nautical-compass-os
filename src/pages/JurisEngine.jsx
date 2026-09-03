@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { base44 } from "@/api/base44Client";
+import { legalPilotGateway, listFrom } from "@/api/pilotGateways";
 import {
   Scale, Search, FileText, AlertTriangle, CheckCircle, Loader2,
   BookOpen, Brain
@@ -44,8 +44,8 @@ export default function JurisEngine() {
   const [selectedMemo, setSelectedMemo] = useState(null);
 
   useEffect(() => {
-    base44.entities.CanonEntry.filter({ status: "active" }, "-created_date", 500).then(r => setCanonCount(r.length)).catch(() => {});
-    base44.entities.ResearchMemo.list("-created_date", 20).then(setMemos).catch(() => {});
+    legalPilotGateway.getCanonStatus().then(result => setCanonCount(Number(result.verified_count || 0))).catch(() => setCanonCount(0));
+    legalPilotGateway.listResearchMemos().then(result => setMemos(listFrom(result, "research_memos"))).catch(() => setMemos([]));
   }, []);
 
   const run = async () => {
@@ -53,11 +53,11 @@ export default function JurisEngine() {
     setLoading(true);
     setResult(null);
     try {
-      const res = await base44.functions.invoke("jurisEngine", { capability, query, context, save_memo: saveMemo });
-      setResult(res.data);
+      const res = await legalPilotGateway.runCanonAnalysis({ capability, query, context, save_memo: saveMemo });
+      setResult(res);
       if (saveMemo) {
-        const updated = await base44.entities.ResearchMemo.list("-created_date", 20);
-        setMemos(updated);
+        const updated = await legalPilotGateway.listResearchMemos();
+        setMemos(listFrom(updated, "research_memos"));
       }
     } catch (err) {
       setResult({ success: false, canon_gap: true, message: "JurisEngine error: " + err.message });
