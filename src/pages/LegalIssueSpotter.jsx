@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { legalPilotGateway, listFrom } from "@/api/pilotGateways";
-import { Plus, Scale, AlertTriangle, Loader2, Search } from "lucide-react";
+import { getMyCaseCollection, legalPilotGateway } from "@/api/pilotGateways";
+import { Plus, Scale } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -19,44 +19,36 @@ const categoryLabels = { standing: "Standing", capacity: "Capacity", civil_right
 export default function LegalIssueSpotter() {
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [scanOpen, setScanOpen] = useState(false);
   const [addOpen, setAddOpen] = useState(false);
-  const [scanning, setScanning] = useState(false);
-  const [scanText, setScanText] = useState("");
-  const [caseName, setCaseName] = useState("");
-  const [form, setForm] = useState({ title: "", category: "other", description: "", case_name: "", severity: "medium" });
+  const [caseFiles, setCaseFiles] = useState([]);
+  const [form, setForm] = useState({ title: "", category: "other", description: "", case_id: "", severity: "medium" });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
   const load = () => {
     setLoading(true);
     setError("");
-    legalPilotGateway.listLegalIssues()
-      .then(result => setIssues(listFrom(result, "legal_issues")))
+    getMyCaseCollection(legalPilotGateway, "legal_issues")
+      .then(({ cases, records }) => { setCaseFiles(cases); setIssues(records); })
       .catch(err => { setIssues([]); setError(err.message || "Legal issues could not be loaded."); })
       .finally(() => setLoading(false));
   };
 
   useEffect(load, []);
 
-  const handleScan = async (e) => {
-    e.preventDefault();
-    setScanning(true);
-    await legalPilotGateway.scanLegalIssues(caseName, scanText);
-    setScanning(false);
-    setScanOpen(false);
-    setScanText("");
-    setCaseName("");
-    load();
-  };
-
   const handleAdd = async (e) => {
     e.preventDefault();
     setSaving(true);
-    await legalPilotGateway.createLegalIssue({ ...form, is_informational: true, supporting_evidence_ids: [] });
+    const { case_id: caseId, ...issueData } = form;
+    if (!caseId) {
+      setError("Select a case before adding a legal issue.");
+      setSaving(false);
+      return;
+    }
+    await legalPilotGateway.createLegalIssue(caseId, { ...issueData, is_informational: true, supporting_evidence_ids: [] });
     setSaving(false);
     setAddOpen(false);
-    setForm({ title: "", category: "other", description: "", case_name: "", severity: "medium" });
+    setForm({ title: "", category: "other", description: "", case_id: "", severity: "medium" });
     load();
   };
 
@@ -71,7 +63,7 @@ export default function LegalIssueSpotter() {
         actions={
           <div className="flex gap-2">
             <Button variant="outline" size="sm" onClick={() => setAddOpen(true)}><Plus className="w-4 h-4 mr-1.5" />Add Manually</Button>
-            <Button size="sm" onClick={() => setScanOpen(true)}><Search className="w-4 h-4 mr-1.5" />AI Scan</Button>
+            <Button size="sm" disabled title="The backend does not provide scan_legal_issues">AI Scan — Not available in this internal pilot</Button>
           </div>
         }
       />
@@ -89,7 +81,7 @@ export default function LegalIssueSpotter() {
       </div>
 
       {issues.length === 0 ? (
-        <EmptyState icon={Scale} title="No legal issues flagged" description="Use AI Scan to analyze facts or add issues manually" actionLabel="AI Scan" onAction={() => setScanOpen(true)} />
+        <EmptyState icon={Scale} title="No legal issues flagged" description="Add a legal issue manually. AI scanning is not available in this internal pilot." actionLabel="Add Manually" onAction={() => setAddOpen(true)} />
       ) : (
         <div className="space-y-3">
           {issues.map(issue => (
@@ -111,22 +103,6 @@ export default function LegalIssueSpotter() {
           ))}
         </div>
       )}
-
-      {/* AI Scan Dialog */}
-      <Dialog open={scanOpen} onOpenChange={setScanOpen}>
-        <DialogContent className="sm:max-w-2xl">
-          <DialogHeader><DialogTitle className="flex items-center gap-2"><Scale className="w-4 h-4" />AI Legal Issue Scan</DialogTitle></DialogHeader>
-          <div className="bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mb-3 text-xs text-amber-700">⚠ Results are informational only and not legal advice.</div>
-          <form onSubmit={handleScan} className="space-y-4">
-            <div><Label>Case / Matter Name</Label><Input value={caseName} onChange={e => setCaseName(e.target.value)} /></div>
-            <div><Label>Facts / Document Content</Label><Textarea value={scanText} onChange={e => setScanText(e.target.value)} rows={8} placeholder="Paste the facts, situation description, or document content to analyze..." required /></div>
-            <div className="flex justify-end gap-2">
-              <Button type="button" variant="outline" onClick={() => setScanOpen(false)}>Cancel</Button>
-              <Button type="submit" disabled={scanning}>{scanning ? <><Loader2 className="w-4 h-4 mr-1.5 animate-spin" />Scanning...</> : "Run Scan"}</Button>
-            </div>
-          </form>
-        </DialogContent>
-      </Dialog>
 
       {/* Manual Add Dialog */}
       <Dialog open={addOpen} onOpenChange={setAddOpen}>
@@ -150,9 +126,15 @@ export default function LegalIssueSpotter() {
                 </Select>
               </div>
             </div>
-            <div><Label>Case Name</Label><Input value={form.case_name} onChange={e => setForm({...form, case_name: e.target.value})} /></div>
+            <div>
+              <Label>Case</Label>
+              <Select value={form.case_id} onValueChange={v => setForm({...form, case_id: v})}>
+                <SelectTrigger><SelectValue placeholder="Select a case" /></SelectTrigger>
+                <SelectContent>{caseFiles.map(caseFile => <SelectItem key={caseFile.id} value={caseFile.id}>{caseFile.title}</SelectItem>)}</SelectContent>
+              </Select>
+            </div>
             <div><Label>Description</Label><Textarea value={form.description} onChange={e => setForm({...form, description: e.target.value})} rows={4} /></div>
-            <div className="flex justify-end gap-2"><Button type="button" variant="outline" onClick={() => setAddOpen(false)}>Cancel</Button><Button type="submit" disabled={saving}>{saving ? "Saving..." : "Add"}</Button></div>
+            <div className="flex justify-end gap-2"><Button type="button" variant="outline" onClick={() => setAddOpen(false)}>Cancel</Button><Button type="submit" disabled={saving || !form.case_id}>{saving ? "Saving..." : "Add"}</Button></div>
           </form>
         </DialogContent>
       </Dialog>

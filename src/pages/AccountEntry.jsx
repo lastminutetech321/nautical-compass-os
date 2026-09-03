@@ -27,7 +27,10 @@ export default function AccountEntry() {
     setError("");
     try {
       const entry = buildAccountEntry({ preferredName, authenticatedEmail: email, termsAccepted, phone, smsConsent, profileChoice });
-      await accountEntryGateway.saveEntry(entry);
+      await accountEntryGateway.getOrCreateProfile();
+      await accountEntryGateway.acknowledgeTerms();
+      await accountEntryGateway.updateProfile({ preferred_name: entry.preferred_name, phone: entry.phone });
+      await accountEntryGateway.setSmsConsent(entry.sms_consent);
       setSelectingService(true);
     } catch (err) {
       setError(err.message || "Account entry could not be saved.");

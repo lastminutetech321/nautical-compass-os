@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { legalPilotGateway, listFrom } from "@/api/pilotGateways";
+import { getMyCaseCollection, legalPilotGateway } from "@/api/pilotGateways";
 import { useAuth } from "@/lib/AuthContext";
-import { Plus, Search, Upload, Shield, FileText, Image, Video, Music, File, Eye, Hash } from "lucide-react";
+import { Search, Upload, Shield, FileText, Image, Video, Music, File, Eye, Hash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -24,15 +24,6 @@ async function hashFile(file) {
   return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
-function readFileAsDataUrl(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = () => reject(reader.error || new Error("File could not be read."));
-    reader.readAsDataURL(file);
-  });
-}
-
 export default function EvidenceVault() {
   const { user } = useAuth();
   const [evidence, setEvidence] = useState([]);
@@ -44,8 +35,9 @@ export default function EvidenceVault() {
   const [uploading, setUploading] = useState(false);
   const fileRef = useRef();
   const [error, setError] = useState("");
+  const [caseFiles, setCaseFiles] = useState([]);
   const [form, setForm] = useState({
-    title: "", source: "", collected_date: "", collected_by: "", case_name: "",
+    title: "", source: "", collected_date: "", collected_by: "", case_id: "",
     notes: "", category: "document", tags: "", issue_tags: "", person_tags: "", event_tags: "", location_tags: ""
   });
   const [selectedFile, setSelectedFile] = useState(null);
@@ -57,8 +49,8 @@ export default function EvidenceVault() {
   const load = () => {
     setLoading(true);
     setError("");
-    legalPilotGateway.listEvidence()
-      .then(result => setEvidence(listFrom(result, "evidence")))
+    getMyCaseCollection(legalPilotGateway, "evidence")
+      .then(({ cases, records }) => { setCaseFiles(cases); setEvidence(records); })
       .catch(err => { setEvidence([]); setError(err.message || "Evidence could not be loaded."); })
       .finally(() => setLoading(false));
   };
@@ -82,9 +74,13 @@ export default function EvidenceVault() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setUploading(true);
-    let file_content = null, file_name = null, file_hash = null, file_size = null, file_type = null;
+    if (!selectedFile || !form.case_id) {
+      setError("Select a case and a file before creating evidence.");
+      setUploading(false);
+      return;
+    }
+    let file_name = null, file_hash = null, file_size = null, file_type = null;
     if (selectedFile) {
-      file_content = await readFileAsDataUrl(selectedFile);
       file_name = selectedFile.name;
       file_size = selectedFile.size;
       file_type = selectedFile.type;
@@ -98,7 +94,7 @@ export default function EvidenceVault() {
     };
     const data = {
       ...form,
-      file_content, file_name, file_hash, file_size, file_type,
+      file_name, file_hash, file_size, file_type,
       tags: form.tags ? form.tags.split(",").map(t => t.trim()).filter(Boolean) : [],
       issue_tags: form.issue_tags ? form.issue_tags.split(",").map(t => t.trim()).filter(Boolean) : [],
       person_tags: form.person_tags ? form.person_tags.split(",").map(t => t.trim()).filter(Boolean) : [],
@@ -106,11 +102,11 @@ export default function EvidenceVault() {
       location_tags: form.location_tags ? form.location_tags.split(",").map(t => t.trim()).filter(Boolean) : [],
       chain_of_custody: [custodyEntry],
     };
-    await legalPilotGateway.uploadEvidence(data);
+    await legalPilotGateway.createEvidence(selectedFile, data);
     setUploading(false);
     setFormOpen(false);
     setSelectedFile(null);
-    setForm({ title: "", source: "", collected_date: "", collected_by: "", case_name: "", notes: "", category: "document", tags: "", issue_tags: "", person_tags: "", event_tags: "", location_tags: "" });
+    setForm({ title: "", source: "", collected_date: "", collected_by: "", case_id: "", notes: "", category: "document", tags: "", issue_tags: "", person_tags: "", event_tags: "", location_tags: "" });
     load();
   };
 
@@ -118,8 +114,8 @@ export default function EvidenceVault() {
     if (!viewing?.id) return;
     setError("");
     try {
-      const result = await legalPilotGateway.getEvidenceDownload(viewing.id);
-      const authorizedUrl = result.download_url || result.url;
+      const result = await legalPilotGateway.getSignedDownload("evidence", viewing.id);
+      const authorizedUrl = result.signed_url;
       if (!authorizedUrl) throw new Error("The authorized download was not returned.");
       window.open(authorizedUrl, "_blank", "noopener,noreferrer");
     } catch (err) {
@@ -241,7 +237,13 @@ export default function EvidenceVault() {
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div><Label>Source</Label><Input value={form.source} onChange={e => setForm({...form, source: e.target.value})} placeholder="Where it came from" /></div>
-              <div><Label>Case / Project Name</Label><Input value={form.case_name} onChange={e => setForm({...form, case_name: e.target.value})} /></div>
+              <div>
+                <Label>Case</Label>
+                <Select value={form.case_id} onValueChange={v => setForm({...form, case_id: v})}>
+                  <SelectTrigger><SelectValue placeholder="Select a case" /></SelectTrigger>
+                  <SelectContent>{caseFiles.map(caseFile => <SelectItem key={caseFile.id} value={caseFile.id}>{caseFile.title}</SelectItem>)}</SelectContent>
+                </Select>
+              </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div><Label>Collected Date</Label><Input type="date" value={form.collected_date} onChange={e => setForm({...form, collected_date: e.target.value})} /></div>
@@ -259,7 +261,7 @@ export default function EvidenceVault() {
             <div><Label>General Tags</Label><Input value={form.tags} onChange={e => setForm({...form, tags: e.target.value})} placeholder="important, reviewed" /></div>
             <div className="flex justify-end gap-2 pt-2">
               <Button type="button" variant="outline" onClick={() => setFormOpen(false)}>Cancel</Button>
-              <Button type="submit" disabled={uploading}>{uploading ? "Uploading & Hashing..." : "Upload Evidence"}</Button>
+              <Button type="submit" disabled={uploading || !selectedFile || !form.case_id}>{uploading ? "Uploading & Hashing..." : "Upload Evidence"}</Button>
             </div>
           </form>
         </DialogContent>

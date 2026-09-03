@@ -8,7 +8,7 @@ export default function LegalPilotGuard() {
 
   useEffect(() => {
     let active = true;
-    legalPilotGateway.getAccess()
+    legalPilotGateway.getPilotStatus()
       .then((result) => active && setState({ loading: false, allowed: isLegalAccessAllowed(result) }))
       .catch(() => active && setState({ loading: false, allowed: false }));
     return () => { active = false; };

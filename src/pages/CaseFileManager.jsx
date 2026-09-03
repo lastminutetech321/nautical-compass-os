@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { legalPilotGateway, listFrom } from "@/api/pilotGateways";
-import { FolderOpen, Plus, Search, AlertTriangle, CheckCircle, Clock, Loader2, Tag, Link2 } from "lucide-react";
+import { FolderOpen, Plus, Search, AlertTriangle, Clock, Loader2, Link2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -25,7 +25,6 @@ export default function CaseFileManager() {
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState(emptyForm);
   const [saving, setSaving] = useState(false);
-  const [editId, setEditId] = useState(null);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [typeFilter, setTypeFilter] = useState("all");
@@ -35,7 +34,7 @@ export default function CaseFileManager() {
     setLoading(true);
     setError("");
     try {
-      const data = listFrom(await legalPilotGateway.listCaseFiles(), "case_files");
+      const data = listFrom(await legalPilotGateway.getMyCases(), "cases");
       setCases(data);
       if (data.length > 0 && !selected) setSelected(data[0]);
     } catch (err) {
@@ -50,12 +49,9 @@ export default function CaseFileManager() {
 
   const save = async () => {
     setSaving(true);
-    if (editId) await legalPilotGateway.updateCaseFile(editId, form);
-    else await legalPilotGateway.createCaseFile({ ...form, case_number: `NCOS-${Date.now().toString().slice(-6)}` });
-    setSaving(false); setShowForm(false); setEditId(null); setForm(emptyForm); load();
+    await legalPilotGateway.createCase({ ...form, case_number: `NCOS-${Date.now().toString().slice(-6)}` });
+    setSaving(false); setShowForm(false); setForm(emptyForm); load();
   };
-
-  const openEdit = (c) => { setForm({ title:c.title||"", description:c.description||"", case_type:c.case_type||"civil_rights", status:c.status||"intake", priority:c.priority||"medium", client_name:c.client_name||"", jurisdiction:c.jurisdiction||"", court:c.court||"", docket_number:c.docket_number||"", filing_deadline:c.filing_deadline||"", relief_sought:c.relief_sought||"", legal_theories:c.legal_theories||[], notes:c.notes||"" }); setEditId(c.id); setShowForm(true); };
 
   const filtered = cases.filter(c => {
     if (statusFilter !== "all" && c.status !== statusFilter) return false;
@@ -81,7 +77,7 @@ export default function CaseFileManager() {
           </h1>
           <p className="text-sm text-muted-foreground">Active cases, legal intake, and matter management</p>
         </div>
-        <Button onClick={() => { setForm(emptyForm); setEditId(null); setShowForm(true); }} className="gap-2">
+        <Button onClick={() => { setForm(emptyForm); setShowForm(true); }} className="gap-2">
           <Plus className="w-4 h-4" />New Case
         </Button>
       </div>
@@ -173,7 +169,7 @@ export default function CaseFileManager() {
                     <h2 className="text-base font-bold leading-tight">{selected.title}</h2>
                     {selected.client_name && <p className="text-sm text-muted-foreground">Client: {selected.client_name}</p>}
                   </div>
-                  <Button size="sm" variant="outline" className="text-xs" onClick={() => openEdit(selected)}>Edit</Button>
+                  <Button size="sm" variant="outline" className="text-xs" disabled title="The backend does not support case updates in this pilot">Editing not available in this internal pilot</Button>
                 </div>
 
                 {selected.description && (
@@ -241,7 +237,7 @@ export default function CaseFileManager() {
       <Dialog open={showForm} onOpenChange={setShowForm}>
         <DialogContent className="max-w-xl">
           <DialogHeader>
-            <DialogTitle>{editId ? "Edit Case File" : "Open New Case File"}</DialogTitle>
+            <DialogTitle>Open New Case File</DialogTitle>
           </DialogHeader>
           <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-1">
             <div><label className="text-xs font-semibold text-muted-foreground block mb-1">Case Title *</label><input className="w-full border rounded px-2.5 py-1.5 text-sm" value={form.title} onChange={e => setForm({...form, title: e.target.value})} placeholder="Brief descriptive title" /></div>

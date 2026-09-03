@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { legalPilotGateway, listFrom } from "@/api/pilotGateways";
-import { Plus, GitCommitHorizontal, Link2, AlertTriangle } from "lucide-react";
+import { getMyCaseCollection, legalPilotGateway } from "@/api/pilotGateways";
+import { Plus, GitCommitHorizontal, Link2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -31,19 +31,17 @@ export default function CaseTimelinePage() {
   const [caseFilter, setCaseFilter] = useState("");
   const [cases, setCases] = useState([]);
   const [formOpen, setFormOpen] = useState(false);
-  const [form, setForm] = useState({ case_name: "", title: "", description: "", event_date: "", event_type: "event", confidence: "unknown", source: "" });
+  const [form, setForm] = useState({ case_id: "", title: "", description: "", event_date: "", event_type: "event", confidence: "unknown", source: "" });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
   const load = () => {
     setLoading(true);
     setError("");
-    legalPilotGateway.listTimeline().then(result => {
-      const data = listFrom(result, "timeline_entries");
-      setEntries(data);
-      const uniqueCases = [...new Set(data.map(e => e.case_name).filter(Boolean))];
-      setCases(uniqueCases);
-      if (uniqueCases.length > 0 && !caseFilter) setCaseFilter(uniqueCases[0]);
+    getMyCaseCollection(legalPilotGateway, "timeline_events").then(({ cases: myCases, records }) => {
+      setEntries(records);
+      setCases(myCases);
+      if (myCases.length > 0 && !caseFilter) setCaseFilter(myCases[0].id);
     }).catch(err => {
       setEntries([]);
       setError(err.message || "Timeline could not be loaded.");
@@ -55,14 +53,20 @@ export default function CaseTimelinePage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
-    await legalPilotGateway.createTimelineEntry(form);
+    const { case_id: caseId, ...eventData } = form;
+    if (!caseId) {
+      setError("Select a case before adding a timeline event.");
+      setSaving(false);
+      return;
+    }
+    await legalPilotGateway.createTimelineEvent(caseId, eventData);
     setSaving(false);
     setFormOpen(false);
-    setForm({ case_name: "", title: "", description: "", event_date: "", event_type: "event", confidence: "unknown", source: "" });
+    setForm({ case_id: "", title: "", description: "", event_date: "", event_type: "event", confidence: "unknown", source: "" });
     load();
   };
 
-  const filtered = entries.filter(e => !caseFilter || e.case_name === caseFilter);
+  const filtered = entries.filter(e => !caseFilter || e.case_id === caseFilter);
 
   if (loading) return <div className="flex items-center justify-center h-64"><div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" /></div>;
 
@@ -77,8 +81,8 @@ export default function CaseTimelinePage() {
       <div className="flex items-center gap-3 mb-6 flex-wrap">
         <Input placeholder="Filter by case name..." value={caseFilter} onChange={e => setCaseFilter(e.target.value)} className="max-w-xs h-9 text-sm" />
         <div className="flex gap-2 flex-wrap">
-          {cases.map(c => (
-            <Button key={c} size="sm" variant={caseFilter === c ? "default" : "outline"} className="h-8 text-xs" onClick={() => setCaseFilter(c)}>{c}</Button>
+          {cases.map(caseFile => (
+            <Button key={caseFile.id} size="sm" variant={caseFilter === caseFile.id ? "default" : "outline"} className="h-8 text-xs" onClick={() => setCaseFilter(caseFile.id)}>{caseFile.title}</Button>
           ))}
         </div>
       </div>
@@ -120,7 +124,13 @@ export default function CaseTimelinePage() {
           <DialogHeader><DialogTitle>Add Timeline Entry</DialogTitle></DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-3">
-              <div><Label>Case Name</Label><Input value={form.case_name} onChange={e => setForm({...form, case_name: e.target.value})} required /></div>
+              <div>
+                <Label>Case</Label>
+                <Select value={form.case_id} onValueChange={v => setForm({...form, case_id: v})}>
+                  <SelectTrigger><SelectValue placeholder="Select a case" /></SelectTrigger>
+                  <SelectContent>{cases.map(caseFile => <SelectItem key={caseFile.id} value={caseFile.id}>{caseFile.title}</SelectItem>)}</SelectContent>
+                </Select>
+              </div>
               <div>
                 <Label>Event Type</Label>
                 <Select value={form.event_type} onValueChange={v => setForm({...form, event_type: v})}>
@@ -144,7 +154,7 @@ export default function CaseTimelinePage() {
             <div><Label>Source</Label><Input value={form.source} onChange={e => setForm({...form, source: e.target.value})} placeholder="Document, witness, record..." /></div>
             <div className="flex justify-end gap-2 pt-2">
               <Button type="button" variant="outline" onClick={() => setFormOpen(false)}>Cancel</Button>
-              <Button type="submit" disabled={saving}>{saving ? "Saving..." : "Add Entry"}</Button>
+              <Button type="submit" disabled={saving || !form.case_id}>{saving ? "Saving..." : "Add Entry"}</Button>
             </div>
           </form>
         </DialogContent>

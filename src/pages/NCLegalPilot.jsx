@@ -19,7 +19,7 @@ export default function NCLegalPilot() {
 
   useEffect(() => {
     let active = true;
-    legalPilotGateway.getAccess()
+    legalPilotGateway.getPilotStatus()
       .then((result) => active && setState({ loading: false, allowed: isLegalAccessAllowed(result), error: "" }))
       .catch(() => active && setState({ loading: false, allowed: false, error: "Access could not be verified." }));
     return () => { active = false; };
