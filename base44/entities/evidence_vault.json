@@ -1,0 +1,108 @@
+{
+  "name": "evidence_vault",
+  "fields": [
+    {
+      "name": "evidence_id",
+      "type": "text",
+      "required": true,
+      "unique": true,
+      "description": "Unique identifier for the evidence entry"
+    },
+    {
+      "name": "title",
+      "type": "text",
+      "required": true,
+      "description": "Evidence title or name"
+    },
+    {
+      "name": "description",
+      "type": "textarea",
+      "description": "Detailed description of the evidence"
+    },
+    {
+      "name": "source_type",
+      "type": "text",
+      "required": true,
+      "description": "Type of source: chat, email, file, document, screenshot, etc."
+    },
+    {
+      "name": "source_attribution",
+      "type": "text",
+      "required": true,
+      "description": "Full attribution including platform, sender, date, reference ID"
+    },
+    {
+      "name": "integrity_hash",
+      "type": "text",
+      "required": true,
+      "description": "SHA-256 hash of the evidence content for integrity verification"
+    },
+    {
+      "name": "custody_log",
+      "type": "json",
+      "required": true,
+      "description": "Array of custody events: [{timestamp, action, user, verification_hash}]"
+    },
+    {
+      "name": "access_level",
+      "type": "text",
+      "required": true,
+      "description": "Access control: public, internal, confidential, restricted, founder_only"
+    },
+    {
+      "name": "content_type",
+      "type": "text",
+      "description": "MIME type or file format"
+    },
+    {
+      "name": "storage_location",
+      "type": "text",
+      "description": "Base44 file ID or external storage reference"
+    },
+    {
+      "name": "tags",
+      "type": "json",
+      "description": "Array of classification tags"
+    },
+    {
+      "name": "related_entities",
+      "type": "json",
+      "description": "References to related canon files, legal research, or other evidence"
+    },
+    {
+      "name": "collection_date",
+      "type": "datetime",
+      "required": true,
+      "description": "When the evidence was collected"
+    },
+    {
+      "name": "verification_status",
+      "type": "text",
+      "required": true,
+      "description": "Status: pending, verified, disputed, archived"
+    },
+    {
+      "name": "created_by",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "required": true
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "required": true
+    }
+  ],
+  "indexes": [
+    {"fields": ["evidence_id"], "unique": true},
+    {"fields": ["source_type"]},
+    {"fields": ["access_level"]},
+    {"fields": ["verification_status"]},
+    {"fields": ["collection_date"]},
+    {"fields": ["created_at"]}
+  ]
+}
