@@ -1,0 +1,118 @@
+{
+  "name": "resolution_tasks",
+  "displayName": "Resolution Tasks",
+  "description": "Tasks created by Resource Compass to resolve identified resource issues",
+  "icon": "task",
+  "fields": [
+    {
+      "name": "issue_id",
+      "type": "reference",
+      "required": true,
+      "entity": "resource_issues",
+      "description": "Parent resource issue being resolved"
+    },
+    {
+      "name": "resource_id",
+      "type": "text",
+      "required": true,
+      "description": "ID of the resource being addressed"
+    },
+    {
+      "name": "task_type",
+      "type": "select",
+      "required": true,
+      "options": [
+        "analysis",
+        "rebalance",
+        "validation",
+        "capacity_audit",
+        "scaling",
+        "alert_update",
+        "utilization_review",
+        "optimization",
+        "compliance_check",
+        "remediation",
+        "audit_log",
+        "performance_analysis",
+        "monitoring",
+        "investigation",
+        "resolution"
+      ],
+      "description": "Type of resolution task"
+    },
+    {
+      "name": "title",
+      "type": "text",
+      "required": true,
+      "description": "Task title"
+    },
+    {
+      "name": "description",
+      "type": "longtext",
+      "required": true,
+      "description": "Detailed task description"
+    },
+    {
+      "name": "priority",
+      "type": "select",
+      "required": true,
+      "options": ["critical", "high", "medium", "low"],
+      "default": "medium",
+      "description": "Task priority level"
+    },
+    {
+      "name": "status",
+      "type": "select",
+      "required": true,
+      "options": ["pending", "in_progress", "completed", "failed", "blocked"],
+      "default": "pending",
+      "description": "Current task status"
+    },
+    {
+      "name": "assigned_to",
+      "type": "text",
+      "description": "Team or system assigned to execute task"
+    },
+    {
+      "name": "estimated_duration",
+      "type": "text",
+      "description": "Estimated time to complete (e.g., '30m', '2h')"
+    },
+    {
+      "name": "dependencies",
+      "type": "json",
+      "description": "Array of task types that must complete first"
+    },
+    {
+      "name": "automation_script",
+      "type": "text",
+      "description": "Name of automation script to execute (if automated)"
+    },
+    {
+      "name": "started_at",
+      "type": "datetime",
+      "description": "When task execution began"
+    },
+    {
+      "name": "completed_at",
+      "type": "datetime",
+      "description": "When task was completed"
+    },
+    {
+      "name": "result",
+      "type": "json",
+      "description": "Task execution result data"
+    },
+    {
+      "name": "error",
+      "type": "longtext",
+      "description": "Error message if task failed"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "required": true,
+      "description": "Task creation timestamp"
+    }
+  ]
+}
