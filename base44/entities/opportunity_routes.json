@@ -1,0 +1,19 @@
+{
+  "name": "opportunity_routes",
+  "fields": [
+    {"name": "id", "type": "id", "required": true},
+    {"name": "opportunity_id", "type": "reference", "reference": "opportunities", "required": true},
+    {"name": "listing_id", "type": "reference", "reference": "service_listings", "required": true},
+    {"name": "provider_id", "type": "reference", "reference": "users", "required": true},
+    {"name": "match_score", "type": "number", "required": true},
+    {"name": "match_criteria", "type": "json", "required": true},
+    {"name": "status", "type": "text", "required": true, "default": "routed", "validation": {"enum": ["routed", "viewed", "responded", "accepted", "declined", "expired"]}},
+    {"name": "routed_at", "type": "datetime", "required": true, "default": "now"},
+    {"name": "viewed_at", "type": "datetime", "required": false},
+    {"name": "responded_at", "type": "datetime", "required": false},
+    {"name": "expires_at", "type": "datetime", "required": true},
+    {"name": "created_at", "type": "datetime", "required": true, "default": "now"},
+    {"name": "updated_at", "type": "datetime", "required": true, "default": "now"}
+  ],
+  "indexes": [{"fields": ["opportunity_id"]}, {"fields": ["listing_id"]}, {"fields": ["provider_id"]}, {"fields": ["status"]}, {"fields": ["routed_at"]}]
+}
