@@ -1,0 +1,57 @@
+{
+  "name": "Daily Survival Check",
+  "description": "Automated daily monitoring of survival metrics and cash runway with alerts",
+  "trigger": {
+    "type": "schedule",
+    "schedule": "0 9 * * *"
+  },
+  "steps": [
+    {
+      "id": "monitor_metrics",
+      "type": "function",
+      "function": "monitor-survival-metrics",
+      "output": "metrics_report"
+    },
+    {
+      "id": "check_critical",
+      "type": "condition",
+      "condition": "{{metrics_report.status}} === 'critical'",
+      "then": [
+        {
+          "id": "send_critical_alert",
+          "type": "notification",
+          "channel": "email",
+          "to": "founder@nauticalcompass.com",
+          "subject": "CRITICAL: Cash Runway Alert - Immediate Action Required",
+          "body": "Cash runway: {{metrics_report.runway_months}} months\n\nAlerts:\n{{metrics_report.alerts}}\n\nRecommendations:\n{{metrics_report.recommendations}}\n\nCurrent Metrics:\n- Cash: ${{metrics_report.current_metrics.cash_balance}}\n- Monthly Burn: ${{metrics_report.current_metrics.monthly_burn}}\n- MRR: ${{metrics_report.current_metrics.mrr}}\n- Net Burn: ${{metrics_report.current_metrics.net_burn}}"
+        }
+      ]
+    },
+    {
+      "id": "check_warning",
+      "type": "condition",
+      "condition": "{{metrics_report.status}} === 'warning'",
+      "then": [
+        {
+          "id": "send_warning_alert",
+          "type": "notification",
+          "channel": "email",
+          "to": "founder@nauticalcompass.com",
+          "subject": "WARNING: Survival Metrics Attention Needed",
+          "body": "Cash runway: {{metrics_report.runway_months}} months\n\nAlerts:\n{{metrics_report.alerts}}\n\nRecommendations:\n{{metrics_report.recommendations}}\n\nCurrent Metrics:\n- Cash: ${{metrics_report.current_metrics.cash_balance}}\n- Monthly Burn: ${{metrics_report.current_metrics.monthly_burn}}\n- MRR: ${{metrics_report.current_metrics.mrr}}\n- Net Burn: ${{metrics_report.current_metrics.net_burn}}"
+        }
+      ]
+    },
+    {
+      "id": "log_results",
+      "type": "function",
+      "function": "log-activity",
+      "input": {
+        "type": "survival_check",
+        "status": "{{metrics_report.status}}",
+        "runway_months": "{{metrics_report.runway_months}}",
+        "timestamp": "{{now}}"
+      }
+    }
+  ]
+}
