@@ -1,0 +1,70 @@
+{
+  "name": "resolution_tasks",
+  "description": "Tracks auto-generated resolution tasks from self-healing diagnostics",
+  "fields": [
+    {
+      "name": "module",
+      "type": "text",
+      "required": true,
+      "description": "Module name (e.g., JurisEngine v1)"
+    },
+    {
+      "name": "issue_type",
+      "type": "text",
+      "required": true,
+      "description": "Type of issue detected"
+    },
+    {
+      "name": "severity",
+      "type": "select",
+      "options": ["critical", "high", "medium", "low"],
+      "required": true
+    },
+    {
+      "name": "description",
+      "type": "longtext",
+      "required": true
+    },
+    {
+      "name": "status",
+      "type": "select",
+      "options": ["pending", "assigned", "in_progress", "resolved", "failed"],
+      "default": "pending",
+      "required": true
+    },
+    {
+      "name": "auto_generated",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "created_by",
+      "type": "text",
+      "description": "System or user that created the task"
+    },
+    {
+      "name": "assigned_worker",
+      "type": "text",
+      "description": "Worker/agent assigned to resolve"
+    },
+    {
+      "name": "metadata",
+      "type": "json",
+      "description": "Additional diagnostic data"
+    },
+    {
+      "name": "resolution_log",
+      "type": "longtext",
+      "description": "Log of resolution attempts and outcomes"
+    },
+    {
+      "name": "resolved_at",
+      "type": "datetime"
+    }
+  ],
+  "indexes": [
+    {"fields": ["module", "status"]},
+    {"fields": ["severity", "created_at"]},
+    {"fields": ["assigned_worker"]}
+  ]
+}
