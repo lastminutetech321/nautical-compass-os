@@ -1,0 +1,71 @@
+{
+  "name": "juris_resolution_task",
+  "label": "JurisEngine Resolution Task",
+  "description": "Tracks resolution tasks dispatched by JurisEngine v1",
+  "fields": [
+    {
+      "name": "issue_id",
+      "type": "text",
+      "required": true,
+      "label": "Issue ID",
+      "description": "Reference to the original issue detected"
+    },
+    {
+      "name": "priority",
+      "type": "select",
+      "options": ["critical", "high", "medium", "low"],
+      "default": "medium",
+      "label": "Priority",
+      "required": true
+    },
+    {
+      "name": "assigned_to",
+      "type": "text",
+      "label": "Assigned To",
+      "description": "Agent or system handling this task"
+    },
+    {
+      "name": "status",
+      "type": "select",
+      "options": ["dispatched", "in_progress", "resolved", "failed", "blocked"],
+      "default": "dispatched",
+      "required": true,
+      "label": "Status"
+    },
+    {
+      "name": "metadata",
+      "type": "json",
+      "label": "Metadata",
+      "description": "Full issue context and diagnostic data"
+    },
+    {
+      "name": "resolution_notes",
+      "type": "text",
+      "multiline": true,
+      "label": "Resolution Notes"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "required": true,
+      "label": "Created At"
+    },
+    {
+      "name": "resolved_at",
+      "type": "datetime",
+      "label": "Resolved At"
+    },
+    {
+      "name": "attempts",
+      "type": "number",
+      "default": 0,
+      "label": "Resolution Attempts"
+    }
+  ],
+  "permissions": {
+    "create": ["system", "admin"],
+    "read": ["system", "admin", "user"],
+    "update": ["system", "admin"],
+    "delete": ["admin"]
+  }
+}
