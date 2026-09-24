@@ -1,0 +1,21 @@
+{
+  "name": "coordinator_usage_log",
+  "fields": [
+    {"name": "coordinator_id", "type": "reference", "reference": "user", "required": true, "indexed": true},
+    {"name": "coordinator_name", "type": "text", "required": true},
+    {"name": "session_id", "type": "text", "required": true, "indexed": true},
+    {"name": "timestamp", "type": "datetime", "required": true, "indexed": true},
+    {"name": "action_type", "type": "text", "required": true, "indexed": true},
+    {"name": "rail_used", "type": "text", "required": false, "indexed": true},
+    {"name": "page_path", "type": "text", "required": false},
+    {"name": "entity_type", "type": "text", "required": false, "indexed": true},
+    {"name": "entity_id", "type": "text", "required": false, "indexed": true},
+    {"name": "action_details", "type": "json", "required": false},
+    {"name": "duration_ms", "type": "number", "required": false},
+    {"name": "error_encountered", "type": "boolean", "required": false, "indexed": true},
+    {"name": "error_message", "type": "text", "required": false},
+    {"name": "user_agent", "type": "text", "required": false},
+    {"name": "viewport_size", "type": "text", "required": false}
+  ],
+  "indexes": [{"fields": ["coordinator_id", "timestamp"]}, {"fields": ["session_id", "timestamp"]}, {"fields": ["rail_used", "timestamp"]}]
+}
