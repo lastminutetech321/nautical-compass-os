@@ -1,0 +1,57 @@
+{
+  "name": "notification",
+  "fields": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "message",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "data",
+      "type": "json",
+      "required": false
+    },
+    {
+      "name": "priority",
+      "type": "string",
+      "required": false,
+      "default": "normal"
+    },
+    {
+      "name": "read",
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    {
+      "name": "read_at",
+      "type": "datetime",
+      "required": false
+    },
+    {
+      "name": "action_url",
+      "type": "string",
+      "required": false
+    },
+    {
+      "name": "expires_at",
+      "type": "datetime",
+      "required": false
+    }
+  ]
+}
