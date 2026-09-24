@@ -1,0 +1,17 @@
+{
+  "name": "juris_task_queue",
+  "label": "JurisEngine Task Queue",
+  "description": "Queue management for JurisEngine resolution tasks",
+  "fields": [
+    {"name": "task_id", "type": "text", "label": "Task ID", "required": true},
+    {"name": "queue_name", "type": "text", "label": "Queue Name", "required": true},
+    {"name": "task_type", "type": "text", "label": "Task Type", "required": true},
+    {"name": "priority", "type": "number", "label": "Priority", "required": true},
+    {"name": "status", "type": "select", "label": "Queue Status", "required": true, "options": ["queued", "processing", "completed", "failed"], "default": "queued"},
+    {"name": "position", "type": "number", "label": "Queue Position"},
+    {"name": "queued_at", "type": "datetime", "label": "Queued At", "required": true},
+    {"name": "dequeued_at", "type": "datetime", "label": "Dequeued At"}
+  ],
+  "primaryKey": "id",
+  "timestamps": true
+}
