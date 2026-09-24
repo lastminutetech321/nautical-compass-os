@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Compass } from "lucide-react";
+import CaptainsViewHero from "@/components/compass/CaptainsViewHero";
 import CompassShell from "@/components/compass/CompassShell";
 import FounderCompass from "@/components/compass/FounderCompass";
 import DirectorCompass from "@/components/compass/DirectorCompass";
@@ -76,6 +77,7 @@ export default function DailyCompass() {
 
   return (
     <>
+      <CaptainsViewHero role={data.role} />
       <CompassShell
         data={data}
         onReflection={() => setShowReflection(true)}
