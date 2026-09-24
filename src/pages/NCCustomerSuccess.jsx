@@ -35,7 +35,7 @@ export default function NCCustomerSuccess() {
       const listRes = await base44.functions.invoke('ncCustomerSuccess', { operation: 'list_profiles', params: {} });
       setAllCustomers(listRes.data.profiles || []);
     } catch (err) {
-      toast({ title: 'Error loading data', description: err.message, variant: 'destructive' });
+      toast({ title: 'Error loading data', description: err?.message || 'Unknown error', variant: 'destructive' });
     } finally {
       setLoading(false);
     }
@@ -48,43 +48,60 @@ export default function NCCustomerSuccess() {
       setEvaluating(true);
       const res = await base44.functions.invoke('ncCustomerSuccess', { operation: 'evaluate', params: {} });
       setAiPortfolio(res.data);
-      toast({ title: 'Evaluation Complete', description: `${res.data.evaluated_count} customers evaluated. ${res.data.at_risk_count} at risk. ${res.data.founder_alerts_triggered} founder alerts.` });
+      const evalCount = res.data?.evaluated_count || 0;
+      const riskCount = res.data?.at_risk_count || 0;
+      const alertCount = res.data?.founder_alerts_triggered || 0;
+      toast({ title: 'Evaluation Complete', description: `${evalCount} customers evaluated. ${riskCount} at risk. ${alertCount} founder alerts.` });
       await loadData();
     } catch (err) {
-      toast({ title: 'Evaluation Failed', description: err.message, variant: 'destructive' });
+      toast({ title: 'Evaluation Failed', description: err?.message || 'Unknown error', variant: 'destructive' });
     } finally {
       setEvaluating(false);
     }
   };
 
   const handleLogInteraction = async (formData) => {
+    if (!formData?.customer_name) {
+      toast({ title: 'Validation Error', description: 'Customer name is required', variant: 'destructive' });
+      return;
+    }
     try {
       setLogging(true);
       await base44.functions.invoke('ncCustomerSuccess', { operation: 'log_interaction', params: formData });
       toast({ title: 'Interaction Logged', description: `Logged for ${formData.customer_name}` });
       await loadData();
     } catch (err) {
-      toast({ title: 'Failed to log', description: err.message, variant: 'destructive' });
+      toast({ title: 'Failed to log', description: err?.message || 'Unknown error', variant: 'destructive' });
     } finally {
       setLogging(false);
     }
   };
 
   const handleGenerateOutreach = async (profileId) => {
+    if (!profileId) {
+      toast({ title: 'Validation Error', description: 'Profile ID is required', variant: 'destructive' });
+      return;
+    }
     try {
       setGeneratingOutreach(true);
       setOutreachResult(null);
       const res = await base44.functions.invoke('ncCustomerSuccess', { operation: 'generate_outreach', params: { profile_id: profileId } });
-      setOutreachResult(res.data.outreach);
-      toast({ title: 'Outreach Generated', description: `AI outreach ready for ${res.data.customer_name}` });
+      if (res?.data?.outreach) {
+        setOutreachResult(res.data.outreach);
+        toast({ title: 'Outreach Generated', description: `AI outreach ready for ${res.data.customer_name || 'customer'}` });
+      } else {
+        throw new Error('No outreach content returned');
+      }
     } catch (err) {
-      toast({ title: 'Generation Failed', description: err.message, variant: 'destructive' });
+      toast({ title: 'Generation Failed', description: err?.message || 'Unknown error', variant: 'destructive' });
+      setOutreachResult(null);
     } finally {
       setGeneratingOutreach(false);
     }
   };
 
   const openCustomer = async (customer) => {
+    if (!customer) return;
     setSelectedCustomer(customer);
     setOutreachResult(null);
     setDrawerOpen(true);
@@ -105,7 +122,6 @@ export default function NCCustomerSuccess() {
 
   return (
     <div className="p-6 max-w-[1600px] mx-auto">
-      {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-lg bg-violet-500/20">
@@ -120,11 +136,7 @@ export default function NCCustomerSuccess() {
           {evaluating ? <><RefreshCw className="w-4 h-4 mr-2 animate-spin" />Evaluating...</> : <><Sparkles className="w-4 h-4 mr-2" />Run AI Evaluation</>}
         </Button>
       </div>
-
-      {/* Metrics */}
       <CSMetricsBar metrics={metrics} onEvaluate={handleEvaluate} evaluating={evaluating} />
-
-      {/* Tabs */}
       <Tabs defaultValue="overview">
         <TabsList className="bg-slate-900 border border-slate-800 mb-4">
           <TabsTrigger value="overview" className="text-xs"><AlertTriangle className="w-3 h-3 mr-1" />Overview</TabsTrigger>
@@ -134,8 +146,6 @@ export default function NCCustomerSuccess() {
           <TabsTrigger value="interactions" className="text-xs"><Activity className="w-3 h-3 mr-1" />Interactions</TabsTrigger>
           {aiPortfolio && <TabsTrigger value="ai" className="text-xs"><Sparkles className="w-3 h-3 mr-1" />AI Portfolio</TabsTrigger>}
         </TabsList>
-
-        {/* Overview Tab */}
         <TabsContent value="overview" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
@@ -151,12 +161,12 @@ export default function NCCustomerSuccess() {
                     {renewalWatchlist.map(r => (
                       <div key={r.id} className="flex items-center justify-between p-2 rounded bg-slate-900/60 cursor-pointer hover:bg-slate-800/40" onClick={() => openCustomer(r)}>
                         <div>
-                          <div className="text-xs font-medium text-white">{r.customer_name}</div>
+                          <div className="text-xs font-medium text-white">{r.customer_name || 'Unknown'}</div>
                           <div className="text-xs text-slate-500">{r.renewal_date ? new Date(r.renewal_date).toLocaleDateString() : 'TBD'}</div>
                         </div>
                         <div className="text-right">
-                          <div className="text-xs text-amber-400">{r.days_to_renewal}d</div>
-                          <div className="text-xs text-slate-500">H: {r.health_score}</div>
+                          <div className="text-xs text-amber-400">{r.days_to_renewal || 0}d</div>
+                          <div className="text-xs text-slate-500">H: {r.health_score || 0}</div>
                         </div>
                       </div>
                     ))}
@@ -172,10 +182,10 @@ export default function NCCustomerSuccess() {
                     {recentInteractions.map(i => (
                       <div key={i.id} className="p-2 rounded bg-slate-900/60">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-medium text-white">{i.customer_name}</span>
-                          <Badge variant="outline" className={`text-xs ${i.sentiment === 'positive' ? 'bg-emerald-500/20 text-emerald-300' : i.sentiment === 'negative' ? 'bg-red-500/20 text-red-300' : 'bg-slate-700 text-slate-300'}`}>{i.sentiment}</Badge>
+                          <span className="text-xs font-medium text-white">{i.customer_name || 'Unknown'}</span>
+                          <Badge variant="outline" className={`text-xs ${i.sentiment === 'positive' ? 'bg-emerald-500/20 text-emerald-300' : i.sentiment === 'negative' ? 'bg-red-500/20 text-red-300' : 'bg-slate-700 text-slate-300'}`}>{i.sentiment || 'neutral'}</Badge>
                         </div>
-                        <div className="text-xs text-slate-400 capitalize">{i.interaction_type?.replace('_', ' ')} · {i.channel}</div>
+                        <div className="text-xs text-slate-400 capitalize">{i.interaction_type?.replace('_', ' ') || 'unknown'} · {i.channel || 'unknown'}</div>
                         {i.description && <div className="text-xs text-slate-500 mt-0.5 truncate">{i.description}</div>}
                       </div>
                     ))}
@@ -185,8 +195,6 @@ export default function NCCustomerSuccess() {
             </div>
           </div>
         </TabsContent>
-
-        {/* At-Risk Tab */}
         <TabsContent value="at_risk">
           {atRiskCustomers.length === 0 ? (
             <Card className="p-12 bg-slate-900/50 border-slate-800 text-center">
@@ -199,8 +207,6 @@ export default function NCCustomerSuccess() {
             </div>
           )}
         </TabsContent>
-
-        {/* All Customers Tab */}
         <TabsContent value="customers">
           {allCustomers.length === 0 ? (
             <Card className="p-12 bg-slate-900/50 border-slate-800 text-center">
@@ -210,8 +216,6 @@ export default function NCCustomerSuccess() {
             <CustomerTable customers={allCustomers} onCustomerClick={openCustomer} />
           )}
         </TabsContent>
-
-        {/* Renewals Tab */}
         <TabsContent value="renewals">
           <Card className="p-4 bg-slate-900/50 border-slate-800">
             <h3 className="text-sm font-semibold text-white mb-4">Upcoming Renewals</h3>
@@ -222,11 +226,11 @@ export default function NCCustomerSuccess() {
                 {renewalWatchlist.map(r => (
                   <Card key={r.id} className="p-3 bg-slate-900/60 border-slate-800 cursor-pointer hover:border-amber-500/40" onClick={() => openCustomer(r)}>
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium text-white">{r.customer_name}</span>
-                      <Badge variant="outline" className="text-xs bg-amber-500/20 text-amber-300 border-amber-500/30">{r.days_to_renewal}d</Badge>
+                      <span className="text-sm font-medium text-white">{r.customer_name || 'Unknown'}</span>
+                      <Badge variant="outline" className="text-xs bg-amber-500/20 text-amber-300 border-amber-500/30">{r.days_to_renewal || 0}d</Badge>
                     </div>
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-slate-400">Health: <span className={r.health_score < 45 ? 'text-red-400' : 'text-slate-300'}>{r.health_score}</span></span>
+                      <span className="text-slate-400">Health: <span className={r.health_score < 45 ? 'text-red-400' : 'text-slate-300'}>{r.health_score || 0}</span></span>
                       <span className="text-emerald-400">${r.mrr || 0}/mo</span>
                     </div>
                   </Card>
@@ -235,8 +239,6 @@ export default function NCCustomerSuccess() {
             )}
           </Card>
         </TabsContent>
-
-        {/* Interactions Tab */}
         <TabsContent value="interactions" className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <InteractionLogger customers={allCustomers} onLog={handleLogInteraction} logging={logging} />
           <Card className="p-4 bg-slate-900/50 border-slate-800">
@@ -248,10 +250,10 @@ export default function NCCustomerSuccess() {
                 {recentInteractions.map(i => (
                   <div key={i.id} className="p-3 rounded bg-slate-900/60 border border-slate-800/50">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs font-medium text-white">{i.customer_name}</span>
+                      <span className="text-xs font-medium text-white">{i.customer_name || 'Unknown'}</span>
                       <div className="flex gap-1">
-                        <Badge variant="outline" className="text-xs capitalize">{i.interaction_type?.replace('_', ' ')}</Badge>
-                        <Badge variant="outline" className={`text-xs ${i.sentiment === 'positive' ? 'bg-emerald-500/20 text-emerald-300' : i.sentiment === 'negative' ? 'bg-red-500/20 text-red-300' : 'bg-slate-700 text-slate-300'}`}>{i.sentiment}</Badge>
+                        <Badge variant="outline" className="text-xs capitalize">{i.interaction_type?.replace('_', ' ') || 'unknown'}</Badge>
+                        <Badge variant="outline" className={`text-xs ${i.sentiment === 'positive' ? 'bg-emerald-500/20 text-emerald-300' : i.sentiment === 'negative' ? 'bg-red-500/20 text-red-300' : 'bg-slate-700 text-slate-300'}`}>{i.sentiment || 'neutral'}</Badge>
                       </div>
                     </div>
                     {i.description && <p className="text-xs text-slate-300">{i.description}</p>}
@@ -263,8 +265,6 @@ export default function NCCustomerSuccess() {
             )}
           </Card>
         </TabsContent>
-
-        {/* AI Portfolio Tab */}
         {aiPortfolio && (
           <TabsContent value="ai" className="space-y-4">
             {aiPortfolio.ai_recommendations?.portfolio_summary && (
@@ -290,7 +290,7 @@ export default function NCCustomerSuccess() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {aiPortfolio.ai_recommendations?.customer_recommendations?.map((rec, i) => (
                 <Card key={i} className="p-4 bg-slate-900/50 border-slate-800">
-                  <h4 className="text-sm font-semibold text-white mb-1">{rec.customer_name}</h4>
+                  <h4 className="text-sm font-semibold text-white mb-1">{rec.customer_name || 'Unknown'}</h4>
                   <p className="text-xs text-slate-400 mb-3">{rec.health_summary}</p>
                   {rec.founder_alert && (
                     <div className="p-2 rounded bg-red-950/30 border border-red-500/30 mb-3">
@@ -307,8 +307,6 @@ export default function NCCustomerSuccess() {
           </TabsContent>
         )}
       </Tabs>
-
-      {/* Customer Detail Drawer */}
       <CustomerDetailDrawer
         customer={selectedCustomer}
         open={drawerOpen}
