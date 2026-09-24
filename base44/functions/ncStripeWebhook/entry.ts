@@ -64,7 +64,8 @@ Deno.serve(async (req) => {
         const invoices = await base44.asServiceRole.entities.Invoice.list({ filter: { stripe_invoice_id: invoice_id } }).catch(() => []);
         if (invoices?.[0]) {
           const statusMap = { 'invoice.paid': 'paid', 'invoice.payment_failed': 'open', 'invoice.finalized': 'open' };
-          await base44.asServiceRole.entities.Invoice.update(invoices[0].id, { status: statusMap[eventType] || invoices[0].status, paid_at: eventType === 'invoice.paid' ? nowIso : invoices[0].paid_at, amount_paid: eventType === 'invoice.paid' ? obj.amount_paid / 100 : invoices[0].amount_paid });
+          // DEFECT FIX: use correct field obj.amount_paid for paid invoices (in cents)
+          await base44.asServiceRole.entities.Invoice.update(invoices[0].id, { status: statusMap[eventType] || invoices[0].status, paid_at: eventType === 'invoice.paid' ? nowIso : invoices[0].paid_at, amount_paid: eventType === 'invoice.paid' ? (obj.amount_paid || 0) / 100 : invoices[0].amount_paid });
           actionTaken = `invoice:${eventType}`;
         }
       } else if (eventType.startsWith('customer.subscription.')) {
