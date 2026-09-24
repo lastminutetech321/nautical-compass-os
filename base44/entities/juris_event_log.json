@@ -1,0 +1,14 @@
+{
+  "name": "juris_event_log",
+  "label": "JurisEngine Event Log",
+  "description": "Audit trail for JurisEngine task dispatch and execution events",
+  "fields": [
+    {"name": "task_id", "type": "text", "label": "Task ID"},
+    {"name": "event_type", "type": "text", "label": "Event Type", "required": true},
+    {"name": "module", "type": "text", "label": "Module", "required": true, "default": "JurisEngine"},
+    {"name": "timestamp", "type": "datetime", "label": "Timestamp", "required": true},
+    {"name": "details", "type": "longtext", "label": "Details (JSON)"}
+  ],
+  "primaryKey": "id",
+  "timestamps": true
+}
