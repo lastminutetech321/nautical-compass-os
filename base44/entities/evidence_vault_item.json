@@ -1,0 +1,116 @@
+{
+  "name": "evidence_vault_item",
+  "fields": [
+    {
+      "name": "title",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "description",
+      "type": "long_text",
+      "required": false
+    },
+    {
+      "name": "evidence_type",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "file_url",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "file_hash",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "content",
+      "type": "long_text",
+      "required": false
+    },
+    {
+      "name": "jurisdiction",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "case_reference",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "date_acquired",
+      "type": "datetime",
+      "required": true
+    },
+    {
+      "name": "access_level",
+      "type": "text",
+      "required": true,
+      "default": "restricted"
+    },
+    {
+      "name": "owner_id",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "shared_with",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "tags",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "metadata",
+      "type": "long_text",
+      "required": false
+    },
+    {
+      "name": "verified",
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    {
+      "name": "verified_by",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "verified_at",
+      "type": "datetime",
+      "required": false
+    }
+  ],
+  "indexes": [
+    {
+      "fields": ["owner_id"],
+      "name": "idx_owner"
+    },
+    {
+      "fields": ["access_level"],
+      "name": "idx_access_level"
+    },
+    {
+      "fields": ["evidence_type"],
+      "name": "idx_evidence_type"
+    },
+    {
+      "fields": ["verified"],
+      "name": "idx_verified"
+    }
+  ],
+  "permissions": {
+    "create": ["authenticated"],
+    "read": ["owner", "shared_user", "admin"],
+    "update": ["owner", "admin"],
+    "delete": ["owner", "admin"]
+  }
+}
