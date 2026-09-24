@@ -3,16 +3,21 @@
   "type": "object",
   "properties": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
     },
     "description": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 2000
     },
     "agent_id": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$"
     },
     "agent_name": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "task_type": {
       "type": "string",
@@ -60,49 +65,135 @@
       "type": "object"
     },
     "result_summary": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 5000
     },
     "error_message": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 2000
     },
     "linked_entity_type": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^[A-Z][a-zA-Z0-9]*$"
     },
     "linked_entity_id": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$"
     },
     "supervisor_agent": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$"
     },
     "requires_approval": {
       "type": "boolean",
       "default": false
     },
     "approval_gate_id": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$"
     },
     "scheduled_for": {
-      "type": "string"
+      "type": "string",
+      "format": "date-time"
     },
     "started_at": {
-      "type": "string"
+      "type": "string",
+      "format": "date-time"
     },
     "completed_at": {
-      "type": "string"
+      "type": "string",
+      "format": "date-time"
     },
     "estimated_hours": {
       "type": "number",
-      "default": 1
+      "default": 1,
+      "minimum": 0,
+      "maximum": 1000
     },
     "actual_hours": {
-      "type": "number"
+      "type": "number",
+      "minimum": 0,
+      "maximum": 10000
     },
     "escalation_reason": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 1000
     },
     "retry_count": {
       "type": "number",
-      "default": 0
+      "default": 0,
+      "minimum": 0,
+      "maximum": 10
+    },
+    "protected_action_gate": {
+      "type": "object",
+      "properties": {
+        "is_protected": {
+          "type": "boolean",
+          "default": false
+        },
+        "protection_reason": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "required_approvals": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 5,
+          "default": 1
+        },
+        "allowed_approvers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          },
+          "minItems": 1
+        },
+        "minimum_approver_role": {
+          "type": "string",
+          "enum": ["user", "admin", "owner", "system"]
+        },
+        "bypass_allowed": {
+          "type": "boolean",
+          "default": false
+        },
+        "bypass_reason": {
+          "type": "string",
+          "maxLength": 500
+        }
+      },
+      "required": ["is_protected"]
+    },
+    "execution_constraints": {
+      "type": "object",
+      "properties": {
+        "max_cost_usd": {
+          "type": "number",
+          "minimum": 0
+        },
+        "max_tokens": {
+          "type": "number",
+          "minimum": 0
+        },
+        "timeout_seconds": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 86400
+        },
+        "allowed_actions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "forbidden_actions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
     }
   },
   "required": [
