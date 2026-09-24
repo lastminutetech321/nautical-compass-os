@@ -1,0 +1,107 @@
+{
+  "name": "Build",
+  "description": "Tracks individual builds in the NCOS platform",
+  "fields": [
+    {
+      "name": "name",
+      "type": "text",
+      "required": true,
+      "description": "Build identifier (e.g., 'frontend-production', 'canon-inventory')"
+    },
+    {
+      "name": "type",
+      "type": "select",
+      "required": true,
+      "options": ["frontend", "backend", "workflow", "agent", "integration"],
+      "description": "Build category"
+    },
+    {
+      "name": "status",
+      "type": "select",
+      "required": true,
+      "options": ["active", "staging", "deprecated", "failed", "pending"],
+      "default": "pending",
+      "description": "Current deployment status"
+    },
+    {
+      "name": "health",
+      "type": "select",
+      "required": true,
+      "options": ["healthy", "degraded", "critical", "unknown"],
+      "default": "unknown",
+      "description": "Health status"
+    },
+    {
+      "name": "version",
+      "type": "text",
+      "description": "Semantic version (e.g., '1.2.3')"
+    },
+    {
+      "name": "deployment_url",
+      "type": "url",
+      "description": "Live deployment URL"
+    },
+    {
+      "name": "repository",
+      "type": "text",
+      "description": "GitHub repo or Base44 app reference"
+    },
+    {
+      "name": "dependencies",
+      "type": "json",
+      "description": "Array of dependency build names"
+    },
+    {
+      "name": "last_deployed",
+      "type": "datetime",
+      "description": "Timestamp of last successful deployment"
+    },
+    {
+      "name": "deploy_count",
+      "type": "number",
+      "default": 0,
+      "description": "Total number of deployments"
+    },
+    {
+      "name": "owner",
+      "type": "text",
+      "description": "Team or individual responsible"
+    },
+    {
+      "name": "notes",
+      "type": "longtext",
+      "description": "Deployment notes, known issues, etc."
+    },
+    {
+      "name": "checklist",
+      "type": "json",
+      "description": "Standard task checklist for this build (array of {task: string, completed: boolean, required: boolean})"
+    },
+    {
+      "name": "checklist_completion",
+      "type": "number",
+      "description": "Percentage of required tasks completed (0-100)"
+    },
+    {
+      "name": "metadata",
+      "type": "json",
+      "description": "Additional build-specific metadata"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "auto": true
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "auto": true
+    }
+  ],
+  "indexes": [
+    {"fields": ["name"], "unique": true},
+    {"fields": ["status"]},
+    {"fields": ["type"]},
+    {"fields": ["health"]}
+  ]
+}
