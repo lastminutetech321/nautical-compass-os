@@ -1,0 +1,88 @@
+{
+  "name": "execute-resolution-tasks",
+  "label": "Execute Resolution Tasks",
+  "description": "Executes dispatched resolution tasks for self-healing",
+  "trigger": "manual",
+  "steps": [
+    {
+      "id": "fetch_tasks",
+      "type": "query",
+      "entity": "resolution_tasks",
+      "filter": {
+        "id": { "$in": "{{trigger.task_ids}}" },
+        "status": "pending"
+      },
+      "output": "tasks"
+    },
+    {
+      "id": "execute_schema_validation",
+      "type": "function",
+      "function": "validate-entity-schemas",
+      "condition": "{{tasks.some(t => t.type === 'schema_validation')}}",
+      "input": {
+        "tasks": "{{tasks.filter(t => t.type === 'schema_validation')}}"
+      },
+      "output": "schema_results"
+    },
+    {
+      "id": "execute_function_check",
+      "type": "function",
+      "function": "check-function-health",
+      "condition": "{{tasks.some(t => t.type === 'function_health_check')}}",
+      "input": {
+        "tasks": "{{tasks.filter(t => t.type === 'function_health_check')}}"
+      },
+      "output": "function_results"
+    },
+    {
+      "id": "execute_data_repair",
+      "type": "function",
+      "function": "repair-data-consistency",
+      "condition": "{{tasks.some(t => t.type === 'data_consistency_repair')}}",
+      "input": {
+        "tasks": "{{tasks.filter(t => t.type === 'data_consistency_repair')}}"
+      },
+      "output": "repair_results"
+    },
+    {
+      "id": "execute_integration_check",
+      "type": "function",
+      "function": "verify-integration-health",
+      "condition": "{{tasks.some(t => t.type === 'integration_health_check')}}",
+      "input": {
+        "tasks": "{{tasks.filter(t => t.type === 'integration_health_check')}}"
+      },
+      "output": "integration_results"
+    },
+    {
+      "id": "update_task_status",
+      "type": "update",
+      "entity": "resolution_tasks",
+      "updates": [
+        {
+          "filter": { "id": { "$in": "{{trigger.task_ids}}" } },
+          "data": {
+            "status": "completed",
+            "completed_at": "{{now()}}",
+            "result": "{{merge(schema_results, function_results, repair_results, integration_results)}}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "log_completion",
+      "type": "create",
+      "entity": "healing_events",
+      "data": {
+        "event_type": "task_execution",
+        "module": "JurisEngine",
+        "severity": "info",
+        "metadata": {
+          "tasks_executed": "{{tasks.length}}",
+          "execution_summary": "{{merge(schema_results, function_results, repair_results, integration_results)}}"
+        },
+        "timestamp": "{{now()}}"
+      }
+    }
+  ]
+}

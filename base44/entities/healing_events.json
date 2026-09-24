@@ -1,0 +1,73 @@
+{
+  "name": "healing_events",
+  "label": "Healing Events",
+  "description": "Self-healing engine activity log",
+  "fields": [
+    {
+      "name": "event_type",
+      "type": "text",
+      "label": "Event Type",
+      "required": true,
+      "validations": {
+        "enum": [
+          "diagnostic_scan",
+          "task_dispatch",
+          "task_execution",
+          "repair_complete",
+          "escalation",
+          "health_check"
+        ]
+      },
+      "index": true
+    },
+    {
+      "name": "module",
+      "type": "text",
+      "label": "Module",
+      "required": true,
+      "index": true
+    },
+    {
+      "name": "severity",
+      "type": "text",
+      "label": "Severity",
+      "validations": {
+        "enum": ["info", "warning", "error", "critical"]
+      },
+      "index": true
+    },
+    {
+      "name": "tasks_created",
+      "type": "number",
+      "label": "Tasks Created"
+    },
+    {
+      "name": "high_priority_count",
+      "type": "number",
+      "label": "High Priority Tasks"
+    },
+    {
+      "name": "diagnostics_summary",
+      "type": "json",
+      "label": "Diagnostics Summary"
+    },
+    {
+      "name": "metadata",
+      "type": "json",
+      "label": "Event Metadata"
+    },
+    {
+      "name": "timestamp",
+      "type": "datetime",
+      "label": "Timestamp",
+      "required": true,
+      "index": true
+    }
+  ],
+  "permissions": {
+    "create": ["system", "admin"],
+    "read": ["system", "admin", "developer"],
+    "update": ["system", "admin"],
+    "delete": ["admin"]
+  }
+}
