@@ -1,0 +1,32 @@
+{
+  "name": "coordinator_pilot_checklist",
+  "label": "Coordinator Pilot Checklist",
+  "description": "Tracks onboarding checklist progress for Brian Casto's coordinator pilot program.",
+  "icon": "check-square",
+  "fields": [
+    {
+      "name": "pilot_name",
+      "type": "text",
+      "label": "Pilot Name",
+      "required": true,
+      "default": "Brian Casto"
+    },
+    {
+      "name": "completed_tasks",
+      "type": "json",
+      "label": "Completed Task IDs",
+      "description": "Array of task IDs that are completed"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "label": "Last Updated"
+    }
+  ],
+  "permissions": {
+    "create": ["authenticated"],
+    "read": ["authenticated"],
+    "update": ["authenticated"],
+    "delete": ["admin"]
+  }
+}
