@@ -1,0 +1,78 @@
+{
+  "name": "JurisEngine Dispatcher",
+  "trigger": "manual",
+  "description": "Dispatches resolution tasks for JurisEngine v1 after self-healing scan",
+  "steps": [
+    {
+      "id": "fetch_pending_tasks",
+      "type": "function",
+      "function": "jurisengine/get-pending-resolutions",
+      "output": "pending_tasks"
+    },
+    {
+      "id": "validate_tasks",
+      "type": "condition",
+      "condition": "{{ pending_tasks.length > 0 }}",
+      "then": "dispatch_loop",
+      "else": "no_tasks"
+    },
+    {
+      "id": "dispatch_loop",
+      "type": "foreach",
+      "items": "{{ pending_tasks }}",
+      "steps": [
+        {
+          "id": "create_task_entity",
+          "type": "entity_create",
+          "entity": "juris_resolution_task",
+          "data": {
+            "issue_id": "{{ item.id }}",
+            "priority": "{{ item.priority }}",
+            "assigned_to": "juris_agent_v1",
+            "status": "dispatched",
+            "created_at": "{{ now() }}",
+            "metadata": "{{ item }}"
+          }
+        },
+        {
+          "id": "trigger_resolution_agent",
+          "type": "agent",
+          "agent": "juris_resolver_v1",
+          "input": {
+            "task_id": "{{ create_task_entity.id }}",
+            "issue": "{{ item }}"
+          }
+        },
+        {
+          "id": "log_dispatch",
+          "type": "function",
+          "function": "logging/log-event",
+          "params": {
+            "level": "info",
+            "message": "Dispatched JurisEngine resolution task",
+            "task_id": "{{ create_task_entity.id }}",
+            "issue_id": "{{ item.id }}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "no_tasks",
+      "type": "function",
+      "function": "logging/log-event",
+      "params": {
+        "level": "info",
+        "message": "No pending JurisEngine resolution tasks found"
+      }
+    },
+    {
+      "id": "update_dashboard",
+      "type": "function",
+      "function": "jurisengine/update-dispatch-dashboard",
+      "params": {
+        "dispatched_count": "{{ pending_tasks.length }}",
+        "timestamp": "{{ now() }}"
+      }
+    }
+  ]
+}
