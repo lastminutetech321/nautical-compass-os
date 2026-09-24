@@ -1,0 +1,13 @@
+{
+  "name": "agent_activity_log",
+  "label": "Agent Activity Log",
+  "description": "Logs all agent activation and task execution events",
+  "fields": [
+    {"name": "agent_id", "type": "text", "label": "Agent ID", "required": true, "indexed": true},
+    {"name": "task_id", "type": "text", "label": "Task ID", "indexed": true},
+    {"name": "assignment_id", "type": "text", "label": "Assignment ID", "indexed": true},
+    {"name": "action", "type": "select", "label": "Action", "required": true, "options": ["activated", "started", "completed", "failed", "cancelled", "activation_failed"], "indexed": true},
+    {"name": "timestamp", "type": "datetime", "label": "Timestamp", "required": true, "indexed": true},
+    {"name": "metadata", "type": "json", "label": "Metadata"}
+  ]
+}
