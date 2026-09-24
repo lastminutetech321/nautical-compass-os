@@ -1,0 +1,13 @@
+{
+  "name": "DirectorRecruitmentTracking",
+  "fields": [
+    {"name": "tracking_id", "type": "id", "required": true},
+    {"name": "director_user_id", "type": "string", "required": true},
+    {"name": "recruited_staff_user_id", "type": "string", "required": true},
+    {"name": "recruitment_date", "type": "datetime", "required": true},
+    {"name": "active", "type": "boolean", "required": true, "default": true},
+    {"name": "created_at", "type": "datetime", "required": true, "default": "now"},
+    {"name": "updated_at", "type": "datetime", "required": true, "default": "now"},
+    {"name": "feature_flag_phase1_compensation", "type": "boolean", "required": false, "default": false}
+  ]
+}

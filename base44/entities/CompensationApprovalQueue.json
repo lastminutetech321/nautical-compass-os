@@ -1,0 +1,16 @@
+{
+  "name": "CompensationApprovalQueue",
+  "fields": [
+    {"name": "queue_id", "type": "id", "required": true},
+    {"name": "approval_type", "type": "string", "required": true},
+    {"name": "requestor_user_id", "type": "string", "required": true},
+    {"name": "subject_user_id", "type": "string", "required": false},
+    {"name": "request_details", "type": "text", "required": true},
+    {"name": "status", "type": "string", "required": true, "default": "pending"},
+    {"name": "reviewed_by_user_id", "type": "string", "required": false},
+    {"name": "reviewed_at", "type": "datetime", "required": false},
+    {"name": "review_notes", "type": "text", "required": false},
+    {"name": "created_at", "type": "datetime", "required": true, "default": "now"},
+    {"name": "feature_flag_phase1_compensation", "type": "boolean", "required": false, "default": false}
+  ]
+}
