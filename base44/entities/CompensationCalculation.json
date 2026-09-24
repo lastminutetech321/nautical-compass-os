@@ -1,0 +1,26 @@
+{
+  "name": "CompensationCalculation",
+  "fields": [
+    {"name": "calculation_id", "type": "id", "required": true},
+    {"name": "sale_id", "type": "string", "required": true},
+    {"name": "recipient_user_id", "type": "string", "required": true},
+    {"name": "policy_id", "type": "string", "required": true},
+    {"name": "commission_type", "type": "string", "required": true},
+    {"name": "gross_revenue", "type": "number", "required": true},
+    {"name": "refunds", "type": "number", "required": false, "default": 0},
+    {"name": "chargebacks", "type": "number", "required": false, "default": 0},
+    {"name": "processing_fees", "type": "number", "required": false, "default": 0},
+    {"name": "contractor_costs", "type": "number", "required": false, "default": 0},
+    {"name": "api_software_costs", "type": "number", "required": false, "default": 0},
+    {"name": "delivery_labor_costs", "type": "number", "required": false, "default": 0},
+    {"name": "net_contribution_margin", "type": "number", "required": true},
+    {"name": "applied_rate", "type": "number", "required": true},
+    {"name": "calculated_amount", "type": "number", "required": true},
+    {"name": "hard_cap_applied", "type": "boolean", "required": false, "default": false},
+    {"name": "amount_trimmed_by_cap", "type": "number", "required": false, "default": 0},
+    {"name": "final_payout_amount", "type": "number", "required": true},
+    {"name": "calculation_notes", "type": "text", "required": false},
+    {"name": "created_at", "type": "datetime", "required": true, "default": "now"},
+    {"name": "feature_flag_phase1_compensation", "type": "boolean", "required": false, "default": false}
+  ]
+}
