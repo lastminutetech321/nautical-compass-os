@@ -1,0 +1,115 @@
+{
+  "name": "JurisEngine v1 Resolution Dispatcher",
+  "description": "Auto-dispatched by Self-Healing Engine v3. Orchestrates resolution tasks for JurisEngine v1 module failures.",
+  "trigger": "manual",
+  "steps": [
+    {
+      "id": "detect_failure_scope",
+      "type": "function",
+      "function": "jurisengine-analyze-failure",
+      "inputs": {
+        "module": "JurisEngine v1",
+        "timestamp": "{{trigger.timestamp}}",
+        "context": "{{trigger.context}}"
+      },
+      "outputs": {
+        "failure_type": "{{result.failure_type}}",
+        "affected_components": "{{result.affected_components}}",
+        "severity": "{{result.severity}}"
+      }
+    },
+    {
+      "id": "prioritize_resolution_tasks",
+      "type": "function",
+      "function": "jurisengine-prioritize-tasks",
+      "inputs": {
+        "failure_type": "{{steps.detect_failure_scope.outputs.failure_type}}",
+        "affected_components": "{{steps.detect_failure_scope.outputs.affected_components}}",
+        "severity": "{{steps.detect_failure_scope.outputs.severity}}"
+      },
+      "outputs": {
+        "priority_queue": "{{result.priority_queue}}"
+      }
+    },
+    {
+      "id": "dispatch_repair_agents",
+      "type": "parallel",
+      "branches": [
+        {
+          "id": "schema_repair",
+          "condition": "{{steps.detect_failure_scope.outputs.affected_components}} contains 'schema'",
+          "type": "function",
+          "function": "jurisengine-repair-schema",
+          "inputs": {
+            "failure_data": "{{steps.detect_failure_scope.outputs}}"
+          }
+        },
+        {
+          "id": "logic_repair",
+          "condition": "{{steps.detect_failure_scope.outputs.affected_components}} contains 'logic'",
+          "type": "function",
+          "function": "jurisengine-repair-logic",
+          "inputs": {
+            "failure_data": "{{steps.detect_failure_scope.outputs}}"
+          }
+        },
+        {
+          "id": "integration_repair",
+          "condition": "{{steps.detect_failure_scope.outputs.affected_components}} contains 'integration'",
+          "type": "function",
+          "function": "jurisengine-repair-integration",
+          "inputs": {
+            "failure_data": "{{steps.detect_failure_scope.outputs}}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "validate_repairs",
+      "type": "function",
+      "function": "jurisengine-validate-repairs",
+      "inputs": {
+        "repair_results": "{{steps.dispatch_repair_agents.outputs}}"
+      },
+      "outputs": {
+        "validation_status": "{{result.validation_status}}",
+        "remaining_issues": "{{result.remaining_issues}}"
+      }
+    },
+    {
+      "id": "log_resolution_outcome",
+      "type": "function",
+      "function": "system-log-event",
+      "inputs": {
+        "event_type": "jurisengine_resolution_complete",
+        "module": "JurisEngine v1",
+        "validation_status": "{{steps.validate_repairs.outputs.validation_status}}",
+        "remaining_issues": "{{steps.validate_repairs.outputs.remaining_issues}}",
+        "timestamp": "{{now}}"
+      }
+    },
+    {
+      "id": "notify_self_healing_engine",
+      "type": "function",
+      "function": "notify-self-healing-engine",
+      "inputs": {
+        "module": "JurisEngine v1",
+        "resolution_status": "{{steps.validate_repairs.outputs.validation_status}}",
+        "next_actions": "{{steps.validate_repairs.outputs.remaining_issues}}"
+      }
+    }
+  ],
+  "error_handling": {
+    "on_failure": "escalate_to_human",
+    "retry_policy": {
+      "max_attempts": 3,
+      "backoff": "exponential"
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "created_by": "Self-Healing Engine v3",
+    "created_at": "2025-01-10T00:00:00Z",
+    "tags": ["jurisengine", "self-healing", "auto-repair", "resolution"]
+  }
+}
