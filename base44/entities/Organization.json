@@ -1,0 +1,71 @@
+{
+  "name": "Organization",
+  "description": "Company, team, or enterprise entity. Name is case-insensitive unique. Access controlled via OrganizationMembership.",
+  "fields": [
+    {
+      "name": "id",
+      "type": "uuid",
+      "primary": true
+    },
+    {
+      "name": "name",
+      "type": "text",
+      "required": true,
+      "unique": true,
+      "description": "Organization name. Enforced case-insensitive unique via DB constraint."
+    },
+    {
+      "name": "status",
+      "type": "text",
+      "required": true,
+      "enum": ["active", "suspended", "archived"],
+      "default": "active",
+      "indexed": true
+    },
+    {
+      "name": "pilot_program",
+      "type": "boolean",
+      "default": false,
+      "description": "True if created via open pilot signup"
+    },
+    {
+      "name": "verified_domain",
+      "type": "text",
+      "nullable": true,
+      "description": "Domain verified for auto-approval (e.g., 'example.com')"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "default": "now()"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp",
+      "default": "now()"
+    }
+  ],
+  "indexes": [
+    {
+      "name": "idx_organization_name_lower",
+      "fields": ["LOWER(name)"],
+      "unique": true,
+      "description": "Case-insensitive unique name constraint"
+    }
+  ],
+  "row_level_security": {
+    "enabled": true,
+    "policies": [
+      {
+        "name": "Users can view orgs they belong to",
+        "operation": "SELECT",
+        "check": "EXISTS (SELECT 1 FROM OrganizationMembership WHERE organization_id = Organization.id AND user_id = auth.uid() AND status = 'active' AND verified_at IS NOT NULL)"
+      },
+      {
+        "name": "Owners can update their org",
+        "operation": "UPDATE",
+        "check": "EXISTS (SELECT 1 FROM OrganizationMembership WHERE organization_id = Organization.id AND user_id = auth.uid() AND role = 'owner' AND status = 'active' AND verified_at IS NOT NULL)"
+      }
+    ]
+  }
+}
