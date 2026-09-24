@@ -1,0 +1,13 @@
+{
+  "name": "WorkforceDispatchLog",
+  "fields": [
+    {"name": "dispatched_at", "type": "datetime", "required": true},
+    {"name": "total_tasks", "type": "number", "required": true},
+    {"name": "total_agents", "type": "number", "required": true},
+    {"name": "assignments_made", "type": "number", "required": true},
+    {"name": "tasks_unassigned", "type": "number", "default": 0},
+    {"name": "agents_utilized", "type": "number", "default": 0},
+    {"name": "status", "type": "text", "options": ["pending", "completed", "failed"], "default": "pending"},
+    {"name": "error_message", "type": "text", "required": false}
+  ]
+}
