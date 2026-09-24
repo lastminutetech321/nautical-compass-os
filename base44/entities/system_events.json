@@ -1,0 +1,61 @@
+{
+  "name": "system_events",
+  "fields": [
+    {
+      "name": "id",
+      "type": "uuid",
+      "primaryKey": true
+    },
+    {
+      "name": "event_type",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "module",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "action",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "error_message",
+      "type": "text"
+    },
+    {
+      "name": "error_stack",
+      "type": "text"
+    },
+    {
+      "name": "metadata",
+      "type": "json"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "default": "now()"
+    }
+  ],
+  "indexes": [
+    {
+      "fields": ["event_type"]
+    },
+    {
+      "fields": ["module"]
+    },
+    {
+      "fields": ["status"]
+    },
+    {
+      "fields": ["created_at"]
+    }
+  ]
+}

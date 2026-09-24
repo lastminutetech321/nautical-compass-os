@@ -1,0 +1,62 @@
+{
+  "name": "task_queues",
+  "fields": [
+    {
+      "name": "id",
+      "type": "uuid",
+      "primaryKey": true
+    },
+    {
+      "name": "task_type",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": true,
+      "default": "pending"
+    },
+    {
+      "name": "priority",
+      "type": "integer",
+      "default": 5
+    },
+    {
+      "name": "assigned_agent_id",
+      "type": "uuid"
+    },
+    {
+      "name": "dispatched_at",
+      "type": "datetime"
+    },
+    {
+      "name": "metadata",
+      "type": "json"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "default": "now()"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "default": "now()"
+    }
+  ],
+  "indexes": [
+    {
+      "fields": ["status"]
+    },
+    {
+      "fields": ["task_type"]
+    },
+    {
+      "fields": ["priority"]
+    },
+    {
+      "fields": ["assigned_agent_id"]
+    }
+  ]
+}
