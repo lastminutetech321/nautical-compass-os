@@ -1,0 +1,9 @@
+{
+  "name": "nc_legal_docket_subscription",
+  "fields": [
+    {"name": "user_id", "type": "text", "required": true},
+    {"name": "docket_id", "type": "text", "required": true},
+    {"name": "sms_enabled", "type": "boolean", "defaultValue": false},
+    {"name": "created_at", "type": "datetime", "required": true}
+  ]
+}

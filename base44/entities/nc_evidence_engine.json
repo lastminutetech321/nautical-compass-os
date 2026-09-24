@@ -1,0 +1,12 @@
+{
+  "name": "nc_evidence_engine",
+  "fields": [
+    {"name": "user_id", "type": "text", "required": true},
+    {"name": "case_id", "type": "text", "required": true},
+    {"name": "evidence_type", "type": "text", "required": true},
+    {"name": "source", "type": "text", "required": true},
+    {"name": "description", "type": "text"},
+    {"name": "metadata", "type": "json"},
+    {"name": "created_at", "type": "datetime", "required": true}
+  ]
+}

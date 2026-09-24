@@ -1,0 +1,11 @@
+{
+  "name": "nc_legal_api_log",
+  "fields": [
+    {"name": "provider", "type": "text", "required": true},
+    {"name": "endpoint", "type": "text", "required": true},
+    {"name": "status_code", "type": "number", "required": true},
+    {"name": "error_code", "type": "text"},
+    {"name": "user_id", "type": "text"},
+    {"name": "timestamp", "type": "datetime", "required": true}
+  ]
+}
