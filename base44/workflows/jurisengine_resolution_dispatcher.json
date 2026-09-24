@@ -1,0 +1,68 @@
+{
+  "name": "JurisEngine Resolution Dispatcher",
+  "description": "Auto-dispatches resolution tasks for JurisEngine v1 based on self-healing engine diagnostics",
+  "version": "1.0.0",
+  "trigger": {
+    "type": "function_call",
+    "function": "jurisengine_self_healing_v3"
+  },
+  "steps": [
+    {
+      "id": "parse_diagnostics",
+      "type": "function",
+      "function": "parse_healing_diagnostics",
+      "input": {
+        "diagnostics": "{{trigger.output.diagnostics}}",
+        "module": "JurisEngine v1"
+      }
+    },
+    {
+      "id": "create_resolution_tasks",
+      "type": "loop",
+      "items": "{{steps.parse_diagnostics.output.issues}}",
+      "steps": [
+        {
+          "id": "create_task",
+          "type": "entity_create",
+          "entity": "resolution_tasks",
+          "data": {
+            "module": "JurisEngine v1",
+            "issue_type": "{{item.type}}",
+            "severity": "{{item.severity}}",
+            "description": "{{item.description}}",
+            "auto_generated": true,
+            "status": "pending",
+            "created_by": "self_healing_engine_v3",
+            "metadata": "{{item.metadata}}"
+          }
+        },
+        {
+          "id": "assign_worker",
+          "type": "function",
+          "function": "assign_resolution_worker",
+          "input": {
+            "task_id": "{{steps.create_task.output.id}}",
+            "issue_type": "{{item.type}}",
+            "priority": "{{item.priority}}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "notify_completion",
+      "type": "function",
+      "function": "send_notification",
+      "input": {
+        "type": "resolution_dispatch",
+        "module": "JurisEngine v1",
+        "tasks_created": "{{steps.create_resolution_tasks.output.length}}",
+        "timestamp": "{{workflow.timestamp}}"
+      }
+    }
+  ],
+  "output": {
+    "tasks_dispatched": "{{steps.create_resolution_tasks.output}}",
+    "total_count": "{{steps.create_resolution_tasks.output.length}}",
+    "module": "JurisEngine v1"
+  }
+}
