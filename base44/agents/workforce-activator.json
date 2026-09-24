@@ -1,0 +1,105 @@
+{
+  "name": "Workforce Activator",
+  "description": "Dispatches task queues to AI agents for autonomous execution",
+  "type": "orchestrator",
+  "version": "1.0.0",
+  "config": {
+    "max_concurrent_dispatches": 55,
+    "queue_batch_size": 5,
+    "dispatch_strategy": "round_robin",
+    "retry_policy": {
+      "max_attempts": 3,
+      "backoff_multiplier": 2
+    }
+  },
+  "agents": [
+    {"id": "agent_1", "type": "task_executor", "priority": 1, "status": "active"},
+    {"id": "agent_2", "type": "task_executor", "priority": 1, "status": "active"},
+    {"id": "agent_3", "type": "task_executor", "priority": 1, "status": "active"},
+    {"id": "agent_4", "type": "task_executor", "priority": 1, "status": "active"},
+    {"id": "agent_5", "type": "task_executor", "priority": 1, "status": "active"},
+    {"id": "agent_6", "type": "data_processor", "priority": 2, "status": "active"},
+    {"id": "agent_7", "type": "data_processor", "priority": 2, "status": "active"},
+    {"id": "agent_8", "type": "data_processor", "priority": 2, "status": "active"},
+    {"id": "agent_9", "type": "data_processor", "priority": 2, "status": "active"},
+    {"id": "agent_10", "type": "data_processor", "priority": 2, "status": "active"},
+    {"id": "agent_11", "type": "analytics_worker", "priority": 3, "status": "active"},
+    {"id": "agent_12", "type": "analytics_worker", "priority": 3, "status": "active"},
+    {"id": "agent_13", "type": "analytics_worker", "priority": 3, "status": "active"},
+    {"id": "agent_14", "type": "analytics_worker", "priority": 3, "status": "active"},
+    {"id": "agent_15", "type": "analytics_worker", "priority": 3, "status": "active"},
+    {"id": "agent_16", "type": "integration_handler", "priority": 2, "status": "active"},
+    {"id": "agent_17", "type": "integration_handler", "priority": 2, "status": "active"},
+    {"id": "agent_18", "type": "integration_handler", "priority": 2, "status": "active"},
+    {"id": "agent_19", "type": "integration_handler", "priority": 2, "status": "active"},
+    {"id": "agent_20", "type": "integration_handler", "priority": 2, "status": "active"},
+    {"id": "agent_21", "type": "workflow_coordinator", "priority": 1, "status": "active"},
+    {"id": "agent_22", "type": "workflow_coordinator", "priority": 1, "status": "active"},
+    {"id": "agent_23", "type": "workflow_coordinator", "priority": 1, "status": "active"},
+    {"id": "agent_24", "type": "workflow_coordinator", "priority": 1, "status": "active"},
+    {"id": "agent_25", "type": "workflow_coordinator", "priority": 1, "status": "active"},
+    {"id": "agent_26", "type": "notification_dispatcher", "priority": 3, "status": "active"},
+    {"id": "agent_27", "type": "notification_dispatcher", "priority": 3, "status": "active"},
+    {"id": "agent_28", "type": "notification_dispatcher", "priority": 3, "status": "active"},
+    {"id": "agent_29", "type": "notification_dispatcher", "priority": 3, "status": "active"},
+    {"id": "agent_30", "type": "notification_dispatcher", "priority": 3, "status": "active"},
+    {"id": "agent_31", "type": "cache_manager", "priority": 4, "status": "active"},
+    {"id": "agent_32", "type": "cache_manager", "priority": 4, "status": "active"},
+    {"id": "agent_33", "type": "cache_manager", "priority": 4, "status": "active"},
+    {"id": "agent_34", "type": "cache_manager", "priority": 4, "status": "active"},
+    {"id": "agent_35", "type": "cache_manager", "priority": 4, "status": "active"},
+    {"id": "agent_36", "type": "error_handler", "priority": 1, "status": "active"},
+    {"id": "agent_37", "type": "error_handler", "priority": 1, "status": "active"},
+    {"id": "agent_38", "type": "error_handler", "priority": 1, "status": "active"},
+    {"id": "agent_39", "type": "error_handler", "priority": 1, "status": "active"},
+    {"id": "agent_40", "type": "error_handler", "priority": 1, "status": "active"},
+    {"id": "agent_41", "type": "monitoring_agent", "priority": 2, "status": "active"},
+    {"id": "agent_42", "type": "monitoring_agent", "priority": 2, "status": "active"},
+    {"id": "agent_43", "type": "monitoring_agent", "priority": 2, "status": "active"},
+    {"id": "agent_44", "type": "monitoring_agent", "priority": 2, "status": "active"},
+    {"id": "agent_45", "type": "monitoring_agent", "priority": 2, "status": "active"},
+    {"id": "agent_46", "type": "optimization_worker", "priority": 4, "status": "active"},
+    {"id": "agent_47", "type": "optimization_worker", "priority": 4, "status": "active"},
+    {"id": "agent_48", "type": "optimization_worker", "priority": 4, "status": "active"},
+    {"id": "agent_49", "type": "optimization_worker", "priority": 4, "status": "active"},
+    {"id": "agent_50", "type": "optimization_worker", "priority": 4, "status": "active"},
+    {"id": "agent_51", "type": "backup_scheduler", "priority": 3, "status": "active"},
+    {"id": "agent_52", "type": "backup_scheduler", "priority": 3, "status": "active"},
+    {"id": "agent_53", "type": "backup_scheduler", "priority": 3, "status": "active"},
+    {"id": "agent_54", "type": "backup_scheduler", "priority": 3, "status": "active"},
+    {"id": "agent_55", "type": "backup_scheduler", "priority": 3, "status": "active"}
+  ],
+  "task_queues": {
+    "high_priority": {
+      "max_queue_size": 1000,
+      "agent_types": ["task_executor", "workflow_coordinator", "error_handler"]
+    },
+    "medium_priority": {
+      "max_queue_size": 5000,
+      "agent_types": ["data_processor", "integration_handler", "monitoring_agent"]
+    },
+    "low_priority": {
+      "max_queue_size": 10000,
+      "agent_types": ["analytics_worker", "notification_dispatcher", "backup_scheduler"]
+    },
+    "background": {
+      "max_queue_size": 50000,
+      "agent_types": ["cache_manager", "optimization_worker"]
+    }
+  },
+  "dispatch_rules": {
+    "load_balancing": true,
+    "prefer_idle_agents": true,
+    "respect_agent_capacity": true,
+    "auto_scale_thresholds": {
+      "scale_up_queue_depth": 100,
+      "scale_down_idle_time": 300
+    }
+  },
+  "monitoring": {
+    "track_dispatch_metrics": true,
+    "log_agent_performance": true,
+    "alert_on_failures": true,
+    "metrics_retention_days": 30
+  }
+}
