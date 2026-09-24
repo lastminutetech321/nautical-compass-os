@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import {
   Activity, AlertTriangle, CheckCircle, Clock, RefreshCw, Loader2,
-  BookOpen, Bot, DollarSign, Shield, Zap, Link2, BarChart3, Target
+  BookOpen, Bot, DollarSign, Shield, Zap, Link2, BarChart3, Target, Eye
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -24,6 +24,28 @@ const categoryMeta = {
 };
 
 const severityRank = { critical: 0, high: 1, medium: 2, low: 3 };
+
+const HIGH_RISK_CATEGORIES = ['security_risk','broken_dependency','blocked_build'];
+const CRITICAL_SEVERITIES = ['critical','high'];
+
+function requiresHumanReview(issue) {
+  if (HIGH_RISK_CATEGORIES.includes(issue.category)) return true;
+  if (CRITICAL_SEVERITIES.includes(issue.severity)) return true;
+  if (issue.affected_modules && issue.affected_modules.length >= 3) return true;
+  return false;
+}
+
+function calculateRiskScore(issue) {
+  let score = 0;
+  const severityScores = { critical: 40, high: 30, medium: 20, low: 10 };
+  score += severityScores[issue.severity] || 0;
+  if (HIGH_RISK_CATEGORIES.includes(issue.category)) score += 30;
+  if (issue.affected_modules) score += Math.min(issue.affected_modules.length * 5, 20);
+  const daysOld = moment().diff(moment(issue.detected_at || issue.created_date), 'days');
+  if (daysOld > 7) score += 10;
+  if (daysOld > 30) score += 20;
+  return Math.min(score, 100);
+}
 
 export default function DiagnosisDashboard() {
   const [issues, setIssues] = useState([]);
@@ -57,12 +79,24 @@ export default function DiagnosisDashboard() {
   };
 
   const dismiss = async (issue) => {
-    await base44.entities.DiagnosticIssue.update(issue.id, { status: "dismissed" });
+    const needsReview = requiresHumanReview(issue);
+    const riskScore = calculateRiskScore(issue);
+    if (needsReview) {
+      const msg = `HUMAN REVIEW REQUIRED\n\nRisk Score: ${riskScore}/100\nSeverity: ${issue.severity}\nCategory: ${issue.category}\nAffected: ${(issue.affected_modules||[]).join(', ')||'none'}\n\nDismiss this issue?`;
+      if (!window.confirm(msg)) return;
+    }
+    await base44.entities.DiagnosticIssue.update(issue.id, { status: "dismissed", dismissed_by: "user", dismissed_at: new Date().toISOString(), risk_score_at_dismissal: riskScore, required_human_review: needsReview });
     load();
   };
 
   const resolve = async (issue) => {
-    await base44.entities.DiagnosticIssue.update(issue.id, { status: "resolved" });
+    const needsReview = requiresHumanReview(issue);
+    const riskScore = calculateRiskScore(issue);
+    if (needsReview) {
+      const msg = `HUMAN REVIEW REQUIRED\n\nRisk Score: ${riskScore}/100\nSeverity: ${issue.severity}\nCategory: ${issue.category}\nAffected: ${(issue.affected_modules||[]).join(', ')||'none'}\n\nConfirm resolution?`;
+      if (!window.confirm(msg)) return;
+    }
+    await base44.entities.DiagnosticIssue.update(issue.id, { status: "resolved", resolved_by: "user", resolved_at: new Date().toISOString(), risk_score_at_resolution: riskScore, required_human_review: needsReview });
     load();
   };
 
@@ -80,6 +114,7 @@ export default function DiagnosisDashboard() {
     low: issues.filter(i => i.severity === "low").length,
   };
 
+  const requiresReviewCount = issues.filter(requiresHumanReview).length;
   const impQueued = improvements.filter(i => i.status === "queued").length;
   const impApproved = improvements.filter(i => i.status === "approved").length;
 
@@ -115,11 +150,11 @@ export default function DiagnosisDashboard() {
         </div>
       )}
 
-      {/* Health KPIs */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-5">
         {[
           { label: "Critical Issues", value: counts.critical, color: counts.critical > 0 ? "text-red-600 bg-red-50" : "text-emerald-600 bg-emerald-50", icon: AlertTriangle },
           { label: "High Issues", value: counts.high, color: counts.high > 0 ? "text-orange-600 bg-orange-50" : "text-emerald-600 bg-emerald-50", icon: AlertTriangle },
+          { label: "Requires Review", value: requiresReviewCount, color: requiresReviewCount > 0 ? "text-amber-600 bg-amber-50" : "text-emerald-600 bg-emerald-50", icon: Eye },
           { label: "Queued Improvements", value: impQueued, color: "text-blue-600 bg-blue-50", icon: Zap },
           { label: "Approved for Build", value: impApproved, color: impApproved > 0 ? "text-emerald-600 bg-emerald-50" : "text-slate-400 bg-slate-50", icon: CheckCircle },
         ].map(k => (
@@ -140,7 +175,6 @@ export default function DiagnosisDashboard() {
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Issue list */}
           <div className="lg:col-span-1">
             <div className="flex gap-2 mb-3 flex-wrap">
               <Select value={catFilter} onValueChange={setCatFilter}>
@@ -161,6 +195,7 @@ export default function DiagnosisDashboard() {
             <div className="space-y-1.5 max-h-[calc(100vh-22rem)] overflow-y-auto pr-1">
               {filtered.map(issue => {
                 const meta = categoryMeta[issue.category] || {};
+                const needsReview = requiresHumanReview(issue);
                 return (
                   <button key={issue.id} onClick={() => setSelected(issue)}
                     className={`w-full text-left px-3 py-2.5 rounded-lg transition-all border ${selected?.id === issue.id ? "bg-primary/10 border-primary/30" : "border-transparent hover:bg-muted"}`}>
@@ -170,6 +205,7 @@ export default function DiagnosisDashboard() {
                         <p className="text-xs font-medium line-clamp-2">{issue.title}</p>
                         <div className="flex items-center gap-1.5 mt-1 flex-wrap">
                           <Badge variant="outline" className={`text-[9px] capitalize ${issue.severity === "critical" ? "text-red-600 border-red-300" : issue.severity === "high" ? "text-orange-600 border-orange-300" : "text-amber-600"}`}>{issue.severity}</Badge>
+                          {needsReview && <Badge variant="outline" className="text-[9px] text-amber-600 border-amber-300"><Eye className="w-2.5 h-2.5 mr-0.5" />Review</Badge>}
                           <span className="text-[9px] text-muted-foreground">{moment(issue.created_date || issue.detected_at).fromNow()}</span>
                         </div>
                       </div>
@@ -180,7 +216,6 @@ export default function DiagnosisDashboard() {
             </div>
           </div>
 
-          {/* Detail panel */}
           {selected && (
             <div className="lg:col-span-2">
               <Card className="p-5 border border-border/60">
@@ -189,8 +224,10 @@ export default function DiagnosisDashboard() {
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
                       <Badge variant="outline" className={`text-[10px] capitalize ${selected.severity === "critical" ? "text-red-600 border-red-300" : selected.severity === "high" ? "text-orange-600 border-orange-300" : "text-amber-600 border-amber-300"}`}>{selected.severity}</Badge>
                       <Badge variant="secondary" className="text-[10px] capitalize">{selected.category?.replace(/_/g," ")}</Badge>
+                      {requiresHumanReview(selected) && <Badge variant="outline" className="text-[10px] text-amber-600 border-amber-300"><Eye className="w-3 h-3 mr-1" />Review Required</Badge>}
                     </div>
                     <h2 className="text-sm font-bold">{selected.title}</h2>
+                    <div className="mt-2 text-xs text-muted-foreground">Risk Score: <span className="font-semibold">{calculateRiskScore(selected)}/100</span></div>
                   </div>
                   <div className="flex gap-2">
                     <Button size="sm" variant="outline" className="h-7 text-xs text-emerald-600 border-emerald-200" onClick={() => resolve(selected)}>Resolve</Button>
@@ -211,7 +248,6 @@ export default function DiagnosisDashboard() {
                   </div>
                 )}
 
-                {/* Linked improvements */}
                 {(() => {
                   const linked = improvements.filter(i => i.diagnostic_issue_id === selected.id || (i.affected_modules || []).some(m => (selected.affected_modules || []).includes(m)));
                   return linked.length > 0 ? (
