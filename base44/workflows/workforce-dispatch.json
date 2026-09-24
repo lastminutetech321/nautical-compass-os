@@ -1,0 +1,135 @@
+{
+  "name": "Workforce Dispatch Workflow",
+  "description": "Orchestrates task distribution across 55 AI agents via Workforce Activator",
+  "version": "1.0.0",
+  "trigger": {
+    "type": "manual",
+    "schedule": null
+  },
+  "steps": [
+    {
+      "id": "initialize_dispatch",
+      "type": "function",
+      "function": "workforce-activator-init",
+      "description": "Initialize workforce activator and validate agent readiness",
+      "params": {
+        "validate_agents": true,
+        "required_agent_count": 55
+      },
+      "on_error": "abort"
+    },
+    {
+      "id": "load_task_queues",
+      "type": "function",
+      "function": "load-pending-tasks",
+      "description": "Load pending tasks from all priority queues",
+      "params": {
+        "queue_types": ["high_priority", "medium_priority", "low_priority", "background"]
+      },
+      "on_error": "retry"
+    },
+    {
+      "id": "dispatch_high_priority",
+      "type": "function",
+      "function": "dispatch-tasks",
+      "description": "Dispatch high priority tasks to agents 1-5, 21-25, 36-40",
+      "params": {
+        "queue": "high_priority",
+        "agent_pool": ["agent_1", "agent_2", "agent_3", "agent_4", "agent_5", "agent_21", "agent_22", "agent_23", "agent_24", "agent_25", "agent_36", "agent_37", "agent_38", "agent_39", "agent_40"],
+        "batch_size": 5
+      },
+      "depends_on": ["load_task_queues"],
+      "on_error": "continue"
+    },
+    {
+      "id": "dispatch_medium_priority",
+      "type": "function",
+      "function": "dispatch-tasks",
+      "description": "Dispatch medium priority tasks to agents 6-10, 16-20, 41-45",
+      "params": {
+        "queue": "medium_priority",
+        "agent_pool": ["agent_6", "agent_7", "agent_8", "agent_9", "agent_10", "agent_16", "agent_17", "agent_18", "agent_19", "agent_20", "agent_41", "agent_42", "agent_43", "agent_44", "agent_45"],
+        "batch_size": 5
+      },
+      "depends_on": ["load_task_queues"],
+      "on_error": "continue"
+    },
+    {
+      "id": "dispatch_low_priority",
+      "type": "function",
+      "function": "dispatch-tasks",
+      "description": "Dispatch low priority tasks to agents 11-15, 26-30, 51-55",
+      "params": {
+        "queue": "low_priority",
+        "agent_pool": ["agent_11", "agent_12", "agent_13", "agent_14", "agent_15", "agent_26", "agent_27", "agent_28", "agent_29", "agent_30", "agent_51", "agent_52", "agent_53", "agent_54", "agent_55"],
+        "batch_size": 5
+      },
+      "depends_on": ["load_task_queues"],
+      "on_error": "continue"
+    },
+    {
+      "id": "dispatch_background",
+      "type": "function",
+      "function": "dispatch-tasks",
+      "description": "Dispatch background tasks to agents 31-35, 46-50",
+      "params": {
+        "queue": "background",
+        "agent_pool": ["agent_31", "agent_32", "agent_33", "agent_34", "agent_35", "agent_46", "agent_47", "agent_48", "agent_49", "agent_50"],
+        "batch_size": 5
+      },
+      "depends_on": ["load_task_queues"],
+      "on_error": "continue"
+    },
+    {
+      "id": "monitor_execution",
+      "type": "function",
+      "function": "monitor-agent-execution",
+      "description": "Monitor agent execution and collect metrics",
+      "params": {
+        "poll_interval_seconds": 10,
+        "max_wait_seconds": 300
+      },
+      "depends_on": ["dispatch_high_priority", "dispatch_medium_priority", "dispatch_low_priority", "dispatch_background"],
+      "on_error": "continue"
+    },
+    {
+      "id": "collect_results",
+      "type": "function",
+      "function": "collect-execution-results",
+      "description": "Collect results from all agent executions",
+      "params": {
+        "include_metrics": true,
+        "include_errors": true
+      },
+      "depends_on": ["monitor_execution"],
+      "on_error": "retry"
+    },
+    {
+      "id": "generate_report",
+      "type": "function",
+      "function": "generate-dispatch-report",
+      "description": "Generate workforce dispatch execution report",
+      "params": {
+        "include_agent_performance": true,
+        "include_queue_stats": true,
+        "export_format": "json"
+      },
+      "depends_on": ["collect_results"],
+      "on_error": "continue"
+    }
+  ],
+  "on_complete": {
+    "notify": true,
+    "notification_channels": ["email", "dashboard"],
+    "archive_results": true
+  },
+  "on_failure": {
+    "notify": true,
+    "notification_channels": ["email", "dashboard", "slack"],
+    "retry_policy": {
+      "enabled": true,
+      "max_retries": 2,
+      "backoff_seconds": 60
+    }
+  }
+}
