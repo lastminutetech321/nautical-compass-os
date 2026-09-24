@@ -1,0 +1,21 @@
+{
+  "name": "verify-canon-bulk",
+  "description": "Bulk verifies all pending Canon entries to unblock JurisEngine",
+  "trigger": "manual",
+  "steps": [
+    {
+      "id": "verify_entries",
+      "type": "function",
+      "function": "verify-pending-canon-entries",
+      "input": {}
+    },
+    {
+      "id": "log_results",
+      "type": "function",
+      "function": "log-canon-verification",
+      "input": {
+        "verification_results": "{{steps.verify_entries.output}}"
+      }
+    }
+  ]
+}

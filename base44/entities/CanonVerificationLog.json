@@ -1,0 +1,45 @@
+{
+  "name": "CanonVerificationLog",
+  "fields": [
+    {
+      "name": "verification_date",
+      "type": "datetime",
+      "required": true
+    },
+    {
+      "name": "verified_count",
+      "type": "number",
+      "required": true
+    },
+    {
+      "name": "total_pending",
+      "type": "number",
+      "required": true
+    },
+    {
+      "name": "verified_ids",
+      "type": "json",
+      "required": false
+    },
+    {
+      "name": "errors",
+      "type": "json",
+      "required": false
+    },
+    {
+      "name": "triggered_by",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "success",
+      "type": "boolean",
+      "required": true
+    },
+    {
+      "name": "message",
+      "type": "text",
+      "required": false
+    }
+  ]
+}
