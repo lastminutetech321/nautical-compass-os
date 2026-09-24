@@ -1,0 +1,17 @@
+{
+  "name": "LegalCase",
+  "description": "Legal case records discovered via CourtListener or manually entered for client legal assistance",
+  "fields": [
+    {"name": "case_name", "type": "text", "required": true},
+    {"name": "case_number", "type": "text", "required": true},
+    {"name": "court", "type": "text", "required": true},
+    {"name": "filing_date", "type": "date", "required": false},
+    {"name": "status", "type": "select", "options": ["active", "closed", "pending", "dismissed", "settled"], "required": true, "default": "active"},
+    {"name": "client_name", "type": "text", "required": true},
+    {"name": "client_phone", "type": "phone", "required": false},
+    {"name": "case_type", "type": "text", "required": false},
+    {"name": "source_url", "type": "url", "required": false},
+    {"name": "courtlistener_id", "type": "text", "required": false},
+    {"name": "metadata", "type": "json", "required": false}
+  ]
+}
