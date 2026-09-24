@@ -1,0 +1,75 @@
+{
+  "name": "resource_issues",
+  "displayName": "Resource Issues",
+  "description": "Issues identified by Resource Compass requiring resolution",
+  "icon": "alert-triangle",
+  "fields": [
+    {
+      "name": "resource_id",
+      "type": "text",
+      "required": true,
+      "description": "ID of the affected resource"
+    },
+    {
+      "name": "issue_type",
+      "type": "select",
+      "required": true,
+      "options": [
+        "allocation_imbalance",
+        "capacity_exceeded",
+        "underutilization",
+        "compliance_violation",
+        "performance_degradation"
+      ],
+      "description": "Type of resource issue"
+    },
+    {
+      "name": "severity",
+      "type": "select",
+      "required": true,
+      "options": ["critical", "high", "medium", "low"],
+      "description": "Issue severity level"
+    },
+    {
+      "name": "status",
+      "type": "select",
+      "required": true,
+      "options": ["detected", "resolving", "resolved", "dismissed"],
+      "default": "detected",
+      "description": "Current issue status"
+    },
+    {
+      "name": "description",
+      "type": "longtext",
+      "required": true,
+      "description": "Detailed issue description"
+    },
+    {
+      "name": "context",
+      "type": "json",
+      "description": "Additional context data for the issue"
+    },
+    {
+      "name": "detected_at",
+      "type": "datetime",
+      "required": true,
+      "description": "When the issue was detected"
+    },
+    {
+      "name": "resolution_started_at",
+      "type": "datetime",
+      "description": "When resolution process began"
+    },
+    {
+      "name": "resolved_at",
+      "type": "datetime",
+      "description": "When issue was fully resolved"
+    },
+    {
+      "name": "resolution_task_count",
+      "type": "number",
+      "default": 0,
+      "description": "Number of resolution tasks created"
+    }
+  ]
+}

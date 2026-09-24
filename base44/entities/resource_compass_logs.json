@@ -1,0 +1,60 @@
+{
+  "name": "resource_compass_logs",
+  "displayName": "Resource Compass Logs",
+  "description": "Event logs for Resource Compass resolution activities",
+  "icon": "file-text",
+  "fields": [
+    {
+      "name": "event_type",
+      "type": "select",
+      "required": true,
+      "options": [
+        "resolution_dispatched",
+        "task_started",
+        "task_completed",
+        "task_failed",
+        "issue_resolved",
+        "automation_executed"
+      ],
+      "description": "Type of event logged"
+    },
+    {
+      "name": "issue_id",
+      "type": "reference",
+      "entity": "resource_issues",
+      "description": "Related resource issue"
+    },
+    {
+      "name": "task_id",
+      "type": "reference",
+      "entity": "resolution_tasks",
+      "description": "Related resolution task"
+    },
+    {
+      "name": "resource_id",
+      "type": "text",
+      "description": "ID of affected resource"
+    },
+    {
+      "name": "task_count",
+      "type": "number",
+      "description": "Number of tasks (for dispatch events)"
+    },
+    {
+      "name": "automated_count",
+      "type": "number",
+      "description": "Number of automated tasks"
+    },
+    {
+      "name": "details",
+      "type": "json",
+      "description": "Additional event details"
+    },
+    {
+      "name": "timestamp",
+      "type": "datetime",
+      "required": true,
+      "description": "Event timestamp"
+    }
+  ]
+}
