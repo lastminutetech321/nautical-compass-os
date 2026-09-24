@@ -1,0 +1,21 @@
+{
+  "name": "juris_resolution_task",
+  "label": "JurisEngine Resolution Task",
+  "description": "Tracks legal research and precedent analysis tasks dispatched by JurisEngine",
+  "fields": [
+    {"name": "module", "type": "text", "label": "Module", "required": true, "default": "JurisEngine"},
+    {"name": "action", "type": "text", "label": "Action", "required": true},
+    {"name": "task_type", "type": "select", "label": "Task Type", "required": true, "options": ["precedent_analysis", "jurisdiction_mapping", "statute_citation", "case_law_review", "conflict_resolution"]},
+    {"name": "priority", "type": "number", "label": "Priority", "required": true, "default": 2},
+    {"name": "status", "type": "select", "label": "Status", "required": true, "options": ["pending", "queued", "in_progress", "completed", "failed", "cancelled"], "default": "pending"},
+    {"name": "context", "type": "longtext", "label": "Context (JSON)"},
+    {"name": "assigned_to", "type": "text", "label": "Assigned To"},
+    {"name": "result", "type": "longtext", "label": "Result (JSON)"},
+    {"name": "metadata", "type": "json", "label": "Metadata"},
+    {"name": "created_at", "type": "datetime", "label": "Created At", "required": true},
+    {"name": "started_at", "type": "datetime", "label": "Started At"},
+    {"name": "completed_at", "type": "datetime", "label": "Completed At"}
+  ],
+  "primaryKey": "id",
+  "timestamps": true
+}
