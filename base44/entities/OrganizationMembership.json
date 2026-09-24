@@ -1,0 +1,98 @@
+{
+  "name": "OrganizationMembership",
+  "description": "AUTHORITATIVE SOURCE for organization access. Links users to organizations with verified roles. NO entity may bypass this table for org claims.",
+  "fields": [
+    {
+      "name": "id",
+      "type": "uuid",
+      "primary": true,
+      "description": "Unique membership record ID"
+    },
+    {
+      "name": "user_id",
+      "type": "uuid",
+      "required": true,
+      "indexed": true,
+      "description": "Reference to auth user"
+    },
+    {
+      "name": "organization_id",
+      "type": "uuid",
+      "required": true,
+      "indexed": true,
+      "description": "Reference to Organization entity"
+    },
+    {
+      "name": "role",
+      "type": "text",
+      "required": true,
+      "enum": ["owner", "admin", "member", "guest"],
+      "description": "User role within organization"
+    },
+    {
+      "name": "status",
+      "type": "text",
+      "required": true,
+      "enum": ["active", "pending", "suspended", "revoked"],
+      "default": "pending",
+      "indexed": true,
+      "description": "Membership state. Only 'active' grants access."
+    },
+    {
+      "name": "verified_at",
+      "type": "timestamp",
+      "nullable": true,
+      "description": "Timestamp when membership was verified by owner/admin or domain. NULL = unverified."
+    },
+    {
+      "name": "pilot_enrollment",
+      "type": "boolean",
+      "default": false,
+      "description": "True if created via open pilot signup"
+    },
+    {
+      "name": "invited_by",
+      "type": "uuid",
+      "nullable": true,
+      "description": "User ID who sent the invitation (if applicable)"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "default": "now()"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp",
+      "default": "now()"
+    }
+  ],
+  "indexes": [
+    {
+      "name": "idx_orgmembership_user_org",
+      "fields": ["user_id", "organization_id"],
+      "unique": true,
+      "description": "Prevent duplicate memberships"
+    },
+    {
+      "name": "idx_orgmembership_active",
+      "fields": ["status", "verified_at"],
+      "description": "Fast lookup of verified active memberships"
+    }
+  ],
+  "row_level_security": {
+    "enabled": true,
+    "policies": [
+      {
+        "name": "Users can view their own memberships",
+        "operation": "SELECT",
+        "check": "auth.uid() = user_id"
+      },
+      {
+        "name": "Admins can manage memberships for their org",
+        "operation": "ALL",
+        "check": "EXISTS (SELECT 1 FROM OrganizationMembership WHERE organization_id = OrganizationMembership.organization_id AND user_id = auth.uid() AND role IN ('owner', 'admin') AND status = 'active' AND verified_at IS NOT NULL)"
+      }
+    ]
+  }
+}
