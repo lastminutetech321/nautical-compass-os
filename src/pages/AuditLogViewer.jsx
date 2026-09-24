@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Shield, Search, Filter, Eye, Download, RefreshCw } from "lucide-react";
+import { Shield, Search, Filter, Eye, Download, RefreshCw, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -33,37 +33,92 @@ export default function AuditLogViewer() {
   const [catFilter, setCatFilter] = useState("all");
   const [riskFilter, setRiskFilter] = useState("all");
   const [search, setSearch] = useState("");
+  const [integrityWarnings, setIntegrityWarnings] = useState([]);
+  const [lastLoadTime, setLastLoadTime] = useState(null);
+
+  const verifyIntegrity = (logData) => {
+    const warnings = [];
+    const now = new Date();
+    const sortedLogs = [...logData].sort((a, b) => new Date(a.created_date) - new Date(b.created_date));
+    for (let i = 0; i < sortedLogs.length - 1; i++) {
+      const current = new Date(sortedLogs[i].created_date);
+      const next = new Date(sortedLogs[i + 1].created_date);
+      if (next < current) {
+        warnings.push({ type: "temporal_anomaly", message: "Log entries with out-of-sequence timestamps detected", severity: "high" });
+        break;
+      }
+    }
+    const missingFields = logData.filter(l => !l.action || !l.action_category || !l.actor_name);
+    if (missingFields.length > 0) {
+      warnings.push({ type: "missing_fields", message: `${missingFields.length} log entries with incomplete data`, severity: "medium" });
+    }
+    const actorCounts = {};
+    logData.forEach(l => {
+      const actor = l.actor_name || "unknown";
+      actorCounts[actor] = (actorCounts[actor] || 0) + 1;
+    });
+    const suspiciousActors = Object.entries(actorCounts).filter(([actor, count]) => count > 100);
+    if (suspiciousActors.length > 0) {
+      warnings.push({ type: "high_volume", message: `Unusual activity volume from ${suspiciousActors.length} actor(s)`, severity: "medium" });
+    }
+    if (logData.length > 0) {
+      const recentCritical = logData.filter(l => (l.risk_level === "critical" || l.risk_level === "high") && (now - new Date(l.created_date)) < 24 * 60 * 60 * 1000);
+      if (recentCritical.length > 10) {
+        warnings.push({ type: "high_risk_spike", message: `${recentCritical.length} high-risk actions in last 24h`, severity: "critical" });
+      }
+    }
+    return warnings;
+  };
 
   const load = async () => {
     setLoading(true);
-    const data = await base44.entities.AuditLog.list("-created_date", 500).catch(() => []);
-    setLogs(data);
-    setLoading(false);
+    try {
+      const data = await base44.entities.AuditLog.list("-created_date", 500);
+      const warnings = verifyIntegrity(data);
+      setLogs(data);
+      setIntegrityWarnings(warnings);
+      setLastLoadTime(new Date());
+    } catch (error) {
+      console.error("Failed to load audit logs:", error);
+      setLogs([]);
+      setIntegrityWarnings([{ type: "load_error", message: "Failed to load audit logs", severity: "critical" }]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => { load(); }, []);
 
-  const logAction = async (action, category, entity_type = "", entity_name = "", risk = "low") => {
-    const user = await base44.auth.me().catch(() => null);
-    await base44.entities.AuditLog.create({
-      action, action_category: category, entity_type, entity_name,
-      actor_id: user?.id, actor_name: user?.full_name || user?.email,
-      actor_role: user?.role, risk_level: risk,
-    });
-    load();
+  const logAction = async (action, category, entity_type = "", entity_name = "", risk = "low", details = null) => {
+    try {
+      const user = await base44.auth.me().catch(() => null);
+      const logEntry = { action, action_category: category, entity_type, entity_name, actor_id: user?.id, actor_name: user?.full_name || user?.email || "System", actor_role: user?.role || "unknown", risk_level: risk, details: details ? JSON.stringify(details) : null, created_date: new Date().toISOString() };
+      await base44.entities.AuditLog.create(logEntry);
+      load();
+    } catch (error) {
+      console.error("Failed to create audit log:", error);
+    }
   };
 
   const seedSampleLogs = async () => {
     const user = await base44.auth.me().catch(() => null);
-    const samples = [
-      { action: "Ran Self-Diagnosis scan", action_category: "create", entity_type: "DiagnosticIssue", entity_name: "Platform Scan", actor_name: user?.full_name || "System", risk_level: "low" },
-      { action: "Approved ImprovementItem: Populate NC Canon", action_category: "approve", entity_type: "ImprovementItem", entity_name: "Populate NC Canon", actor_name: user?.full_name || "Founder", risk_level: "medium" },
-      { action: "Updated BuildRegistry: JurisEngine", action_category: "update", entity_type: "BuildRegistry", entity_name: "JurisEngine", actor_name: user?.full_name || "Founder", risk_level: "low" },
-      { action: "Created Canon Entry: 42 U.S.C. § 1983", action_category: "create", entity_type: "CanonEntry", entity_name: "42 U.S.C. § 1983", actor_name: user?.full_name || "Founder", risk_level: "medium" },
-      { action: "Generated Executive Briefing 2.0", action_category: "create", entity_type: "DailyBriefing", entity_name: "Executive Briefing", actor_name: "NCOS Intelligence", risk_level: "low" },
-    ];
+    const samples = [ { action: "Ran Self-Diagnosis scan", action_category: "create", entity_type: "DiagnosticIssue", entity_name: "Platform Scan", actor_name: user?.full_name || "System", risk_level: "low" }, { action: "Approved ImprovementItem: Populate NC Canon", action_category: "approve", entity_type: "ImprovementItem", entity_name: "Populate NC Canon", actor_name: user?.full_name || "Founder", risk_level: "medium" }, { action: "Updated BuildRegistry: JurisEngine", action_category: "update", entity_type: "BuildRegistry", entity_name: "JurisEngine", actor_name: user?.full_name || "Founder", risk_level: "low" }, { action: "Created Canon Entry: 42 U.S.C. § 1983", action_category: "create", entity_type: "CanonEntry", entity_name: "42 U.S.C. § 1983", actor_name: user?.full_name || "Founder", risk_level: "medium" }, { action: "Generated Executive Briefing 2.0", action_category: "create", entity_type: "DailyBriefing", entity_name: "Executive Briefing", actor_name: "NCOS Intelligence", risk_level: "low" } ];
     await Promise.all(samples.map(s => base44.entities.AuditLog.create(s)));
     load();
+  };
+
+  const exportLogs = () => {
+    const escapeCSV = (str) => `"${String(str || '').replace(/"/g, '""')}"`;
+    const csv = [ ["Timestamp", "Action", "Category", "Actor", "Role", "Entity Type", "Entity Name", "Risk Level"].join(","), ...filtered.map(l => [ l.created_date, escapeCSV(l.action), l.action_category, escapeCSV(l.actor_name), l.actor_role || "", l.entity_type || "", escapeCSV(l.entity_name), l.risk_level || "low" ].join(",")) ].join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `audit-log-${moment().format("YYYY-MM-DD-HHmm")}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   const filtered = logs.filter(l => {
@@ -82,134 +137,38 @@ export default function AuditLogViewer() {
       <div className="flex items-start justify-between mb-6 flex-wrap gap-3">
         <div>
           <p className="text-xs text-muted-foreground uppercase tracking-widest font-semibold mb-1">NCOS · Enterprise Infrastructure</p>
-          <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2">
-            <Shield className="w-6 h-6 text-primary" />Audit Log
-          </h1>
+          <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2"><Shield className="w-6 h-6 text-primary" />Audit Log</h1>
           <p className="text-sm text-muted-foreground">Immutable record of all platform actions, approvals, and changes</p>
+          {lastLoadTime && (<p className="text-xs text-muted-foreground mt-1">Last verified: {moment(lastLoadTime).format("MMM D, h:mm A")}</p>)}
         </div>
         <div className="flex gap-2">
-          <Button size="sm" variant="outline" onClick={load} className="gap-1.5 text-xs">
-            <RefreshCw className="w-3.5 h-3.5" />Refresh
-          </Button>
-          {logs.length === 0 && (
-            <Button size="sm" variant="outline" onClick={seedSampleLogs} className="text-xs">Seed Sample Logs</Button>
-          )}
+          <Button size="sm" variant="outline" onClick={exportLogs} disabled={filtered.length === 0} className="gap-1.5 text-xs"><Download className="w-3.5 h-3.5" />Export CSV</Button>
+          <Button size="sm" variant="outline" onClick={load} className="gap-1.5 text-xs"><RefreshCw className="w-3.5 h-3.5" />Refresh</Button>
+          {logs.length === 0 && (<Button size="sm" variant="outline" onClick={seedSampleLogs} className="text-xs">Seed Sample Logs</Button>)}
         </div>
       </div>
 
-      {critCount > 0 && (
-        <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-800">
-          ⚠ {critCount} high-risk actions in log. Review recommended.
-        </div>
-      )}
+      {integrityWarnings.length > 0 && (<div className="mb-4 space-y-2">{integrityWarnings.map((warning, idx) => (<div key={idx} className={`p-3 rounded-lg text-xs flex items-start gap-2 ${warning.severity === "critical" ? "bg-red-50 border border-red-200 text-red-800" : warning.severity === "high" ? "bg-orange-50 border border-orange-200 text-orange-800" : "bg-amber-50 border border-amber-200 text-amber-800"}`}><AlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0" /><div><p className="font-semibold">{warning.severity.toUpperCase()} - Integrity Warning</p><p>{warning.message}</p></div></div>))}</div>)}
 
-      {/* Stats */}
+      {critCount > 0 && (<div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-800">⚠ {critCount} high-risk actions in log. Review recommended.</div>)}
+
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
-        {[
-          { label: "Total Actions", value: logs.length },
-          { label: "High Risk", value: logs.filter(l=>l.risk_level==="critical"||l.risk_level==="high").length },
-          { label: "Canon Changes", value: logs.filter(l=>l.action_category==="canon_change").length },
-          { label: "Approvals", value: logs.filter(l=>l.action_category==="approve"||l.action_category==="reject").length },
-        ].map(k => (
-          <Card key={k.label} className="p-3 border border-border/60">
-            <p className="text-xs text-muted-foreground mb-1">{k.label}</p>
-            <p className="text-2xl font-bold">{k.value}</p>
-          </Card>
-        ))}
+        {[ { label: "Total Actions", value: logs.length }, { label: "High Risk", value: logs.filter(l=>l.risk_level==="critical"||l.risk_level==="high").length }, { label: "Canon Changes", value: logs.filter(l=>l.action_category==="canon_change").length }, { label: "Approvals", value: logs.filter(l=>l.action_category==="approve"||l.action_category==="reject").length } ].map(k => (<Card key={k.label} className="p-3 border border-border/60"><p className="text-xs text-muted-foreground mb-1">{k.label}</p><p className="text-2xl font-bold">{k.value}</p></Card>))}
       </div>
 
-      {/* Filters */}
       <div className="flex gap-2 mb-4 flex-wrap">
-        <div className="relative flex-1 min-w-[200px]">
-          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
-          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search actions, entities, actors..." className="w-full pl-8 pr-3 py-1.5 text-xs border rounded-md bg-background" />
-        </div>
-        <Select value={catFilter} onValueChange={setCatFilter}>
-          <SelectTrigger className="h-8 text-xs w-36"><SelectValue /></SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Actions</SelectItem>
-            {["create","update","delete","approve","reject","deploy","canon_change","payment","agent_action"].map(c => (
-              <SelectItem key={c} value={c} className="text-xs capitalize">{c.replace(/_/g," ")}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Select value={riskFilter} onValueChange={setRiskFilter}>
-          <SelectTrigger className="h-8 text-xs w-28"><SelectValue /></SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Risk</SelectItem>
-            {["low","medium","high","critical"].map(r => <SelectItem key={r} value={r} className="text-xs capitalize">{r}</SelectItem>)}
-          </SelectContent>
-        </Select>
+        <div className="relative flex-1 min-w-[200px]"><Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" /><input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search actions, entities, actors..." className="w-full pl-8 pr-3 py-1.5 text-xs border rounded-md bg-background" /></div>
+        <Select value={catFilter} onValueChange={setCatFilter}><SelectTrigger className="h-8 text-xs w-36"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All Actions</SelectItem>{["create","update","delete","approve","reject","deploy","canon_change","payment","agent_action"].map(c => (<SelectItem key={c} value={c} className="text-xs capitalize">{c.replace(/_/g," ")}</SelectItem>))}</SelectContent></Select>
+        <Select value={riskFilter} onValueChange={setRiskFilter}><SelectTrigger className="h-8 text-xs w-28"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All Risk</SelectItem>{["low","medium","high","critical"].map(r => <SelectItem key={r} value={r} className="text-xs capitalize">{r}</SelectItem>)}</SelectContent></Select>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        {/* Log list */}
         <div className="lg:col-span-2 space-y-1.5 max-h-[calc(100vh-20rem)] overflow-y-auto pr-1">
-          {filtered.length === 0 ? (
-            <div className="text-center py-16 border border-dashed border-border rounded-xl">
-              <Shield className="w-10 h-10 mx-auto mb-3 text-muted-foreground opacity-30" />
-              <p className="text-sm text-muted-foreground">No audit logs yet. Actions taken in NCOS are recorded here.</p>
-            </div>
-          ) : filtered.map(l => (
-            <button key={l.id} onClick={() => setSelected(l)}
-              className={`w-full text-left px-3 py-2.5 rounded-lg border transition-all ${selected?.id === l.id ? "bg-primary/10 border-primary/30" : "border-border/40 hover:bg-muted"}`}>
-              <div className="flex items-start gap-2">
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap mb-0.5">
-                    <span className={`text-[9px] px-1.5 py-0.5 rounded font-medium ${categoryColor[l.action_category] || "bg-slate-50 text-slate-700"}`}>{l.action_category}</span>
-                    {l.risk_level && l.risk_level !== "low" && (
-                      <Badge variant="outline" className={`text-[9px] ${riskColor[l.risk_level]}`}>{l.risk_level}</Badge>
-                    )}
-                  </div>
-                  <p className="text-xs font-medium line-clamp-1">{l.action}</p>
-                  <div className="flex items-center gap-2 mt-0.5">
-                    <span className="text-[10px] text-muted-foreground">{l.actor_name || "System"}</span>
-                    <span className="text-[10px] text-muted-foreground">·</span>
-                    <span className="text-[10px] text-muted-foreground">{moment(l.created_date).fromNow()}</span>
-                  </div>
-                </div>
-              </div>
-            </button>
-          ))}
+          {filtered.length === 0 ? (<div className="text-center py-16 border border-dashed border-border rounded-xl"><Shield className="w-10 h-10 mx-auto mb-3 text-muted-foreground opacity-30" /><p className="text-sm text-muted-foreground">No audit logs yet. Actions taken in NCOS are recorded here.</p></div>) : filtered.map(l => (<button key={l.id} onClick={() => setSelected(l)} className={`w-full text-left px-3 py-2.5 rounded-lg border transition-all ${selected?.id === l.id ? "bg-primary/10 border-primary/30" : "border-border/40 hover:bg-muted"}`}><div className="flex items-start gap-2"><div className="flex-1 min-w-0"><div className="flex items-center gap-2 flex-wrap mb-0.5"><span className={`text-[9px] px-1.5 py-0.5 rounded font-medium ${categoryColor[l.action_category] || "bg-slate-50 text-slate-700"}`}>{l.action_category}</span>{l.risk_level && l.risk_level !== "low" && (<Badge variant="outline" className={`text-[9px] ${riskColor[l.risk_level]}`}>{l.risk_level}</Badge>)}</div><p className="text-xs font-medium line-clamp-1">{l.action}</p><div className="flex items-center gap-2 mt-0.5"><span className="text-[10px] text-muted-foreground">{l.actor_name || "System"}</span><span className="text-[10px] text-muted-foreground">·</span><span className="text-[10px] text-muted-foreground">{moment(l.created_date).fromNow()}</span></div></div></div></button>))}
         </div>
 
-        {/* Detail panel */}
         <div className="lg:col-span-1">
-          {selected ? (
-            <Card className="p-4 border border-border/60 sticky top-4">
-              <div className="flex items-center justify-between mb-3">
-                <p className="text-xs font-bold text-muted-foreground uppercase">Log Detail</p>
-                <Badge variant="outline" className={`text-[9px] ${riskColor[selected.risk_level] || ""}`}>{selected.risk_level || "low"} risk</Badge>
-              </div>
-              <p className="text-sm font-semibold mb-3 leading-tight">{selected.action}</p>
-              <dl className="space-y-2 text-xs">
-                {[
-                  ["Category", selected.action_category?.replace(/_/g," ")],
-                  ["Actor", selected.actor_name],
-                  ["Role", selected.actor_role],
-                  ["Entity Type", selected.entity_type],
-                  ["Entity", selected.entity_name],
-                  ["Time", moment(selected.created_date).format("MMM D, YYYY h:mm A")],
-                ].filter(([,v]) => v).map(([k, v]) => (
-                  <div key={k} className="flex justify-between gap-2">
-                    <dt className="text-muted-foreground">{k}</dt>
-                    <dd className="font-medium text-right truncate max-w-[60%]">{v}</dd>
-                  </div>
-                ))}
-              </dl>
-              {selected.details && (
-                <div className="mt-3 pt-3 border-t border-border/40">
-                  <p className="text-[10px] text-muted-foreground mb-1 uppercase font-semibold">Details</p>
-                  <pre className="text-[10px] bg-muted rounded p-2 overflow-auto max-h-24">{JSON.stringify(selected.details, null, 2)}</pre>
-                </div>
-              )}
-            </Card>
-          ) : (
-            <div className="text-center py-10 border border-dashed border-border rounded-xl">
-              <Eye className="w-8 h-8 mx-auto mb-2 text-muted-foreground opacity-30" />
-              <p className="text-xs text-muted-foreground">Select a log entry to view details</p>
-            </div>
-          )}
+          {selected ? (<Card className="p-4 border border-border/60 sticky top-4"><div className="flex items-center justify-between mb-3"><p className="text-xs font-bold text-muted-foreground uppercase">Log Detail</p><Badge variant="outline" className={`text-[9px] ${riskColor[selected.risk_level] || ""}`}>{selected.risk_level || "low"} risk</Badge></div><p className="text-sm font-semibold mb-3 leading-tight">{selected.action}</p><dl className="space-y-2 text-xs">{[ ["Category", selected.action_category?.replace(/_/g," ")], ["Actor", selected.actor_name], ["Role", selected.actor_role], ["Entity Type", selected.entity_type], ["Entity", selected.entity_name], ["Time", moment(selected.created_date).format("MMM D, YYYY h:mm A")] ].filter(([,v]) => v).map(([k, v]) => (<div key={k} className="flex justify-between gap-2"><dt className="text-muted-foreground">{k}</dt><dd className="font-medium text-right truncate max-w-[60%]">{v}</dd></div>))}</dl>{selected.details && (<div className="mt-3 pt-3 border-t border-border/40"><p className="text-[10px] text-muted-foreground mb-1 uppercase font-semibold">Details</p><pre className="text-[10px] bg-muted rounded p-2 overflow-auto max-h-24">{JSON.stringify(selected.details, null, 2)}</pre></div>)}</Card>) : (<div className="text-center py-10 border border-dashed border-border rounded-xl"><Eye className="w-8 h-8 mx-auto mb-2 text-muted-foreground opacity-30" /><p className="text-xs text-muted-foreground">Select a log entry to view details</p></div>)}
         </div>
       </div>
     </div>
