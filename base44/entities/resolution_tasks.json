@@ -1,0 +1,103 @@
+{
+  "name": "resolution_tasks",
+  "label": "Resolution Tasks",
+  "description": "Self-healing resolution tasks dispatched by the healing engine",
+  "fields": [
+    {
+      "name": "type",
+      "type": "text",
+      "label": "Task Type",
+      "required": true,
+      "validations": {
+        "enum": [
+          "schema_validation",
+          "function_health_check",
+          "data_consistency_repair",
+          "integration_health_check",
+          "workflow_verification",
+          "dependency_update"
+        ]
+      }
+    },
+    {
+      "name": "module",
+      "type": "text",
+      "label": "Module",
+      "required": true,
+      "index": true
+    },
+    {
+      "name": "priority",
+      "type": "text",
+      "label": "Priority",
+      "required": true,
+      "validations": {
+        "enum": ["low", "medium", "high", "critical"]
+      },
+      "index": true
+    },
+    {
+      "name": "status",
+      "type": "text",
+      "label": "Status",
+      "required": true,
+      "default": "pending",
+      "validations": {
+        "enum": ["pending", "in_progress", "completed", "failed", "skipped"]
+      },
+      "index": true
+    },
+    {
+      "name": "payload",
+      "type": "json",
+      "label": "Task Payload",
+      "description": "Task-specific configuration and parameters"
+    },
+    {
+      "name": "result",
+      "type": "json",
+      "label": "Execution Result",
+      "description": "Results and logs from task execution"
+    },
+    {
+      "name": "error_message",
+      "type": "text",
+      "label": "Error Message"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "label": "Created At",
+      "required": true,
+      "index": true
+    },
+    {
+      "name": "started_at",
+      "type": "datetime",
+      "label": "Started At"
+    },
+    {
+      "name": "completed_at",
+      "type": "datetime",
+      "label": "Completed At"
+    },
+    {
+      "name": "retry_count",
+      "type": "number",
+      "label": "Retry Count",
+      "default": 0
+    },
+    {
+      "name": "max_retries",
+      "type": "number",
+      "label": "Max Retries",
+      "default": 3
+    }
+  ],
+  "permissions": {
+    "create": ["system", "admin"],
+    "read": ["system", "admin", "developer"],
+    "update": ["system", "admin"],
+    "delete": ["system", "admin"]
+  }
+}
