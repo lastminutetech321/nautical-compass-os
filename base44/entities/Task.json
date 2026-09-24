@@ -1,0 +1,14 @@
+{
+  "name": "Task",
+  "fields": [
+    {"name": "title", "type": "text", "required": true},
+    {"name": "description", "type": "longtext", "required": false},
+    {"name": "status", "type": "text", "options": ["pending", "assigned", "in_progress", "completed"], "default": "pending"},
+    {"name": "priority", "type": "text", "options": ["low", "medium", "high", "critical"], "default": "medium"},
+    {"name": "complexity", "type": "number", "default": 5},
+    {"name": "required_skills", "type": "text", "required": false},
+    {"name": "assigned_agent_id", "type": "relation", "relation": "Agent", "required": false},
+    {"name": "assigned_at", "type": "datetime", "required": false},
+    {"name": "completed_at", "type": "datetime", "required": false}
+  ]
+}

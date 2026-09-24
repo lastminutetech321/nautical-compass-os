@@ -1,0 +1,69 @@
+{
+  "name": "Workforce Task Dispatch",
+  "description": "Auto-dispatches task queues to 19 agents via Workforce Activator",
+  "trigger": {
+    "type": "manual",
+    "entity": "Task"
+  },
+  "steps": [
+    {
+      "id": "fetch_pending_tasks",
+      "type": "query",
+      "entity": "Task",
+      "filter": {
+        "status": "pending",
+        "assigned_agent_id": null
+      },
+      "limit": 100
+    },
+    {
+      "id": "fetch_active_agents",
+      "type": "query",
+      "entity": "Agent",
+      "filter": {
+        "status": "active",
+        "available": true
+      },
+      "limit": 19
+    },
+    {
+      "id": "dispatch_tasks",
+      "type": "function",
+      "function": "workforce-activator-dispatch",
+      "inputs": {
+        "tasks": "{{steps.fetch_pending_tasks.results}}",
+        "agents": "{{steps.fetch_active_agents.results}}"
+      }
+    },
+    {
+      "id": "update_task_assignments",
+      "type": "foreach",
+      "items": "{{steps.dispatch_tasks.assignments}}",
+      "steps": [
+        {
+          "id": "assign_task",
+          "type": "update",
+          "entity": "Task",
+          "record_id": "{{item.task_id}}",
+          "data": {
+            "assigned_agent_id": "{{item.agent_id}}",
+            "status": "assigned",
+            "assigned_at": "{{now}}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "log_dispatch_summary",
+      "type": "create",
+      "entity": "WorkforceDispatchLog",
+      "data": {
+        "dispatched_at": "{{now}}",
+        "total_tasks": "{{steps.dispatch_tasks.total_tasks}}",
+        "total_agents": "{{steps.dispatch_tasks.total_agents}}",
+        "assignments_made": "{{steps.dispatch_tasks.assignments.length}}",
+        "status": "completed"
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Agent",
+  "fields": [
+    {"name": "name", "type": "text", "required": true},
+    {"name": "status", "type": "text", "options": ["active", "inactive"], "default": "active"},
+    {"name": "available", "type": "boolean", "default": true},
+    {"name": "capacity", "type": "number", "default": 5, "required": true},
+    {"name": "current_workload", "type": "number", "default": 0},
+    {"name": "skills", "type": "text", "required": false},
+    {"name": "performance_score", "type": "number", "default": 75},
+    {"name": "total_tasks_completed", "type": "number", "default": 0}
+  ]
+}
