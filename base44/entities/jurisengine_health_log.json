@@ -1,0 +1,113 @@
+{
+  "name": "jurisengine_health_log",
+  "fields": {
+    "id": {
+      "type": "id",
+      "label": "ID",
+      "required": true
+    },
+    "timestamp": {
+      "type": "datetime",
+      "label": "Timestamp",
+      "required": true,
+      "default": "now"
+    },
+    "module": {
+      "type": "text",
+      "label": "Module Name",
+      "required": true,
+      "default": "JurisEngine"
+    },
+    "health_score": {
+      "type": "number",
+      "label": "Health Score",
+      "required": true,
+      "min": 0,
+      "max": 100
+    },
+    "total_issues": {
+      "type": "number",
+      "label": "Total Issues",
+      "required": true,
+      "default": 0
+    },
+    "high_severity": {
+      "type": "number",
+      "label": "High Severity Issues",
+      "required": true,
+      "default": 0
+    },
+    "medium_severity": {
+      "type": "number",
+      "label": "Medium Severity Issues",
+      "required": true,
+      "default": 0
+    },
+    "low_severity": {
+      "type": "number",
+      "label": "Low Severity Issues",
+      "required": true,
+      "default": 0
+    },
+    "issues": {
+      "type": "json",
+      "label": "Issues Detected",
+      "required": false
+    },
+    "fixes": {
+      "type": "json",
+      "label": "Recommended Fixes",
+      "required": false
+    },
+    "status": {
+      "type": "select",
+      "label": "Status",
+      "required": true,
+      "options": ["healthy", "degraded", "critical", "error"],
+      "default": "healthy"
+    },
+    "auto_fixed": {
+      "type": "boolean",
+      "label": "Auto-Fixed",
+      "required": true,
+      "default": false
+    },
+    "resolution_notes": {
+      "type": "longtext",
+      "label": "Resolution Notes",
+      "required": false
+    },
+    "created_at": {
+      "type": "datetime",
+      "label": "Created At",
+      "required": true,
+      "default": "now"
+    },
+    "updated_at": {
+      "type": "datetime",
+      "label": "Updated At",
+      "required": true,
+      "default": "now"
+    }
+  },
+  "indexes": [
+    {
+      "fields": ["timestamp"],
+      "type": "btree"
+    },
+    {
+      "fields": ["module", "timestamp"],
+      "type": "btree"
+    },
+    {
+      "fields": ["status"],
+      "type": "btree"
+    }
+  ],
+  "permissions": {
+    "create": ["admin", "system"],
+    "read": ["admin", "developer", "system"],
+    "update": ["admin", "system"],
+    "delete": ["admin"]
+  }
+}
