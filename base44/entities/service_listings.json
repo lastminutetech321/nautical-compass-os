@@ -1,0 +1,21 @@
+{
+  "name": "service_listings",
+  "fields": [
+    {"name": "id", "type": "id", "required": true},
+    {"name": "submission_id", "type": "reference", "reference": "business_service_submissions", "required": true},
+    {"name": "review_id", "type": "reference", "reference": "business_service_reviews", "required": true},
+    {"name": "provider_id", "type": "reference", "reference": "users", "required": true},
+    {"name": "business_name", "type": "text", "required": true},
+    {"name": "service_categories", "type": "json", "required": true},
+    {"name": "description", "type": "longtext", "required": true},
+    {"name": "service_areas", "type": "json", "required": true},
+    {"name": "verified_credentials", "type": "json", "required": false},
+    {"name": "verified_insurance", "type": "json", "required": false},
+    {"name": "visibility", "type": "text", "required": true, "default": "private", "validation": {"enum": ["private", "opportunity_only", "public"]}},
+    {"name": "status", "type": "text", "required": true, "default": "active", "validation": {"enum": ["active", "paused", "inactive"]}},
+    {"name": "published_at", "type": "datetime", "required": true, "default": "now"},
+    {"name": "created_at", "type": "datetime", "required": true, "default": "now"},
+    {"name": "updated_at", "type": "datetime", "required": true, "default": "now"}
+  ],
+  "indexes": [{"fields": ["submission_id"]}, {"fields": ["review_id"]}, {"fields": ["provider_id"]}, {"fields": ["visibility"]}, {"fields": ["status"]}]
+}
