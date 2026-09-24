@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Bell, Plus, CheckCircle, AlertTriangle, Clock, Loader2, RefreshCw, Filter } from "lucide-react";
+import { Bell, Plus, CheckCircle, AlertTriangle, Clock, Loader2, RefreshCw, Filter, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -28,6 +28,7 @@ export default function ResourceReminders() {
   const [filter, setFilter] = useState("pending");
   const [formOpen, setFormOpen] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState(null);
   const [form, setForm] = useState({
     title: "", client_name: "", reminder_type: "application_deadline",
     due_date: "", priority: "medium", message: "", days_before_alert: 7
@@ -37,28 +38,92 @@ export default function ResourceReminders() {
 
   const load = () => {
     setLoading(true);
+    setError(null);
     base44.entities.ResourceReminder.list("due_date", 200).then(r => {
-      setReminders(r); setLoading(false);
-    }).catch(() => setLoading(false));
+      // Deduplicate by unique key: client_name + title + due_date
+      const seen = new Map();
+      const unique = [];
+      for (const rem of r) {
+        const key = `${rem.client_name}|${rem.title}|${rem.due_date}`;
+        if (!seen.has(key)) {
+          seen.set(key, true);
+          unique.push(rem);
+        }
+      }
+      setReminders(unique);
+      setLoading(false);
+    }).catch(err => {
+      setError(err.message || "Failed to load reminders");
+      setLoading(false);
+    });
   };
 
   const complete = async (r) => {
-    await base44.entities.ResourceReminder.update(r.id, { status: "completed", completed_at: new Date().toISOString() });
-    load();
+    try {
+      await base44.entities.ResourceReminder.update(r.id, { status: "completed", completed_at: new Date().toISOString() });
+      // Send notification on completion
+      await base44.entities.Notification.create({
+        title: `Reminder Completed: ${r.title}`,
+        message: `Deadline for ${r.client_name} marked as completed.`,
+        type: "success",
+        severity: "low",
+        source_entity_type: "ResourceReminder",
+        source_entity_id: r.id
+      });
+      load();
+    } catch (err) {
+      setError(err.message || "Failed to complete reminder");
+    }
   };
 
   const dismiss = async (r) => {
-    await base44.entities.ResourceReminder.update(r.id, { status: "dismissed" });
-    load();
+    try {
+      await base44.entities.ResourceReminder.update(r.id, { status: "dismissed" });
+      load();
+    } catch (err) {
+      setError(err.message || "Failed to dismiss reminder");
+    }
   };
 
   const save = async (e) => {
     e.preventDefault();
     setSaving(true);
-    await base44.entities.ResourceReminder.create({ ...form, status: "pending", days_before_alert: Number(form.days_before_alert) });
-    setSaving(false); setFormOpen(false);
-    setForm({ title:"",client_name:"",reminder_type:"application_deadline",due_date:"",priority:"medium",message:"",days_before_alert:7 });
-    load();
+    setError(null);
+    try {
+      // Check for duplicate before creating
+      const key = `${form.client_name}|${form.title}|${form.due_date}`;
+      const exists = reminders.some(r => `${r.client_name}|${r.title}|${r.due_date}` === key && r.status === "pending");
+      if (exists) {
+        setError("A pending reminder with the same client, title, and due date already exists.");
+        setSaving(false);
+        return;
+      }
+
+      await base44.entities.ResourceReminder.create({ 
+        ...form, 
+        status: "pending", 
+        days_before_alert: Number(form.days_before_alert) 
+      });
+      
+      // Send notification on creation
+      await base44.entities.Notification.create({
+        title: `New Reminder: ${form.title}`,
+        message: `Reminder for ${form.client_name} due ${moment(form.due_date).format("MMM D, YYYY")}.`,
+        type: form.priority === "critical" ? "warning" : "info",
+        severity: form.priority,
+        source_entity_type: "ResourceReminder",
+        action_url: "/resource-reminders",
+        action_label: "View Reminders"
+      });
+
+      setSaving(false); 
+      setFormOpen(false);
+      setForm({ title:"",client_name:"",reminder_type:"application_deadline",due_date:"",priority:"medium",message:"",days_before_alert:7 });
+      load();
+    } catch (err) {
+      setError(err.message || "Failed to create reminder");
+      setSaving(false);
+    }
   };
 
   const now = new Date();
@@ -73,6 +138,29 @@ export default function ResourceReminders() {
   const overdue = reminders.filter(r => r.status === "pending" && r.due_date && new Date(r.due_date) < now);
   const today = reminders.filter(r => r.status === "pending" && r.due_date && moment(r.due_date).isSame(moment(), "day"));
   const thisWeek = reminders.filter(r => r.status === "pending" && r.due_date && new Date(r.due_date) >= now && new Date(r.due_date) <= new Date(now.getTime() + 7*24*60*60*1000));
+
+  // Send overdue notifications for high/critical priority reminders
+  useEffect(() => {
+    if (!loading && overdue.length > 0) {
+      overdue.forEach(r => {
+        if ((r.priority === "high" || r.priority === "critical") && r.status === "pending") {
+          const daysOverdue = Math.abs(moment(r.due_date).diff(moment(), "days"));
+          if (daysOverdue === 1 || daysOverdue === 3 || daysOverdue === 7) {
+            base44.entities.Notification.create({
+              title: `OVERDUE: ${r.title}`,
+              message: `${r.client_name} deadline was ${daysOverdue} day${daysOverdue > 1 ? 's' : ''} ago (${moment(r.due_date).format("MMM D, YYYY")}).`,
+              type: "warning",
+              severity: r.priority,
+              source_entity_type: "ResourceReminder",
+              source_entity_id: r.id,
+              action_url: "/resource-reminders",
+              action_label: "View Reminder"
+            }).catch(() => {});
+          }
+        }
+      });
+    }
+  }, [overdue, loading]);
 
   if (loading) return <div className="flex items-center justify-center h-64"><Loader2 className="w-6 h-6 animate-spin text-muted-foreground" /></div>;
 
@@ -89,6 +177,20 @@ export default function ResourceReminders() {
           <Button size="sm" onClick={() => setFormOpen(true)}><Plus className="w-4 h-4 mr-1.5" />Add Reminder</Button>
         </div>
       </div>
+
+      {/* Error Banner */}
+      {error && (
+        <Card className="p-3 border-red-200 bg-red-50">
+          <div className="flex items-start gap-2">
+            <XCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <p className="text-sm font-semibold text-red-900">Error</p>
+              <p className="text-xs text-red-700">{error}</p>
+            </div>
+            <Button size="sm" variant="ghost" className="h-6 text-xs" onClick={() => setError(null)}>Dismiss</Button>
+          </div>
+        </Card>
+      )}
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
