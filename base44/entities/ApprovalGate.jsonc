@@ -3,7 +3,9 @@
   "type": "object",
   "properties": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
     },
     "action_type": {
       "type": "string",
@@ -23,16 +25,21 @@
       ]
     },
     "description": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 2000
     },
     "requested_by": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$",
+      "minLength": 1
     },
     "requesting_agent": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "payload_summary": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 5000
     },
     "status": {
       "type": "string",
@@ -55,29 +62,113 @@
       "default": "high"
     },
     "linked_entity_type": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^[A-Z][a-zA-Z0-9]*$"
     },
     "linked_entity_id": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$"
     },
     "reviewed_by": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$"
     },
     "reviewed_at": {
-      "type": "string"
+      "type": "string",
+      "format": "date-time"
     },
     "rejection_reason": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 1000
     },
     "expires_at": {
-      "type": "string"
+      "type": "string",
+      "format": "date-time"
     },
     "notes": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 5000
+    },
+    "authority_envelope": {
+      "type": "object",
+      "properties": {
+        "requester_role": {
+          "type": "string",
+          "enum": ["human", "agent", "system"]
+        },
+        "requester_identity": {
+          "type": "string",
+          "minLength": 1
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ip_address": {
+          "type": "string"
+        },
+        "session_id": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        }
+      },
+      "required": ["requester_role", "requester_identity", "timestamp"]
+    },
+    "approval_chain": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "approver_id": {
+            "type": "string"
+          },
+          "approver_role": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string",
+            "enum": ["approved", "rejected", "delegated"]
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": ["approver_id", "action", "timestamp"]
+      }
+    },
+    "risk_assessment": {
+      "type": "object",
+      "properties": {
+        "financial_impact": {
+          "type": "number"
+        },
+        "data_sensitivity": {
+          "type": "string",
+          "enum": ["public", "internal", "confidential", "restricted"]
+        },
+        "reversibility": {
+          "type": "string",
+          "enum": ["reversible", "partially_reversible", "irreversible"]
+        },
+        "compliance_tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
     }
   },
   "required": [
     "title",
-    "action_type"
+    "action_type",
+    "requested_by",
+    "authority_envelope"
   ]
 }
