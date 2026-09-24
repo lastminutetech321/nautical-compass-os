@@ -1,0 +1,16 @@
+{
+  "name": "ClientOriginationTracking",
+  "fields": [
+    {"name": "tracking_id", "type": "id", "required": true},
+    {"name": "client_user_id", "type": "string", "required": true},
+    {"name": "originator_user_id", "type": "string", "required": true},
+    {"name": "referral_code", "type": "string", "required": false},
+    {"name": "referral_link", "type": "string", "required": false},
+    {"name": "signup_date", "type": "datetime", "required": true},
+    {"name": "total_ncm_earned", "type": "number", "required": false, "default": 0},
+    {"name": "total_commission_paid", "type": "number", "required": false, "default": 0},
+    {"name": "created_at", "type": "datetime", "required": true, "default": "now"},
+    {"name": "updated_at", "type": "datetime", "required": true, "default": "now"},
+    {"name": "feature_flag_phase1_compensation", "type": "boolean", "required": false, "default": false}
+  ]
+}
