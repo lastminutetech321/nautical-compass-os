@@ -1,0 +1,35 @@
+{
+  "name": "Build Registry",
+  "description": "Central registry of all NCOS builds tracking deployment status, health, and metadata",
+  "trigger": "manual",
+  "steps": [
+    {
+      "id": "initialize_registry",
+      "type": "function",
+      "function": "initialize-build-registry",
+      "description": "Create or update build registry entries"
+    },
+    {
+      "id": "health_check",
+      "type": "function",
+      "function": "check-build-health",
+      "description": "Verify build health and dependencies"
+    },
+    {
+      "id": "update_metadata",
+      "type": "function",
+      "function": "update-build-metadata",
+      "description": "Sync build metadata with deployment state"
+    }
+  ],
+  "outputs": [
+    "registry_status",
+    "health_report",
+    "metadata_snapshot"
+  ],
+  "metadata": {
+    "version": "1.1.0",
+    "last_updated": "2025-01-21",
+    "owner": "platform-engineering"
+  }
+}
