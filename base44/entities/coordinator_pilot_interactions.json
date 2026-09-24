@@ -1,0 +1,73 @@
+{
+  "name": "coordinator_pilot_interactions",
+  "label": "Coordinator Pilot Interactions",
+  "description": "Logs every interaction with Brian Casto during the coordinator pilot program — questions, friction points, resolutions, and lessons learned.",
+  "icon": "clipboard-list",
+  "fields": [
+    {
+      "name": "pilot_name",
+      "type": "text",
+      "label": "Pilot Name",
+      "required": true,
+      "default": "Brian Casto"
+    },
+    {
+      "name": "timestamp",
+      "type": "datetime",
+      "label": "Timestamp",
+      "required": true
+    },
+    {
+      "name": "note",
+      "type": "textarea",
+      "label": "Interaction Note",
+      "required": true,
+      "description": "What happened? What did Brian ask? How was it resolved?"
+    },
+    {
+      "name": "logged_by",
+      "type": "text",
+      "label": "Logged By",
+      "required": true
+    },
+    {
+      "name": "category",
+      "type": "select",
+      "label": "Category",
+      "options": [
+        "Dispatch",
+        "Workforce Hub",
+        "Booking Engine",
+        "Scheduling",
+        "Contracts",
+        "General",
+        "Technical Issue",
+        "Feature Request"
+      ]
+    },
+    {
+      "name": "friction_level",
+      "type": "select",
+      "label": "Friction Level",
+      "options": ["Low", "Medium", "High", "Blocker"]
+    },
+    {
+      "name": "resolution",
+      "type": "textarea",
+      "label": "Resolution",
+      "description": "How was this resolved? What guidance was provided?"
+    },
+    {
+      "name": "lesson_learned",
+      "type": "textarea",
+      "label": "Lesson Learned",
+      "description": "What did we learn from this interaction? How can the platform improve?"
+    }
+  ],
+  "permissions": {
+    "create": ["authenticated"],
+    "read": ["authenticated"],
+    "update": ["authenticated"],
+    "delete": ["admin"]
+  }
+}
