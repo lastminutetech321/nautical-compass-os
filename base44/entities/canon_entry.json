@@ -1,0 +1,62 @@
+{
+  "name": "canon_entry",
+  "fields": [
+    {
+      "name": "title",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "content",
+      "type": "longtext",
+      "required": true
+    },
+    {
+      "name": "category",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "status",
+      "type": "text",
+      "required": true,
+      "default": "draft"
+    },
+    {
+      "name": "source_file",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "repo_path",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "submitted_at",
+      "type": "datetime",
+      "required": false
+    },
+    {
+      "name": "reviewed_at",
+      "type": "datetime",
+      "required": false
+    },
+    {
+      "name": "approved_at",
+      "type": "datetime",
+      "required": false
+    },
+    {
+      "name": "reviewer_notes",
+      "type": "longtext",
+      "required": false
+    },
+    {
+      "name": "version",
+      "type": "number",
+      "required": true,
+      "default": 1
+    }
+  ]
+}
