@@ -1,0 +1,40 @@
+{
+  "name": "Brian Casto Continuous Support",
+  "description": "Founder-directed workflow: Monitor and guide Brian Casto through all NC services with no handoffs.",
+  "trigger": {
+    "type": "entity",
+    "entity": "IntakeForm",
+    "event": "created"
+  },
+  "steps": [
+    {
+      "id": "check_brian",
+      "type": "function",
+      "function": "welcome-brian-casto",
+      "input": {
+        "source": "intake_form",
+        "name": "{{ trigger.data.name }}",
+        "email": "{{ trigger.data.email }}",
+        "userId": "{{ trigger.data.userId }}"
+      },
+      "output": "welcome_status"
+    },
+    {
+      "id": "log_interaction",
+      "type": "entity_create",
+      "entity": "CaseTimeline",
+      "data": {
+        "caseId": "6ab3249d8d6aaa385649de04",
+        "timestamp": "{{ now }}",
+        "event": "workflow_executed",
+        "details": { "status": "{{ welcome_status }}" },
+        "actor": "system",
+        "visibility": "internal"
+      }
+    }
+  ],
+  "metadata": {
+    "priority": "founder_directed",
+    "caseId": "6ab3249d8d6aaa385649de04"
+  }
+}
