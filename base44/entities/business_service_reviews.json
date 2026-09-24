@@ -1,0 +1,27 @@
+{
+  "name": "business_service_reviews",
+  "fields": [
+    {"name": "id", "type": "id", "required": true},
+    {"name": "submission_id", "type": "reference", "reference": "business_service_submissions", "required": true},
+    {"name": "reviewer_id", "type": "reference", "reference": "users", "required": true},
+    {"name": "status", "type": "text", "required": true, "validation": {"enum": ["pending", "in_review", "approved", "corrections_requested", "rejected"]}},
+    {"name": "business_identity_verified", "type": "boolean", "required": false},
+    {"name": "business_identity_notes", "type": "longtext", "required": false},
+    {"name": "services_validated", "type": "boolean", "required": false},
+    {"name": "service_categories", "type": "json", "required": false},
+    {"name": "missing_evidence", "type": "json", "required": false},
+    {"name": "insurance_status", "type": "text", "required": false, "validation": {"enum": ["verified", "missing", "insufficient", "not_applicable"]}},
+    {"name": "credentials_status", "type": "text", "required": false, "validation": {"enum": ["verified", "missing", "insufficient", "not_applicable"]}},
+    {"name": "corrections_needed", "type": "json", "required": false},
+    {"name": "reviewer_notes", "type": "longtext", "required": false},
+    {"name": "feedback_questions", "type": "json", "required": false},
+    {"name": "response_time_hours", "type": "number", "required": false},
+    {"name": "sla_target_hours", "type": "number", "required": false, "default": 72},
+    {"name": "approved_at", "type": "datetime", "required": false},
+    {"name": "listing_created", "type": "boolean", "required": false, "default": false},
+    {"name": "listing_id", "type": "reference", "reference": "service_listings", "required": false},
+    {"name": "created_at", "type": "datetime", "required": true, "default": "now"},
+    {"name": "updated_at", "type": "datetime", "required": true, "default": "now"}
+  ],
+  "indexes": [{"fields": ["submission_id"]}, {"fields": ["reviewer_id"]}, {"fields": ["status"]}, {"fields": ["created_at"]}]
+}
