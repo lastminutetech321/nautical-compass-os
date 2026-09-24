@@ -1,0 +1,19 @@
+{
+  "name": "PayoutPolicy",
+  "fields": [
+    {"name": "policy_id", "type": "id", "required": true},
+    {"name": "name", "type": "string", "required": true},
+    {"name": "commission_type", "type": "string", "required": true, "description": "staff_sale, director_override, client_origination, referral"},
+    {"name": "base_rate", "type": "number", "required": false},
+    {"name": "max_rate", "type": "number", "required": false},
+    {"name": "requires_quota", "type": "boolean", "required": false, "default": false},
+    {"name": "monthly_quota_amount", "type": "number", "required": false},
+    {"name": "grace_period_months", "type": "number", "required": false},
+    {"name": "decay_rate_per_month", "type": "number", "required": false},
+    {"name": "floor_rate", "type": "number", "required": false},
+    {"name": "active", "type": "boolean", "required": true, "default": true},
+    {"name": "created_at", "type": "datetime", "required": true, "default": "now"},
+    {"name": "updated_at", "type": "datetime", "required": true, "default": "now"},
+    {"name": "feature_flag_phase1_compensation", "type": "boolean", "required": false, "default": false}
+  ]
+}
