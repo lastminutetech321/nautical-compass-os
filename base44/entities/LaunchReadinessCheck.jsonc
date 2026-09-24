@@ -97,6 +97,22 @@
     },
     "notes": {
       "type": "string"
+    },
+    "gate": {
+      "type": "string",
+      "enum": [
+        "alpha",
+        "beta",
+        "pilot",
+        "ga",
+        "sunset"
+      ],
+      "description": "Release gate this check applies to"
+    },
+    "auto_check": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this check can be automated"
     }
   },
   "required": [
