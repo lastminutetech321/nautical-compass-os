@@ -95,13 +95,15 @@ Return results for at least 8-12 qualifying programs sorted by priority.`,
                 risk_factors: { type: "array", items: { type: "string" } },
                 required_followup: { type: "array", items: { type: "string" } },
                 action_steps: { type: "array", items: { type: "string" } }
-              }
+              },
+              required: ["name","agency","category","priority","why_qualifies"]
             }
           },
           immediate_priorities: { type: "array", items: { type: "string" } },
           estimated_total_monthly_benefit: { type: "string" },
           crisis_resources: { type: "array", items: { type: "string" } }
-        }
+        },
+        required: ["summary","programs"]
       }
     }).catch(() => null);
     setResults(res);
@@ -140,7 +142,6 @@ Return results for at least 8-12 qualifying programs sorted by priority.`,
         <span><strong>Educational tool only.</strong> Program availability and eligibility rules change. Always verify directly with the administering agency. This does not constitute benefits advice or representation.</span>
       </div>
 
-      {/* Profile Form */}
       <Card className="p-5 border border-border/60">
         <h2 className="text-sm font-semibold mb-4">Client Profile</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -202,10 +203,8 @@ Return results for at least 8-12 qualifying programs sorted by priority.`,
         </div>
       </Card>
 
-      {/* Results */}
       {results && (
         <div className="space-y-4">
-          {/* Summary */}
           <Card className="p-4 border border-cyan-200 bg-cyan-50">
             <p className="text-xs font-bold text-cyan-700 uppercase mb-1">Eligibility Summary</p>
             <p className="text-sm text-cyan-900">{results.summary}</p>
@@ -214,7 +213,6 @@ Return results for at least 8-12 qualifying programs sorted by priority.`,
             )}
           </Card>
 
-          {/* Immediate priorities */}
           {(results.immediate_priorities || []).length > 0 && (
             <Card className="p-4 border border-red-200 bg-red-50">
               <p className="text-xs font-bold text-red-700 uppercase mb-2 flex items-center gap-1"><AlertTriangle className="w-3.5 h-3.5" />Immediate Action Required</p>
@@ -222,7 +220,6 @@ Return results for at least 8-12 qualifying programs sorted by priority.`,
             </Card>
           )}
 
-          {/* Programs */}
           <div className="space-y-3">
             <h2 className="text-sm font-semibold">{(results.programs || []).length} Qualifying Programs Found</h2>
             {(results.programs || []).map((prog, i) => (
@@ -241,21 +238,18 @@ Return results for at least 8-12 qualifying programs sorted by priority.`,
                   </div>
                 </div>
 
-                {/* Why qualifies */}
                 <div className="p-2.5 bg-emerald-50 rounded border border-emerald-100 mb-3">
                   <p className="text-[10px] font-bold text-emerald-700 uppercase mb-0.5">Why This Profile Qualifies</p>
                   <p className="text-xs text-emerald-800">{prog.why_qualifies}</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {/* Required docs */}
                   {(prog.required_documents || []).length > 0 && (
                     <div>
                       <p className="text-[10px] font-bold text-muted-foreground uppercase mb-1.5 flex items-center gap-1"><FileText className="w-3 h-3" />Required Documents</p>
                       <ul className="space-y-0.5">{prog.required_documents.map((d,j) => <li key={j} className="text-xs flex items-start gap-1.5"><span className="text-muted-foreground">•</span>{d}</li>)}</ul>
                     </div>
                   )}
-                  {/* Blockers + risks */}
                   <div className="space-y-2">
                     {(prog.common_blockers || []).length > 0 && (
                       <div className="p-2 bg-red-50 rounded border border-red-100">
@@ -276,7 +270,6 @@ Return results for at least 8-12 qualifying programs sorted by priority.`,
             ))}
           </div>
 
-          {/* Crisis resources */}
           {(results.crisis_resources || []).length > 0 && (
             <Card className="p-4 border border-red-200">
               <p className="text-xs font-bold text-red-700 uppercase mb-2">🚨 Crisis Resources — Contact Immediately if Needed</p>
