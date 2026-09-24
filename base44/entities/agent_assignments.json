@@ -1,0 +1,17 @@
+{
+  "name": "agent_assignments",
+  "label": "Agent Assignments",
+  "description": "Tracks task assignments to AI workforce agents",
+  "fields": [
+    {"name": "agent_id", "type": "text", "label": "Agent ID", "required": true, "indexed": true},
+    {"name": "task_id", "type": "text", "label": "Task ID", "required": true, "indexed": true},
+    {"name": "assigned_at", "type": "datetime", "label": "Assigned At", "required": true},
+    {"name": "started_at", "type": "datetime", "label": "Started At"},
+    {"name": "completed_at", "type": "datetime", "label": "Completed At"},
+    {"name": "failed_at", "type": "datetime", "label": "Failed At"},
+    {"name": "status", "type": "select", "label": "Status", "required": true, "options": ["assigned", "active", "completed", "failed", "cancelled"], "indexed": true},
+    {"name": "priority", "type": "select", "label": "Priority", "options": ["low", "normal", "high", "critical"], "default": "normal"},
+    {"name": "error_message", "type": "text", "label": "Error Message"},
+    {"name": "result_data", "type": "json", "label": "Result Data"}
+  ]
+}
