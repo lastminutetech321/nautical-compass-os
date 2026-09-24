@@ -1,0 +1,106 @@
+{
+  "workflow": "build_pipeline",
+  "description": "Standard build pipeline with task checklist tracking",
+  "trigger": "manual",
+  "steps": [
+    {
+      "id": "init_checklist",
+      "type": "function",
+      "function": "initialize_build_checklist",
+      "input": {
+        "buildId": "{{ trigger.buildId }}"
+      }
+    },
+    {
+      "id": "verify_env",
+      "type": "function",
+      "function": "update_build_checklist",
+      "input": {
+        "buildId": "{{ trigger.buildId }}",
+        "taskIndex": 0,
+        "completed": true
+      }
+    },
+    {
+      "id": "npm_install",
+      "type": "function",
+      "function": "update_build_checklist",
+      "input": {
+        "buildId": "{{ trigger.buildId }}",
+        "taskIndex": 1,
+        "completed": true
+      }
+    },
+    {
+      "id": "execute_build",
+      "type": "function",
+      "function": "update_build_checklist",
+      "input": {
+        "buildId": "{{ trigger.buildId }}",
+        "taskIndex": 2,
+        "completed": true
+      }
+    },
+    {
+      "id": "run_tests",
+      "type": "function",
+      "function": "update_build_checklist",
+      "input": {
+        "buildId": "{{ trigger.buildId }}",
+        "taskIndex": 3,
+        "completed": true
+      }
+    },
+    {
+      "id": "generate_artifacts",
+      "type": "function",
+      "function": "update_build_checklist",
+      "input": {
+        "buildId": "{{ trigger.buildId }}",
+        "taskIndex": 4,
+        "completed": true
+      }
+    },
+    {
+      "id": "validate_bundle",
+      "type": "function",
+      "function": "update_build_checklist",
+      "input": {
+        "buildId": "{{ trigger.buildId }}",
+        "taskIndex": 5,
+        "completed": true
+      }
+    },
+    {
+      "id": "check_errors",
+      "type": "function",
+      "function": "update_build_checklist",
+      "input": {
+        "buildId": "{{ trigger.buildId }}",
+        "taskIndex": 6,
+        "completed": true
+      }
+    },
+    {
+      "id": "finalize_build",
+      "type": "function",
+      "function": "update_build_checklist",
+      "input": {
+        "buildId": "{{ trigger.buildId }}",
+        "taskIndex": 7,
+        "completed": true
+      }
+    },
+    {
+      "id": "complete_build",
+      "type": "entity",
+      "entity": "build",
+      "operation": "update",
+      "input": {
+        "id": "{{ trigger.buildId }}",
+        "status": "completed",
+        "build_completed_at": "{{ now }}"
+      }
+    }
+  ]
+}

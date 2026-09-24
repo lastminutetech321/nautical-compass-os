@@ -1,0 +1,105 @@
+{
+  "entity": "build",
+  "fields": [
+    {
+      "key": "id",
+      "type": "id",
+      "required": true
+    },
+    {
+      "key": "name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "key": "description",
+      "type": "string"
+    },
+    {
+      "key": "status",
+      "type": "string",
+      "required": true,
+      "default": "draft"
+    },
+    {
+      "key": "version",
+      "type": "string"
+    },
+    {
+      "key": "environment",
+      "type": "string"
+    },
+    {
+      "key": "deployment_target",
+      "type": "string"
+    },
+    {
+      "key": "build_started_at",
+      "type": "datetime"
+    },
+    {
+      "key": "build_completed_at",
+      "type": "datetime"
+    },
+    {
+      "key": "build_duration_seconds",
+      "type": "number"
+    },
+    {
+      "key": "commit_hash",
+      "type": "string"
+    },
+    {
+      "key": "branch",
+      "type": "string"
+    },
+    {
+      "key": "triggered_by",
+      "type": "string"
+    },
+    {
+      "key": "build_logs",
+      "type": "text"
+    },
+    {
+      "key": "artifacts",
+      "type": "json"
+    },
+    {
+      "key": "error_message",
+      "type": "text"
+    },
+    {
+      "key": "task_checklist",
+      "type": "json",
+      "default": [
+        {"task": "Verify environment variables", "completed": false},
+        {"task": "Run npm install", "completed": false},
+        {"task": "Execute build command", "completed": false},
+        {"task": "Run tests", "completed": false},
+        {"task": "Generate build artifacts", "completed": false},
+        {"task": "Validate output bundle", "completed": false},
+        {"task": "Check for build errors", "completed": false},
+        {"task": "Update build status", "completed": false}
+      ]
+    },
+    {
+      "key": "created_at",
+      "type": "datetime",
+      "required": true,
+      "auto": true
+    },
+    {
+      "key": "updated_at",
+      "type": "datetime",
+      "required": true,
+      "auto": true
+    }
+  ],
+  "indexes": [
+    {"fields": ["status"]},
+    {"fields": ["environment"]},
+    {"fields": ["branch"]},
+    {"fields": ["created_at"]}
+  ]
+}
