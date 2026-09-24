@@ -1,0 +1,72 @@
+{
+  "name": "canon_entry",
+  "fields": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "content",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "category",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": true,
+      "default": "draft"
+    },
+    {
+      "name": "source_file",
+      "type": "string",
+      "required": false
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "required": false
+    },
+    {
+      "name": "version",
+      "type": "number",
+      "required": true,
+      "default": 1
+    },
+    {
+      "name": "submitted_at",
+      "type": "datetime",
+      "required": false
+    },
+    {
+      "name": "reviewed_at",
+      "type": "datetime",
+      "required": false
+    },
+    {
+      "name": "approved_at",
+      "type": "datetime",
+      "required": false
+    },
+    {
+      "name": "submitted_by",
+      "type": "string",
+      "required": false
+    },
+    {
+      "name": "reviewed_by",
+      "type": "string",
+      "required": false
+    },
+    {
+      "name": "review_notes",
+      "type": "text",
+      "required": false
+    }
+  ]
+}
