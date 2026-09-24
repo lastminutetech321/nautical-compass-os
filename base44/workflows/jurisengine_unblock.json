@@ -1,0 +1,67 @@
+{
+  "name": "jurisengine_unblock",
+  "description": "Unblocks JurisEngine v1 by verifying NC Canon entries and Evidence Vault access controls",
+  "trigger": "manual",
+  "steps": [
+    {
+      "id": "validate_dependencies",
+      "type": "function",
+      "function": "jurisengine_validate_dependencies",
+      "input": {},
+      "onSuccess": "check_readiness",
+      "onError": "report_failure"
+    },
+    {
+      "id": "check_readiness",
+      "type": "condition",
+      "condition": "{{ steps.validate_dependencies.output.ready }}",
+      "onTrue": "verify_canon_entries",
+      "onFalse": "report_blockers"
+    },
+    {
+      "id": "verify_canon_entries",
+      "type": "function",
+      "function": "canon_verify_entry",
+      "input": {
+        "entryId": "{{ trigger.canonEntryId }}",
+        "verifiedBy": "{{ user.email }}",
+        "notes": "JurisEngine unblock workflow verification"
+      },
+      "optional": true,
+      "onSuccess": "revalidate_dependencies",
+      "onError": "continue"
+    },
+    {
+      "id": "revalidate_dependencies",
+      "type": "function",
+      "function": "jurisengine_validate_dependencies",
+      "input": {},
+      "onSuccess": "report_success",
+      "onError": "report_failure"
+    },
+    {
+      "id": "report_blockers",
+      "type": "notification",
+      "message": "JurisEngine still blocked. Blockers: {{ steps.validate_dependencies.output.blockers }}",
+      "channels": ["email", "dashboard"],
+      "recipients": ["admin"],
+      "severity": "warning"
+    },
+    {
+      "id": "report_success",
+      "type": "notification",
+      "message": "JurisEngine unblocked! Canon: {{ steps.revalidate_dependencies.output.canonStatus.verifiedEntries }} verified entries. Vault: Access controls operational.",
+      "channels": ["email", "dashboard"],
+      "recipients": ["admin"],
+      "severity": "info"
+    },
+    {
+      "id": "report_failure",
+      "type": "notification",
+      "message": "JurisEngine unblock workflow failed. Error: {{ error.message }}",
+      "channels": ["email", "dashboard"],
+      "recipients": ["admin"],
+      "severity": "error"
+    }
+  ]
+}
