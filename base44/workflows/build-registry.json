@@ -1,0 +1,190 @@
+{
+  "name": "Build Registry",
+  "description": "Central registry of all system builds with version tracking, deployment status, and health monitoring",
+  "trigger": "manual",
+  "version": "1.2.0",
+  "steps": [
+    {
+      "id": "load_registry",
+      "type": "entity_query",
+      "entity": "build_registry",
+      "description": "Load all builds from registry"
+    },
+    {
+      "id": "health_check",
+      "type": "function",
+      "function": "check_build_health",
+      "description": "Verify health of all registered builds"
+    },
+    {
+      "id": "update_status",
+      "type": "entity_update",
+      "entity": "build_registry",
+      "description": "Update build status and last checked timestamp"
+    }
+  ],
+  "builds": [
+    {
+      "id": "build_001",
+      "name": "Frontend SPA",
+      "type": "vite_react",
+      "version": "3.1.0",
+      "status": "deployed",
+      "deployment_target": "digitalocean_app_platform",
+      "last_deploy": "2025-01-20T10:30:00Z",
+      "health": "healthy",
+      "tasks": [
+        {"id": "001_01", "description": "Verify Vite config and build output", "status": "complete", "assignee": "build_system"},
+        {"id": "001_02", "description": "Test production bundle size (<500KB)", "status": "complete", "assignee": "build_system"},
+        {"id": "001_03", "description": "Validate all 250+ pages load without error", "status": "complete", "assignee": "qa_system"},
+        {"id": "001_04", "description": "Confirm Base44 SDK integration", "status": "complete", "assignee": "integration_tests"},
+        {"id": "001_05", "description": "Verify environment variables are injected", "status": "complete", "assignee": "build_system"}
+      ]
+    },
+    {
+      "id": "build_002",
+      "name": "Base44 Backend",
+      "type": "baas_platform",
+      "version": "2.4.1",
+      "status": "active",
+      "deployment_target": "base44_cloud",
+      "last_deploy": "2025-01-19T14:22:00Z",
+      "health": "healthy",
+      "tasks": [
+        {"id": "002_01", "description": "Sync 180+ entities to Base44", "status": "complete", "assignee": "sync_engine"},
+        {"id": "002_02", "description": "Deploy 45+ serverless functions", "status": "complete", "assignee": "deployment_system"},
+        {"id": "002_03", "description": "Activate 12+ workflows", "status": "complete", "assignee": "workflow_engine"},
+        {"id": "002_04", "description": "Test auth flows (email + OAuth)", "status": "complete", "assignee": "auth_system"},
+        {"id": "002_05", "description": "Verify GitHub connector integration", "status": "complete", "assignee": "integration_tests"}
+      ]
+    },
+    {
+      "id": "build_003",
+      "name": "Docker Container",
+      "type": "docker_nginx",
+      "version": "1.0.3",
+      "status": "ready",
+      "deployment_target": "digitalocean_container",
+      "last_build": "2025-01-20T09:15:00Z",
+      "health": "healthy",
+      "tasks": [
+        {"id": "003_01", "description": "Multi-stage build (Node → nginx)", "status": "complete", "assignee": "docker_builder"},
+        {"id": "003_02", "description": "Optimize image size (<100MB)", "status": "complete", "assignee": "docker_builder"},
+        {"id": "003_03", "description": "Configure SPA routing fallback", "status": "complete", "assignee": "nginx_config"},
+        {"id": "003_04", "description": "Test container startup and health", "status": "complete", "assignee": "container_tests"},
+        {"id": "003_05", "description": "Validate build-arg env injection", "status": "complete", "assignee": "docker_builder"}
+      ]
+    },
+    {
+      "id": "build_004",
+      "name": "Canon Inventory Engine",
+      "type": "workflow_automation",
+      "version": "1.1.0",
+      "status": "operational",
+      "deployment_target": "base44_workflows",
+      "last_run": "2025-01-20T08:00:00Z",
+      "health": "healthy",
+      "tasks": [
+        {"id": "004_01", "description": "Classify 33 files across 5 repos", "status": "complete", "assignee": "classifier_agent"},
+        {"id": "004_02", "description": "Generate canon_inventory.json", "status": "complete", "assignee": "inventory_generator"},
+        {"id": "004_03", "description": "Sync inventory to GitHub", "status": "complete", "assignee": "github_sync"},
+        {"id": "004_04", "description": "Validate all file paths exist", "status": "complete", "assignee": "validation_system"},
+        {"id": "004_05", "description": "Schedule next scan (weekly)", "status": "complete", "assignee": "scheduler"}
+      ]
+    },
+    {
+      "id": "build_005",
+      "name": "Payment Fabric (Staging)",
+      "type": "integration_layer",
+      "version": "0.9.2",
+      "status": "staging",
+      "deployment_target": "base44_functions",
+      "last_deploy": "2025-01-18T16:45:00Z",
+      "health": "warning",
+      "tasks": [
+        {"id": "005_01", "description": "Configure Stripe test keys", "status": "complete", "assignee": "payment_config"},
+        {"id": "005_02", "description": "Test payment intent creation", "status": "complete", "assignee": "payment_tests"},
+        {"id": "005_03", "description": "Verify webhook handling", "status": "complete", "assignee": "webhook_handler"},
+        {"id": "005_04", "description": "Migrate to production keys", "status": "pending", "assignee": "founder"},
+        {"id": "005_05", "description": "Enable live payment processing", "status": "blocked", "assignee": "payment_system"}
+      ]
+    },
+    {
+      "id": "build_006",
+      "name": "GitHub Connector",
+      "type": "oauth_integration",
+      "version": "1.0.1",
+      "status": "connected",
+      "deployment_target": "base44_integrations",
+      "last_auth": "2025-01-19T12:30:00Z",
+      "health": "healthy",
+      "tasks": [
+        {"id": "006_01", "description": "OAuth app registration complete", "status": "complete", "assignee": "oauth_setup"},
+        {"id": "006_02", "description": "Grant repo + read:user scopes", "status": "complete", "assignee": "permissions_manager"},
+        {"id": "006_03", "description": "Test 2-way repo sync", "status": "complete", "assignee": "sync_tests"},
+        {"id": "006_04", "description": "Verify webhook delivery", "status": "complete", "assignee": "webhook_monitor"},
+        {"id": "006_05", "description": "Monitor rate limits (5000/hr)", "status": "complete", "assignee": "rate_limiter"}
+      ]
+    },
+    {
+      "id": "build_007",
+      "name": "Auth System",
+      "type": "authentication_service",
+      "version": "2.1.0",
+      "status": "active",
+      "deployment_target": "base44_auth",
+      "last_updated": "2025-01-20T07:00:00Z",
+      "health": "healthy",
+      "tasks": [
+        {"id": "007_01", "description": "Email/password authentication active", "status": "complete", "assignee": "auth_provider"},
+        {"id": "007_02", "description": "Google OAuth integration working", "status": "complete", "assignee": "oauth_provider"},
+        {"id": "007_03", "description": "Session management configured", "status": "complete", "assignee": "session_manager"},
+        {"id": "007_04", "description": "CORS origins whitelisted", "status": "complete", "assignee": "security_config"},
+        {"id": "007_05", "description": "Password reset flow tested", "status": "complete", "assignee": "auth_tests"}
+      ]
+    },
+    {
+      "id": "build_008",
+      "name": "EvoSystem Intelligence",
+      "type": "ai_agent_framework",
+      "version": "3.0.0",
+      "status": "experimental",
+      "deployment_target": "base44_agents",
+      "last_evolution": "2025-01-20T11:00:00Z",
+      "health": "healthy",
+      "tasks": [
+        {"id": "008_01", "description": "Self-healing engine v3 deployed", "status": "complete", "assignee": "ai_orchestrator"},
+        {"id": "008_02", "description": "Auto-repair workflows active", "status": "complete", "assignee": "repair_agent"},
+        {"id": "008_03", "description": "Learning from execution logs", "status": "complete", "assignee": "learning_system"},
+        {"id": "008_04", "description": "Knowledge base integration", "status": "complete", "assignee": "knowledge_engine"},
+        {"id": "008_05", "description": "Autonomous task generation", "status": "in_progress", "assignee": "task_generator"}
+      ]
+    },
+    {
+      "id": "build_009",
+      "name": "Deployment Pipeline",
+      "type": "ci_cd_automation",
+      "version": "1.0.0",
+      "status": "ready",
+      "deployment_target": "github_actions_digitalocean",
+      "last_run": "2025-01-20T10:30:00Z",
+      "health": "healthy",
+      "tasks": [
+        {"id": "009_01", "description": "GitHub Actions workflow configured", "status": "complete", "assignee": "ci_config"},
+        {"id": "009_02", "description": "DigitalOcean App Platform spec created", "status": "complete", "assignee": "do_config"},
+        {"id": "009_03", "description": "Build-time env vars injection working", "status": "complete", "assignee": "env_manager"},
+        {"id": "009_04", "description": "Automated deployment on main push", "status": "complete", "assignee": "deployment_trigger"},
+        {"id": "009_05", "description": "Post-deploy health checks passing", "status": "complete", "assignee": "health_monitor"}
+      ]
+    }
+  ],
+  "metadata": {
+    "total_builds": 9,
+    "healthy_builds": 8,
+    "warning_builds": 1,
+    "experimental_builds": 1,
+    "last_registry_update": "2025-01-20T11:15:00Z",
+    "auto_heal_enabled": true,
+    "next_health_check": "2025-01-20T12:00:00Z"
+  }
+}
