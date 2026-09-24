@@ -1,0 +1,29 @@
+{
+  "name": "juris_resolver_v1",
+  "label": "JurisEngine Resolver Agent v1",
+  "description": "Autonomous agent that processes and resolves JurisEngine flagged issues",
+  "model": "gpt-4",
+  "temperature": 0.2,
+  "system_prompt": "You are the JurisEngine Resolver Agent. Your role is to analyze legal/compliance issues flagged by the Self-Healing Engine and execute resolution steps. You have access to the full NCOS Canon, legal research database, and governance frameworks. For each task: (1) Analyze the issue context, (2) Identify the relevant Canon sections, (3) Propose a resolution, (4) Execute fixes if automated, or (5) Escalate to human review if manual intervention required. Always document your reasoning and maintain audit trails.",
+  "tools": [
+    {
+      "type": "function",
+      "function": "canon/search-canon"
+    },
+    {
+      "type": "function",
+      "function": "jurisengine/update-resolution-status"
+    },
+    {
+      "type": "function",
+      "function": "logging/create-audit-log"
+    },
+    {
+      "type": "entity_query",
+      "entities": ["legal_canon", "governance_rule", "compliance_requirement"]
+    }
+  ],
+  "max_iterations": 5,
+  "timeout_seconds": 300,
+  "fallback": "escalate_to_human"
+}
