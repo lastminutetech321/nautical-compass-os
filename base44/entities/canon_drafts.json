@@ -1,0 +1,102 @@
+{
+  "name": "canon_drafts",
+  "fields": [
+    {
+      "name": "title",
+      "type": "text",
+      "required": true,
+      "validation": {
+        "minLength": 3,
+        "maxLength": 200
+      }
+    },
+    {
+      "name": "content",
+      "type": "text",
+      "required": true,
+      "validation": {
+        "minLength": 10
+      }
+    },
+    {
+      "name": "category",
+      "type": "text",
+      "required": true,
+      "validation": {
+        "enum": ["doctrine", "governance", "legal", "technical", "operational"]
+      }
+    },
+    {
+      "name": "status",
+      "type": "text",
+      "required": true,
+      "default": "draft",
+      "validation": {
+        "enum": ["draft", "pending_review", "approved", "rejected", "archived"]
+      }
+    },
+    {
+      "name": "priority",
+      "type": "text",
+      "default": "medium",
+      "validation": {
+        "enum": ["low", "medium", "high", "critical"]
+      }
+    },
+    {
+      "name": "author_id",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "reviewer_id",
+      "type": "text"
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "items": {
+        "type": "text"
+      },
+      "default": []
+    },
+    {
+      "name": "metadata",
+      "type": "json",
+      "default": {}
+    },
+    {
+      "name": "submitted_at",
+      "type": "datetime"
+    },
+    {
+      "name": "reviewed_at",
+      "type": "datetime"
+    },
+    {
+      "name": "review_notes",
+      "type": "text"
+    },
+    {
+      "name": "version",
+      "type": "number",
+      "default": 1
+    },
+    {
+      "name": "parent_draft_id",
+      "type": "text"
+    }
+  ],
+  "indexes": [
+    {"fields": ["status"]},
+    {"fields": ["author_id"]},
+    {"fields": ["category"]},
+    {"fields": ["submitted_at"]}
+  ],
+  "permissions": {
+    "create": ["authenticated"],
+    "read": ["authenticated"],
+    "update": ["author", "admin"],
+    "delete": ["admin"]
+  }
+}
