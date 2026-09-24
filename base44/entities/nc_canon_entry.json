@@ -1,0 +1,87 @@
+{
+  "name": "nc_canon_entry",
+  "fields": [
+    {
+      "name": "title",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "content",
+      "type": "long_text",
+      "required": true
+    },
+    {
+      "name": "category",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "version",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "verified",
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    {
+      "name": "verified_by",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "verified_at",
+      "type": "datetime",
+      "required": false
+    },
+    {
+      "name": "source_repo",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "source_path",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "tags",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "priority",
+      "type": "number",
+      "required": false,
+      "default": 0
+    },
+    {
+      "name": "metadata",
+      "type": "long_text",
+      "required": false
+    }
+  ],
+  "indexes": [
+    {
+      "fields": ["verified"],
+      "name": "idx_verified"
+    },
+    {
+      "fields": ["category"],
+      "name": "idx_category"
+    },
+    {
+      "fields": ["version"],
+      "name": "idx_version"
+    }
+  ],
+  "permissions": {
+    "create": ["admin", "canon_editor"],
+    "read": ["*"],
+    "update": ["admin", "canon_editor"],
+    "delete": ["admin"]
+  }
+}
