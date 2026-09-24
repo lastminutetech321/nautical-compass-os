@@ -1,244 +1,454 @@
-import React, { useState, useEffect } from "react";
-import { base44 } from "@/api/base44Client";
-import {
-  Compass, Home, Briefcase, Heart, Shield, Truck, GraduationCap,
-  Star, DollarSign, AlertTriangle, FileText, Calendar, Bell,
-  Users, Zap, ArrowRight, RefreshCw, Loader2, CheckCircle, Clock,
-  Search, Database, MapPin, Phone
-} from "lucide-react";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import moment from "moment";
+import React, { useState, useEffect } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { base44 } from '@/api/base44';
+import { Compass, MapPin, Calendar, User, Plus, Search, Filter, AlertCircle, CheckCircle2, Clock, TrendingUp, Users, DollarSign, Target, Zap } from 'lucide-react';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
-const CATEGORIES = [
-  { key: "housing",       label: "Housing",         icon: Home,          color: "text-blue-600 bg-blue-50",      path: "/resource-search?cat=housing" },
-  { key: "employment",    label: "Employment",       icon: Briefcase,     color: "text-emerald-600 bg-emerald-50",path: "/resource-search?cat=employment" },
-  { key: "food",          label: "Food & SNAP",      icon: "🍎",           color: "text-orange-600 bg-orange-50",  path: "/resource-search?cat=food" },
-  { key: "medical",       label: "Medical",          icon: Heart,         color: "text-rose-600 bg-rose-50",      path: "/resource-search?cat=medical" },
-  { key: "mental_health", label: "Mental Health",    icon: "🧠",           color: "text-violet-600 bg-violet-50",  path: "/resource-search?cat=mental_health" },
-  { key: "legal_aid",     label: "Legal Aid",        icon: Shield,        color: "text-amber-600 bg-amber-50",    path: "/resource-search?cat=legal_aid" },
-  { key: "transportation",label: "Transportation",   icon: Truck,         color: "text-sky-600 bg-sky-50",        path: "/resource-search?cat=transportation" },
-  { key: "education",     label: "Education",        icon: GraduationCap, color: "text-cyan-600 bg-cyan-50",      path: "/resource-search?cat=education" },
-  { key: "veteran",       label: "Veteran Resources",icon: Star,          color: "text-indigo-600 bg-indigo-50",  path: "/resource-search?cat=veteran" },
-  { key: "financial",     label: "Financial Aid",    icon: DollarSign,    color: "text-green-600 bg-green-50",    path: "/resource-search?cat=financial" },
-  { key: "emergency",     label: "Emergency",        icon: AlertTriangle, color: "text-red-600 bg-red-50",        path: "/resource-search?cat=emergency" },
-  { key: "disaster",      label: "Disaster Relief",  icon: "🌪",           color: "text-slate-600 bg-slate-50",   path: "/resource-search?cat=disaster" },
-];
+const ResourceCompass = () => {
+  const queryClient = useQueryClient();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterStatus, setFilterStatus] = useState('all');
+  const [filterCategory, setFilterCategory] = useState('all');
+  const [selectedResource, setSelectedResource] = useState(null);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [newResource, setNewResource] = useState({
+    name: '',
+    category: '',
+    status: 'available',
+    description: '',
+    location: '',
+    allocation_percentage: 0,
+    hourly_rate: 0,
+    tags: ''
+  });
 
-export default function ResourceCompass() {
-  const [cases, setCases] = useState([]);
-  const [applications, setApplications] = useState([]);
-  const [reminders, setReminders] = useState([]);
-  const [appointments, setAppointments] = useState([]);
-  const [resources, setResources] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // Fetch resources
+  const { data: resources = [], isLoading, error } = useQuery({
+    queryKey: ['resources'],
+    queryFn: async () => {
+      const response = await base44.entity('Resource').list();
+      return response.data || [];
+    }
+  });
 
-  useEffect(() => {
-    Promise.all([
-      base44.entities.ResourceCase.list("-created_date", 50).catch(() => []),
-      base44.entities.ResourceApplication.list("-created_date", 100).catch(() => []),
-      base44.entities.ResourceReminder.filter({ status: "pending" }, "due_date", 20).catch(() => []),
-      base44.entities.ResourceAppointment.filter({ status: "scheduled" }, "date", 10).catch(() => []),
-      base44.entities.Resource.filter({ status: "active" }, "-created_date", 50).catch(() => []),
-    ]).then(([c, a, r, appt, res]) => {
-      setCases(c); setApplications(a); setReminders(r);
-      setAppointments(appt); setResources(res);
-      setLoading(false);
+  // Fetch allocations
+  const { data: allocations = [] } = useQuery({
+    queryKey: ['resource_allocations'],
+    queryFn: async () => {
+      const response = await base44.entity('ResourceAllocation').list();
+      return response.data || [];
+    }
+  });
+
+  // Create resource mutation
+  const createResourceMutation = useMutation({
+    mutationFn: async (resourceData) => {
+      return await base44.entity('Resource').create(resourceData);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['resources']);
+      setIsAddDialogOpen(false);
+      setNewResource({
+        name: '',
+        category: '',
+        status: 'available',
+        description: '',
+        location: '',
+        allocation_percentage: 0,
+        hourly_rate: 0,
+        tags: ''
+      });
+    }
+  });
+
+  // Filter resources
+  const filteredResources = resources.filter(resource => {
+    const matchesSearch = resource.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         resource.description?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = filterStatus === 'all' || resource.status === filterStatus;
+    const matchesCategory = filterCategory === 'all' || resource.category === filterCategory;
+    return matchesSearch && matchesStatus && matchesCategory;
+  });
+
+  // Calculate stats
+  const stats = {
+    total: resources.length,
+    available: resources.filter(r => r.status === 'available').length,
+    allocated: resources.filter(r => r.status === 'allocated').length,
+    unavailable: resources.filter(r => r.status === 'unavailable').length,
+    avgUtilization: resources.length > 0 
+      ? (resources.reduce((sum, r) => sum + (r.allocation_percentage || 0), 0) / resources.length).toFixed(1)
+      : 0
+  };
+
+  const handleCreateResource = () => {
+    createResourceMutation.mutate({
+      ...newResource,
+      allocation_percentage: parseFloat(newResource.allocation_percentage) || 0,
+      hourly_rate: parseFloat(newResource.hourly_rate) || 0,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
     });
-  }, []);
+  };
 
-  const activeCases = cases.filter(c => ["intake","assessment","active"].includes(c.status));
-  const crisisCases = cases.filter(c => ["crisis","emergency"].includes(c.crisis_level));
-  const pendingApps = applications.filter(a => ["submitted","pending_review","additional_info_needed"].includes(a.status));
-  const overdueReminders = reminders.filter(r => r.due_date && new Date(r.due_date) < new Date());
-  const upcomingAppts = appointments.filter(a => a.date && new Date(a.date) >= new Date()).slice(0, 5);
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'available': return 'bg-green-100 text-green-800';
+      case 'allocated': return 'bg-blue-100 text-blue-800';
+      case 'unavailable': return 'bg-gray-100 text-gray-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  };
 
-  if (loading) return (
-    <div className="flex items-center justify-center h-64">
-      <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
-    </div>
-  );
+  const getCategoryIcon = (category) => {
+    switch (category) {
+      case 'human': return <Users className="h-4 w-4" />;
+      case 'financial': return <DollarSign className="h-4 w-4" />;
+      case 'equipment': return <Target className="h-4 w-4" />;
+      case 'technology': return <Zap className="h-4 w-4" />;
+      default: return <Compass className="h-4 w-4" />;
+    }
+  };
+
+  if (error) {
+    return (
+      <div className="p-8">
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>
+            Failed to load resources. Please try again later.
+          </AlertDescription>
+        </Alert>
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-6">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="flex items-start justify-between flex-wrap gap-3">
-        <div>
-          <p className="text-xs text-muted-foreground uppercase tracking-widest font-semibold mb-1">NCOS · Resource Compass Rail</p>
-          <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2">
-            <Compass className="w-6 h-6 text-cyan-500" />Resource Compass
-          </h1>
-          <p className="text-sm text-muted-foreground">Guide people from crisis to stability. Connect resources, track applications, meet deadlines.</p>
-        </div>
-        <div className="flex gap-2">
-          <Link to="/resource-cases"><Button size="sm" variant="outline"><Users className="w-4 h-4 mr-1.5" />Cases</Button></Link>
-          <Link to="/resource-cases"><Button size="sm"><Zap className="w-4 h-4 mr-1.5" />New Case</Button></Link>
-        </div>
-      </div>
-
-      {/* Crisis Alert */}
-      {crisisCases.length > 0 && (
-        <div className="flex items-center gap-3 p-4 rounded-xl border-2 border-red-400 bg-red-50">
-          <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0" />
-          <div className="flex-1">
-            <p className="font-bold text-red-800">⚠ {crisisCases.length} Crisis-Level Case{crisisCases.length > 1 ? "s" : ""} Require Immediate Attention</p>
-            <p className="text-sm text-red-700">{crisisCases.map(c => c.client_name).join(", ")}</p>
-          </div>
-          <Link to="/resource-cases"><Button size="sm" variant="destructive">View Now</Button></Link>
-        </div>
-      )}
-
-      {/* Overdue reminders */}
-      {overdueReminders.length > 0 && (
-        <div className="flex items-center gap-3 p-3 rounded-lg border border-amber-300 bg-amber-50">
-          <Bell className="w-4 h-4 text-amber-600 flex-shrink-0" />
-          <p className="text-sm text-amber-800 flex-1"><strong>{overdueReminders.length} overdue deadline{overdueReminders.length > 1 ? "s" : ""}</strong> — action required now.</p>
-          <Link to="/resource-reminders"><Button size="sm" variant="outline" className="text-amber-700 border-amber-300">View All</Button></Link>
-        </div>
-      )}
-
-      {/* KPI Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {[
-          { label: "Active Cases", value: activeCases.length, icon: Users, color: activeCases.length > 0 ? "text-blue-600 bg-blue-50" : "text-muted-foreground bg-muted", link: "/resource-cases" },
-          { label: "Pending Applications", value: pendingApps.length, icon: FileText, color: pendingApps.length > 0 ? "text-amber-600 bg-amber-50" : "text-emerald-600 bg-emerald-50", link: "/resource-applications" },
-          { label: "Upcoming Appointments", value: upcomingAppts.length, icon: Calendar, color: "text-violet-600 bg-violet-50", link: "/resource-appointments" },
-          { label: "Overdue Deadlines", value: overdueReminders.length, icon: Bell, color: overdueReminders.length > 0 ? "text-red-600 bg-red-50" : "text-emerald-600 bg-emerald-50", link: "/resource-reminders" },
-        ].map(k => (
-          <Link key={k.label} to={k.link}>
-            <Card className="p-4 border border-border/60 hover:border-primary/40 transition-colors cursor-pointer">
-              <div className="flex items-center gap-2 mb-2">
-                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${k.color}`}>
-                  <k.icon className="w-4 h-4" />
-                </div>
-                <p className="text-xs text-muted-foreground">{k.label}</p>
+      <div className="bg-white border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-blue-100 rounded-lg">
+                <Compass className="h-6 w-6 text-blue-600" />
               </div>
-              <p className="text-2xl font-bold pl-10">{k.value}</p>
-            </Card>
-          </Link>
-        ))}
-      </div>
-
-      {/* Resource Categories */}
-      <Card className="p-5 border border-border/60">
-        <div className="flex items-center gap-2 mb-4">
-          <Database className="w-4 h-4 text-cyan-500" />
-          <h2 className="text-sm font-semibold">Resource Categories</h2>
-          <Badge variant="outline" className="text-[10px] ml-auto">{resources.length} resources in database</Badge>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-          {CATEGORIES.map(cat => {
-            const count = resources.filter(r => r.category === cat.key).length;
-            const IconComp = typeof cat.icon === "string" ? null : cat.icon;
-            return (
-              <Link key={cat.key} to={`/resource-search?cat=${cat.key}`}>
-                <div className="flex items-center gap-3 p-3 rounded-lg border border-border/40 hover:border-primary/40 hover:bg-muted/30 transition-all cursor-pointer">
-                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-sm ${typeof cat.icon === "string" ? "bg-muted" : cat.color}`}>
-                    {IconComp ? <IconComp className="w-4 h-4" /> : cat.icon}
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-xs font-semibold truncate">{cat.label}</p>
-                    <p className="text-[10px] text-muted-foreground">{count} resources</p>
-                  </div>
-                  <ArrowRight className="w-3 h-3 text-muted-foreground ml-auto flex-shrink-0" />
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </Card>
-
-      {/* Quick Nav */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {[
-          { label: "🧭 Eligibility Engine", desc: "Find what you qualify for", path: "/resource-eligibility" },
-          { label: "📋 Application Tracker", desc: "Track all applications", path: "/resource-applications" },
-          { label: "📅 Appointments", desc: "Manage upcoming meetings", path: "/resource-appointments" },
-          { label: "⏰ Deadline Engine", desc: "All deadlines & renewals", path: "/resource-reminders" },
-          { label: "🗂 Benefit Planner", desc: "Plan your benefit strategy", path: "/resource-planner" },
-          { label: "👥 Case Manager", desc: "All client cases", path: "/resource-cases" },
-          { label: "🔍 Resource Search", desc: "Find local resources", path: "/resource-search" },
-          { label: "📁 Document Checklist", desc: "Required documents tracker", path: "/resource-docs" },
-        ].map(n => (
-          <Link key={n.path} to={n.path}>
-            <Card className="p-3 border border-border/60 hover:border-primary/40 hover:bg-muted/20 transition-all cursor-pointer h-full">
-              <p className="text-sm font-semibold mb-0.5">{n.label}</p>
-              <p className="text-[11px] text-muted-foreground">{n.desc}</p>
-            </Card>
-          </Link>
-        ))}
-      </div>
-
-      {/* Upcoming Appointments */}
-      {upcomingAppts.length > 0 && (
-        <Card className="p-5 border border-border/60">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-violet-500" />
-              <h2 className="text-sm font-semibold">Upcoming Appointments</h2>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">Resource Compass</h1>
+                <p className="text-sm text-gray-500 mt-1">Navigate and optimize resource allocation</p>
+              </div>
             </div>
-            <Link to="/resource-appointments"><Badge variant="outline" className="text-[10px] cursor-pointer hover:bg-muted">View All →</Badge></Link>
+            <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+              <DialogTrigger asChild>
+                <Button>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add Resource
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[525px]">
+                <DialogHeader>
+                  <DialogTitle>Add New Resource</DialogTitle>
+                  <DialogDescription>
+                    Create a new resource entry for tracking and allocation
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="name">Resource Name</Label>
+                    <Input
+                      id="name"
+                      value={newResource.name}
+                      onChange={(e) => setNewResource({ ...newResource, name: e.target.value })}
+                      placeholder="e.g., John Doe, MacBook Pro, Capital Fund"
+                    />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="category">Category</Label>
+                    <Select
+                      value={newResource.category}
+                      onValueChange={(value) => setNewResource({ ...newResource, category: value })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="human">Human Resource</SelectItem>
+                        <SelectItem value="financial">Financial</SelectItem>
+                        <SelectItem value="equipment">Equipment</SelectItem>
+                        <SelectItem value="technology">Technology</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="description">Description</Label>
+                    <Textarea
+                      id="description"
+                      value={newResource.description}
+                      onChange={(e) => setNewResource({ ...newResource, description: e.target.value })}
+                      placeholder="Brief description of the resource"
+                      rows={3}
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="grid gap-2">
+                      <Label htmlFor="location">Location</Label>
+                      <Input
+                        id="location"
+                        value={newResource.location}
+                        onChange={(e) => setNewResource({ ...newResource, location: e.target.value })}
+                        placeholder="e.g., HQ, Remote"
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="hourly_rate">Hourly Rate ($)</Label>
+                      <Input
+                        id="hourly_rate"
+                        type="number"
+                        value={newResource.hourly_rate}
+                        onChange={(e) => setNewResource({ ...newResource, hourly_rate: e.target.value })}
+                        placeholder="0.00"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="tags">Tags (comma-separated)</Label>
+                    <Input
+                      id="tags"
+                      value={newResource.tags}
+                      onChange={(e) => setNewResource({ ...newResource, tags: e.target.value })}
+                      placeholder="e.g., developer, senior, full-time"
+                    />
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button
+                    variant="outline"
+                    onClick={() => setIsAddDialogOpen(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={handleCreateResource}
+                    disabled={!newResource.name || !newResource.category || createResourceMutation.isPending}
+                  >
+                    {createResourceMutation.isPending ? 'Creating...' : 'Create Resource'}
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </div>
-          <div className="space-y-2">
-            {upcomingAppts.map(appt => (
-              <div key={appt.id} className="flex items-center justify-between p-2.5 bg-muted/30 rounded-lg">
-                <div>
-                  <p className="text-sm font-medium">{appt.title}</p>
-                  <p className="text-xs text-muted-foreground">{appt.client_name} · {appt.resource_name}</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-xs font-semibold text-violet-600">{moment(appt.date).format("MMM D")}</p>
-                  {appt.time && <p className="text-[10px] text-muted-foreground">{appt.time}</p>}
-                </div>
+        </div>
+      </div>
+
+      {/* Stats Grid */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-gray-500">Total Resources</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{stats.total}</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-gray-500">Available</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-green-600">{stats.available}</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-gray-500">Allocated</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-blue-600">{stats.allocated}</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-gray-500">Unavailable</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-gray-600">{stats.unavailable}</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-gray-500">Avg Utilization</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{stats.avgUtilization}%</div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      {/* Filters and Search */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6">
+        <div className="bg-white rounded-lg border p-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="md:col-span-2">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Input
+                  placeholder="Search resources..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
+                />
               </div>
+            </div>
+            <Select value={filterStatus} onValueChange={setFilterStatus}>
+              <SelectTrigger>
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Statuses</SelectItem>
+                <SelectItem value="available">Available</SelectItem>
+                <SelectItem value="allocated">Allocated</SelectItem>
+                <SelectItem value="unavailable">Unavailable</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select value={filterCategory} onValueChange={setFilterCategory}>
+              <SelectTrigger>
+                <SelectValue placeholder="Filter by category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Categories</SelectItem>
+                <SelectItem value="human">Human Resource</SelectItem>
+                <SelectItem value="financial">Financial</SelectItem>
+                <SelectItem value="equipment">Equipment</SelectItem>
+                <SelectItem value="technology">Technology</SelectItem>
+                <SelectItem value="other">Other</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      </div>
+
+      {/* Resources Grid */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <Card key={i} className="animate-pulse">
+                <CardHeader>
+                  <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                  <div className="h-3 bg-gray-200 rounded w-1/2 mt-2"></div>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-20 bg-gray-200 rounded"></div>
+                </CardContent>
+              </Card>
             ))}
           </div>
-        </Card>
-      )}
-
-      {/* Active cases summary */}
-      {activeCases.length > 0 && (
-        <Card className="p-0 border border-border/60 overflow-hidden">
-          <div className="px-5 py-4 border-b border-border/60 flex items-center justify-between">
-            <h2 className="text-sm font-semibold">Active Cases</h2>
-            <Link to="/resource-cases"><Badge variant="outline" className="text-[10px] cursor-pointer hover:bg-muted">All Cases →</Badge></Link>
-          </div>
-          <div className="divide-y divide-border/40">
-            {activeCases.slice(0, 6).map(c => {
-              const caseApps = applications.filter(a => a.case_id === c.id);
-              const approvedApps = caseApps.filter(a => a.status === "approved").length;
-              return (
-                <div key={c.id} className="flex items-center justify-between px-5 py-3">
-                  <div>
-                    <p className="text-sm font-medium">{c.client_name || c.title}</p>
-                    <p className="text-xs text-muted-foreground">{(c.primary_needs || []).slice(0,2).join(", ") || "No needs recorded"}</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Badge variant="outline" className={`text-[10px] ${c.crisis_level === "crisis" || c.crisis_level === "emergency" ? "text-red-600 border-red-200" : c.crisis_level === "urgent" ? "text-amber-600 border-amber-200" : "text-emerald-600 border-emerald-200"}`}>
-                      {c.crisis_level}
+        ) : filteredResources.length === 0 ? (
+          <Card>
+            <CardContent className="py-12">
+              <div className="text-center">
+                <Compass className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">No resources found</h3>
+                <p className="text-gray-500 mb-4">
+                  {searchTerm || filterStatus !== 'all' || filterCategory !== 'all'
+                    ? 'Try adjusting your search or filters'
+                    : 'Get started by adding your first resource'}
+                </p>
+                {!searchTerm && filterStatus === 'all' && filterCategory === 'all' && (
+                  <Button onClick={() => setIsAddDialogOpen(true)}>
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Resource
+                  </Button>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredResources.map((resource) => (
+              <Card key={resource.id} className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-2">
+                      {getCategoryIcon(resource.category)}
+                      <CardTitle className="text-lg">{resource.name}</CardTitle>
+                    </div>
+                    <Badge className={getStatusColor(resource.status)}>
+                      {resource.status}
                     </Badge>
-                    {caseApps.length > 0 && (
-                      <span className="text-[10px] text-muted-foreground">{approvedApps}/{caseApps.length} approved</span>
+                  </div>
+                  <CardDescription className="capitalize">{resource.category} Resource</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {resource.description && (
+                      <p className="text-sm text-gray-600 line-clamp-2">{resource.description}</p>
+                    )}
+                    <div className="flex items-center gap-4 text-sm text-gray-500">
+                      {resource.location && (
+                        <div className="flex items-center gap-1">
+                          <MapPin className="h-3 w-3" />
+                          {resource.location}
+                        </div>
+                      )}
+                      {resource.hourly_rate > 0 && (
+                        <div className="flex items-center gap-1">
+                          <DollarSign className="h-3 w-3" />
+                          ${resource.hourly_rate}/hr
+                        </div>
+                      )}
+                    </div>
+                    {resource.allocation_percentage > 0 && (
+                      <div className="space-y-1">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-500">Utilization</span>
+                          <span className="font-medium">{resource.allocation_percentage}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div
+                            className="bg-blue-600 h-2 rounded-full transition-all"
+                            style={{ width: `${resource.allocation_percentage}%` }}
+                          />
+                        </div>
+                      </div>
+                    )}
+                    {resource.tags && (
+                      <div className="flex flex-wrap gap-1">
+                        {resource.tags.split(',').map((tag, idx) => (
+                          <Badge key={idx} variant="outline" className="text-xs">
+                            {tag.trim()}
+                          </Badge>
+                        ))}
+                      </div>
                     )}
                   </div>
-                </div>
-              );
-            })}
+                  <div className="mt-4 pt-4 border-t">
+                    <Button variant="outline" className="w-full" asChild>
+                      <Link to={`/resource/${resource.id}`}>View Details</Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
-        </Card>
-      )}
-
-      {cases.length === 0 && (
-        <div className="text-center py-16 border border-dashed border-border rounded-xl">
-          <Compass className="w-12 h-12 mx-auto mb-3 text-cyan-400 opacity-40" />
-          <p className="text-sm font-semibold mb-1">Resource Compass is ready</p>
-          <p className="text-xs text-muted-foreground mb-4">Open a case to begin guiding someone from crisis to stability.</p>
-          <Link to="/resource-cases"><Button>Open First Case</Button></Link>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
-}
+};
+
+export default ResourceCompass;
