@@ -126,6 +126,11 @@
       ],
       "default": "active"
     },
+    "is_ready": {
+      "type": "boolean",
+      "default": false,
+      "description": "Worker has completed onboarding and is ready for assignments"
+    },
     "rating_avg": {
       "type": "number",
       "default": 0
