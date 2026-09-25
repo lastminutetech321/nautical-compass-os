@@ -1,0 +1,67 @@
+{
+  "name": "notification_log",
+  "fields": [
+    {
+      "name": "notification_id",
+      "type": "relationship",
+      "relationship": {
+        "entity": "notification",
+        "type": "many-to-one"
+      },
+      "required": true
+    },
+    {
+      "name": "action",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "acknowledged_by",
+      "type": "text"
+    },
+    {
+      "name": "acknowledged_at",
+      "type": "datetime"
+    },
+    {
+      "name": "notes",
+      "type": "longtext"
+    },
+    {
+      "name": "notification_type",
+      "type": "text"
+    },
+    {
+      "name": "notification_priority",
+      "type": "text"
+    },
+    {
+      "name": "status",
+      "type": "text"
+    },
+    {
+      "name": "payment_id",
+      "type": "text"
+    },
+    {
+      "name": "invoice_id",
+      "type": "text"
+    },
+    {
+      "name": "sync_type",
+      "type": "text"
+    },
+    {
+      "name": "entity_type",
+      "type": "text"
+    },
+    {
+      "name": "record_id",
+      "type": "text"
+    },
+    {
+      "name": "metadata",
+      "type": "json"
+    }
+  ]
+}
