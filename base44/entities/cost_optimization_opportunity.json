@@ -1,0 +1,21 @@
+{
+  "name": "cost_optimization_opportunity",
+  "fields": [
+    {"name": "id","type": "id","required": true},
+    {"name": "category","type": "text","required": true,"enum": ["payment_processing","infrastructure","third_party_services","operational_efficiency","pricing_strategy"]},
+    {"name": "opportunity_type","type": "text","required": true},
+    {"name": "current_cost","type": "number","required": true,"default": 0},
+    {"name": "potential_savings","type": "number","required": true,"default": 0},
+    {"name": "savings_frequency","type": "text","required": true,"enum": ["one_time","monthly","annual"]},
+    {"name": "implementation_effort","type": "text","required": true,"enum": ["low","medium","high"]},
+    {"name": "priority_score","type": "number","required": true,"default": 0},
+    {"name": "description","type": "text","required": true},
+    {"name": "recommended_action","type": "text","required": true},
+    {"name": "analysis_data","type": "json","required": false},
+    {"name": "status","type": "text","required": true,"enum": ["identified","planned","in_progress","implemented","rejected"],"default": "identified"},
+    {"name": "implemented_at","type": "datetime","required": false},
+    {"name": "actual_savings","type": "number","required": false},
+    {"name": "created_at","type": "datetime","required": true},
+    {"name": "updated_at","type": "datetime","required": true}
+  ]
+}
