@@ -1,0 +1,13 @@
+{
+  "name": "equipment_inventory",
+  "fields": [
+    {"name": "organization_id", "type": "link", "entity": "organizations", "required": true},
+    {"name": "item_name", "type": "text", "required": true},
+    {"name": "model", "type": "text"},
+    {"name": "quantity", "type": "number", "default": 1},
+    {"name": "available_for_rent", "type": "boolean", "default": true},
+    {"name": "notes", "type": "text"},
+    {"name": "created_at", "type": "datetime", "auto": true},
+    {"name": "updated_at", "type": "datetime", "auto": true}
+  ]
+}

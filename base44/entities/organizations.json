@@ -1,0 +1,17 @@
+{
+  "name": "organizations",
+  "fields": [
+    {"name": "name", "type": "text", "required": true},
+    {"name": "legal_name", "type": "text"},
+    {"name": "type", "type": "text", "required": true, "options": ["client", "partner", "vendor", "internal"]},
+    {"name": "email_domain", "type": "text"},
+    {"name": "tags", "type": "json", "default": []},
+    {"name": "fleet_company_type", "type": "text", "options": ["production_company", "labor_company", "vendor", ""]},
+    {"name": "address", "type": "text"},
+    {"name": "phone", "type": "text"},
+    {"name": "website", "type": "text"},
+    {"name": "notes", "type": "long_text"},
+    {"name": "created_at", "type": "datetime", "auto": true},
+    {"name": "updated_at", "type": "datetime", "auto": true}
+  ]
+}

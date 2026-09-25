@@ -1,0 +1,13 @@
+{
+  "name": "company_capabilities",
+  "fields": [
+    {"name": "organization_id", "type": "link", "entity": "organizations", "required": true},
+    {"name": "staffable_roles", "type": "json", "default": []},
+    {"name": "crew_capacity", "type": "number"},
+    {"name": "lead_time_days", "type": "number"},
+    {"name": "preferred_structures", "type": "json", "default": []},
+    {"name": "government_teaming_interest", "type": "boolean", "default": false},
+    {"name": "created_at", "type": "datetime", "auto": true},
+    {"name": "updated_at", "type": "datetime", "auto": true}
+  ]
+}
