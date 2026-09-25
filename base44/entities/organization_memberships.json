@@ -1,0 +1,11 @@
+{
+  "name": "organization_memberships",
+  "fields": [
+    {"name": "organization_id", "type": "link", "entity": "organizations", "required": true},
+    {"name": "user_id", "type": "link", "entity": "users", "required": true},
+    {"name": "role", "type": "text", "required": true, "options": ["admin", "member", "viewer"]},
+    {"name": "person_role_in_company", "type": "json", "default": []},
+    {"name": "created_at", "type": "datetime", "auto": true},
+    {"name": "updated_at", "type": "datetime", "auto": true}
+  ]
+}
