@@ -1,0 +1,19 @@
+{
+  "name": "revenue_leak_detection",
+  "fields": [
+    {"name": "id","type": "id","required": true},
+    {"name": "leak_type","type": "text","required": true,"enum": ["failed_payment","missing_subscription","unreconciled_transaction","disputed_charge","uncaptured_revenue","pricing_error"]},
+    {"name": "severity","type": "text","required": true,"enum": ["critical","high","medium","low"]},
+    {"name": "user_id","type": "reference","entity": "user","required": false,"indexed": true},
+    {"name": "transaction_id","type": "reference","entity": "payment_transaction","required": false,"indexed": true},
+    {"name": "subscription_id","type": "reference","entity": "subscription","required": false,"indexed": true},
+    {"name": "estimated_loss","type": "number","required": true,"default": 0},
+    {"name": "description","type": "text","required": true},
+    {"name": "detection_data","type": "json","required": false},
+    {"name": "status","type": "text","required": true,"enum": ["detected","investigating","resolved","accepted_loss"],"default": "detected"},
+    {"name": "resolved_at","type": "datetime","required": false},
+    {"name": "resolution_notes","type": "text","required": false},
+    {"name": "created_at","type": "datetime","required": true},
+    {"name": "updated_at","type": "datetime","required": true}
+  ]
+}
