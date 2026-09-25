@@ -1,0 +1,10 @@
+{
+  "name": "feature_flags",
+  "fields": [
+    {"name": "flag_name", "type": "text", "required": true, "unique": true},
+    {"name": "enabled", "type": "boolean", "default": false},
+    {"name": "description", "type": "text"},
+    {"name": "created_at", "type": "datetime", "auto": true},
+    {"name": "updated_at", "type": "datetime", "auto": true}
+  ]
+}
