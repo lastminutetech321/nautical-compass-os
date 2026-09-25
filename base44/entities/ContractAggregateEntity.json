@@ -1,0 +1,19 @@
+{
+  "name": "ContractAggregateEntity",
+  "fields": [
+    {"name": "id", "type": "id", "required": true},
+    {"name": "created_at", "type": "datetime", "required": true},
+    {"name": "updated_at", "type": "datetime", "required": true},
+    {"name": "company_name_hash", "type": "text", "required": true},
+    {"name": "total_reviews", "type": "number", "required": true},
+    {"name": "flag_counts", "type": "json", "required": true},
+    {"name": "avg_risk_score", "type": "number", "required": false},
+    {"name": "last_aggregated", "type": "datetime", "required": true}
+  ],
+  "permissions": {
+    "create": ["system"],
+    "read": ["authenticated"],
+    "update": ["system"],
+    "delete": ["system"]
+  }
+}
