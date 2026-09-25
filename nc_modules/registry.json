@@ -1,0 +1,35 @@
+{
+  "modules": {
+    "memory-architect": {
+      "version": "1.0.0",
+      "provides": [
+        {"type": "data", "name": "development_memory", "schema": "dev-memory-v1"},
+        {"type": "function", "name": "learn_from_execution", "params": ["execution_id"]}
+      ],
+      "depends_on": [
+        {"module": "execution-worker", "interface": "execution_history", "version": "^1.0.0"}
+      ]
+    },
+    "execution-worker": {
+      "version": "1.0.0",
+      "provides": [
+        {"type": "data", "name": "execution_history", "schema": "exec-history-v1"},
+        {"type": "function", "name": "execute_task", "params": ["task_spec"]}
+      ],
+      "depends_on": [
+        {"module": "memory-architect", "interface": "development_memory", "version": "^1.0.0"}
+      ]
+    },
+    "module-integrator": {
+      "version": "1.0.0",
+      "provides": [
+        {"type": "function", "name": "validate_dependencies", "params": []}
+      ],
+      "depends_on": []
+    }
+  },
+  "schemas": {
+    "dev-memory-v1": "nc_modules/schemas/development-memory-v1.schema.json",
+    "exec-history-v1": "nc_modules/schemas/execution-history-v1.schema.json"
+  }
+}
