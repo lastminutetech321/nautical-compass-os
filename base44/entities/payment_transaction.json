@@ -1,0 +1,21 @@
+{
+  "name": "payment_transaction",
+  "fields": [
+    {"name": "id","type": "id","required": true},
+    {"name": "stripe_payment_intent_id","type": "text","required": true,"indexed": true},
+    {"name": "user_id","type": "reference","entity": "user","required": true,"indexed": true},
+    {"name": "amount","type": "number","required": true},
+    {"name": "currency","type": "text","required": true,"default": "usd"},
+    {"name": "status","type": "text","required": true,"enum": ["pending","succeeded","failed","refunded","disputed"]},
+    {"name": "payment_type","type": "text","required": true,"enum": ["subscription","one_time","platform_fee","talent_payout"]},
+    {"name": "subscription_id","type": "reference","entity": "subscription","required": false,"indexed": true},
+    {"name": "metadata","type": "json","required": false},
+    {"name": "stripe_fee","type": "number","required": false,"default": 0},
+    {"name": "platform_fee","type": "number","required": false,"default": 0},
+    {"name": "net_revenue","type": "number","required": false,"default": 0},
+    {"name": "reconciled","type": "boolean","required": true,"default": false},
+    {"name": "reconciled_at","type": "datetime","required": false},
+    {"name": "created_at","type": "datetime","required": true},
+    {"name": "updated_at","type": "datetime","required": true}
+  ]
+}
