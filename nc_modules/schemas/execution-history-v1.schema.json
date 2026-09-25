@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["execution_id", "task", "status", "timestamp"],
+  "properties": {
+    "execution_id": {"type": "string"},
+    "task": {"type": "string"},
+    "status": {"type": "string", "enum": ["success", "failure", "partial"]},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "new_content"],
+        "properties": {
+          "path": {"type": "string"},
+          "new_content": {"type": "string"}
+        }
+      }
+    },
+    "summary": {"type": "string"},
+    "lessons": {"type": "array", "items": {"type": "string"}}
+  }
+}
